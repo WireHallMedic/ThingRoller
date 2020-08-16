@@ -3,6 +3,7 @@
 	, "formatExamples":"  !d6\n  !1d6\n  !advantage\n  !disadvantage\n  !1d6 + 3\n  !advantage + d4 + 3d8 - 8\n  !-4\n  !5 * 3\n  !-3d6 / 4"
 	, "parsingFailure":"I feel like I should calculate '{}', but can't parse it. Sorry."
 	, "formatNotes":"Note: I don't recognize parentheses, and I evaluate left to right. I won't roll more than a million dice at a time."
+	, "goodStatus":"ThingRoller status: online"
 	,"recognizedCommands":
 	{
 		"![dice expression]":" - roll and calculate"

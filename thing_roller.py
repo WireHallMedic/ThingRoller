@@ -52,6 +52,8 @@ async def on_message(message):
       for key in msgDict["recognizedCommands"]:
          outStr += "\n  " + key + " " + msgDict["recognizedCommands"][key]
       outStr += "\n" + msgDict["commandNotes"]
+   elif cmd == "status":
+      outStr = msgDict["goodStatus"]
       
    # dice expression examples
    if cmd == "examples":
