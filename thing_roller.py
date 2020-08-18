@@ -249,7 +249,7 @@ def rollSingleStat():
    return [roll(6), roll(6), roll(6), roll(6)]
 
 def generateNames(cmd, intArg):
-   strList = str.split()
+   strList = cmd.split()
    reps = 5
    if intArg != 0:
       reps = intArg
@@ -264,7 +264,7 @@ def generateNames(cmd, intArg):
    except:
       return msgDict["nameParsingFailure"].format(cmd)
 
-def getSingleName(race, gender):
+def getSingleName(race, sex):
    if race == "dragonborn":
       if sex == "female":
          return "{} {}".format(nameDict["dragonborn_female"].generate(), nameDict["dragonborn_surname"].generate())
