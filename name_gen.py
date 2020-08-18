@@ -91,7 +91,7 @@ class MarkovNameGen:
          outWord = word[1:-1] # strip control characters
          if len(outWord) >= self.minLen and len(outWord) <= self.maxLen:
             goodLength = True
-      return outWord.capitalize()
+      return formatOutput(outStr)
 
 
 class CompoundNameGen:
@@ -101,8 +101,12 @@ class CompoundNameGen:
    
    def generate(self):
       outStr = random.choice(self.list.listA) + random.choice(self.list.listB)
-      return outStr.capitalize()
+      return formatOutput(outStr)
 
+def formatOutput(str):
+   outStr = str.replace("_", " ")
+   outStr = str.capitalize()
+   return outStr
 
 def readFile(fileName):
    "returns file contents in a NameList"
