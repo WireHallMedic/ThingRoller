@@ -55,8 +55,11 @@ class MarkovNameGen:
 
 class CompoundNameGen:
    """Master class for compound generation"""
-   def __init__(self, fileName):
-      pass
+   def __init__(self, nameList):
+      self.list = nameList
+   
+   def generate(self):
+      return random.choice(nameList.listA) + random.choice(nameList.listB)
 
 def read_file(file_name):
    "returns file contents in a NameList"
