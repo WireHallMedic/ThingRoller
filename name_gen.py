@@ -15,6 +15,9 @@ class NameList:
       if self.listB == None:
          return False
       return True
+   
+   def isMarkovList(self):
+      return not self.isCompoundList()
 
 class MarkovNode:
    """Node for a BST implementation of Markov chains. Expects 3 character chains"""
@@ -79,10 +82,11 @@ class MarkovNameGen:
          word = random.choice(self.startingChains)
          while ENDING_CHAR not in word:
             word += self.root.retreive(word[-3:])
-         outWord = word[1:-1]
+         outWord = word[1:-1] # strip control characters
          if len(outWord) >= MIN_MARKOV_NAME_LEN and len(outWord) <= MAX_MARKOV_NAME_LEN:
             goodLength = True
       return outWord.capitalize()
+
 
 class CompoundNameGen:
    """Master class for compound generation"""
@@ -90,15 +94,16 @@ class CompoundNameGen:
       self.list = nameList
    
    def generate(self):
-      return random.choice(self.list.listA) + random.choice(self.list.listB)
+      outStr = random.choice(self.list.listA) + random.choice(self.list.listB)
+      return outStr.capitalize()
 
 
-def read_file(file_name):
+def readFile(fileName):
    "returns file contents in a NameList"
    outList = None
    try:
-      rawList = open(file_name, "r").read().split();
-      outList = NameList(rawList[1:], None) #MARKOV
+      rawList = open(fileName, "r").read().split();
+      outList = NameList(rawList[1:], None) # Markov as default
       if rawList[0] == "COMPOUND":
          breakLine = -1
          for i in range(0, len(rawList)):
@@ -111,7 +116,14 @@ def read_file(file_name):
       return None
    return outList
 
+def generatorGenerator(fileName):
+   nameList = readFile(fileName)
+   if nameList.isCompoundList():
+      return CompoundNameGen(nameList)
+   return MarkovNameGen(nameList)
+
 if __name__ == "__main__":
+   """
    foreList = read_file("name_dwarf_male.txt")
    surList = read_file("name_dwarf_surname.txt")
    print("foreList:")
@@ -131,4 +143,9 @@ if __name__ == "__main__":
    print("Some random forenames:")
    for i in range(0, 10):
       print(" {}".format(foreGen.generate()))
+   """
+   foreNameGen = generatorGenerator("name_dwarf_male.txt")
+   surNameGen = generatorGenerator("name_dwarf_surname.txt")
+   for i in range(0, 10):
+      print("{} {}".format(foreNameGen.generate(), surNameGen.generate()))
    
