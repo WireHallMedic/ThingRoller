@@ -44,7 +44,7 @@ class MarkovNode:
          return self.foreStr + random.choice(self.aftStrList)
       if str[1:3] < self.foreStr:
          return self.left.retreive(str)
-      else
+      else:
          return self.right.retreive(str)
 
 class MarkovNameGen:
@@ -59,7 +59,7 @@ class CompoundNameGen:
       self.list = nameList
    
    def generate(self):
-      return random.choice(nameList.listA) + random.choice(nameList.listB)
+      return random.choice(self.list.listA) + random.choice(self.list.listB)
 
 def read_file(file_name):
    "returns file contents in a NameList"
@@ -91,4 +91,8 @@ if __name__ == "__main__":
    print("surList B:")
    for element in surList.listB:
       print(" {}".format(element))
+   surGen = CompoundNameGen(surList)
+   print("Some random surnames:")
+   for i in range(0, 10):
+      print(" {}".format(surGen.generate()))
    
