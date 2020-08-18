@@ -64,9 +64,16 @@ class MarkovNameGen:
          self.root = MarkovNode(word[0:3])
       else:
          self.root.insert(word[0:3])
-      for i in range(1, len(word) - 3):
+      for i in range(1, len(word) - 2):
          self.root.insert(word[i:i + 3])
-         print(word[i:i+3])
+   
+   def generate(self):
+      global STARTING_CHAR
+      global ENDING_CHAR
+      word = random.choice(self.startingChains)
+      while ENDING_CHAR not in word:
+         word += self.root.retreive(word[-3:])
+      return word[1:-1]
 
 class CompoundNameGen:
    """Master class for compound generation"""
@@ -111,4 +118,8 @@ if __name__ == "__main__":
    print("Some random surnames:")
    for i in range(0, 10):
       print(" {}".format(surGen.generate()))
+   foreGen = MarkovNameGen(foreList)
+   print("Some random forenames:")
+   for i in range(0, 10):
+      print(" {}".format(foreGen.generate()))
    
