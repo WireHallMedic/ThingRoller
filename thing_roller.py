@@ -29,6 +29,23 @@ nameDict = {}
 nameDict["dragonborn_female"] = name_gen.generatorGenerator("name_dragonborn_female.txt")
 nameDict["dragonborn_male"] = name_gen.generatorGenerator("name_dragonborn_male.txt")
 nameDict["dragonborn_surname"] = name_gen.generatorGenerator("name_dragonborn_surname.txt")
+nameDict["dwarf_female"] = name_gen.generatorGenerator("name_dwarf_female.txt")
+nameDict["dwarf_male"] = name_gen.generatorGenerator("name_dwarf_male.txt")
+nameDict["dwarf_surname"] = name_gen.generatorGenerator("name_dwarf_surname.txt")
+nameDict["elf_female"] = name_gen.generatorGenerator("name_elf_female.txt")
+nameDict["elf_male"] = name_gen.generatorGenerator("name_elf_male.txt")
+nameDict["elf_surname"] = name_gen.generatorGenerator("name_elf_surname.txt")
+nameDict["european_female"] = name_gen.generatorGenerator("name_european_female.txt")
+nameDict["european_male"] = name_gen.generatorGenerator("name_european_male.txt")
+nameDict["european_surname"] = name_gen.generatorGenerator("name_european_surname.txt")
+nameDict["gnome_female"] = name_gen.generatorGenerator("name_gnome_female.txt")
+nameDict["gnome_male"] = name_gen.generatorGenerator("name_gnome_male.txt")
+nameDict["gnome_surname"] = name_gen.generatorGenerator("name_gnome_surname.txt")
+nameDict["halfling_female"] = name_gen.generatorGenerator("name_halfling_female.txt")
+nameDict["halfling_male"] = name_gen.generatorGenerator("name_halfling_male.txt")
+nameDict["halfling_surname"] = name_gen.generatorGenerator("name_halfling_surname.txt")
+nameDict["orc_female"] = name_gen.generatorGenerator("name_orc_female.txt")
+nameDict["orc_male"] = name_gen.generatorGenerator("name_orc_male.txt")
 
 client = discord.Client()
 
@@ -85,6 +102,10 @@ async def on_message(message):
       outStr = resolveDiceExpr(cmd.replace("*", "x"))
       if outStr == None:
          outStr = msgDict["parsingFailure"].format(cmd)
+   
+   #name generator
+   if re.search("^name", cmd):
+      outStr = generateNames(cmd, intArg)
    
    if outStr != None:
       await message.channel.send(outStr)
@@ -226,6 +247,62 @@ def rollStatBlock():
 
 def rollSingleStat():
    return [roll(6), roll(6), roll(6), roll(6)]
+
+def generateNames(cmd, intArg):
+   strList = str.split()
+   reps = 5
+   if intArg != 0:
+      reps = intArg
+   reps = max(1, reps)
+   reps = min(20, reps)
+   outStr = ""
+   try:
+      for i in range(0, reps):
+         outStr += getSingleName(strList[1], strList[2]) + "\n"
+      outStr = outStr[:-1] # trim the last newline
+      return outStr
+   except:
+      return msgDict["nameParsingFailure"].format(cmd)
+
+def getSingleName(race, gender):
+   if race == "dragonborn":
+      if sex == "female":
+         return "{} {}".format(nameDict["dragonborn_female"].generate(), nameDict["dragonborn_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(nameDict["dragonborn_male"].generate(), nameDict["dragonborn_surname"].generate())
+   elif race == "dwarf":
+      if sex == "female":
+         return "{} {}".format(nameDict["dwarf_female"].generate(), nameDict["dwarf_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(nameDict["dwarf_male"].generate(), nameDict["dwarf_surname"].generate())
+   elif race == "elf":
+      if sex == "female":
+         return "{} {}".format(nameDict["elf_female"].generate(), nameDict["elf_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(nameDict["elf_male"].generate(), nameDict["elf_surname"].generate())
+   elif race == "european":
+      if sex == "female":
+         return "{} {}".format(nameDict["european_female"].generate(), nameDict["european_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(nameDict["european_male"].generate(), nameDict["european_surname"].generate())
+   elif race == "gnome":
+      if sex == "female":
+         return "{} {}".format(nameDict["gnome_female"].generate(), nameDict["gnome_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(nameDict["gnome_male"].generate(), nameDict["gnome_surname"].generate())
+   elif race == "halfling":
+      if sex == "female":
+         return "{} {}".format(nameDict["halfling_female"].generate(), nameDict["halfling_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(nameDict["halfling_male"].generate(), nameDict["halfling_surname"].generate())
+   elif race == "orc":
+      if sex == "female":
+         return nameDict["orc_female"].generate()
+      elif sex == "male":
+         return nameDict["orc_male"].generate()
+   print("bad name request {} {}".format(race, sex))
+   raise Exception("bad name request {} {}".format(race, sex))
+   return None
 
 # fire this bad boy up
 client.run(token)
