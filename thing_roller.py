@@ -26,8 +26,8 @@ interludes = open("interludes.txt", "r").read().split("\n");
 
 # load name generations
 nameDict = {}
-nameDict["dragonborn_female"] = name_gen.generatorGenerator("name_dragonborn_female.txt")
-nameDict["dragonborn_male"] = name_gen.generatorGenerator("name_dragonborn_male.txt")
+nameDict["dragonborn_female"] = name_gen.generatorGenerator("name_dragonborn_female.txt", max = 20)
+nameDict["dragonborn_male"] = name_gen.generatorGenerator("name_dragonborn_male.txt", max = 20)
 nameDict["dragonborn_surname"] = name_gen.generatorGenerator("name_dragonborn_surname.txt")
 nameDict["dwarf_female"] = name_gen.generatorGenerator("name_dwarf_female.txt")
 nameDict["dwarf_male"] = name_gen.generatorGenerator("name_dwarf_male.txt")
