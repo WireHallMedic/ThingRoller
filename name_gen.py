@@ -2,7 +2,7 @@ import random
 
 STARTING_CHAR = "@"
 ENDING_CHAR = "#"
-MIN_MARKOV_NAME_LEN = 5
+MIN_MARKOV_NAME_LEN = 4
 MAX_MARKOV_NAME_LEN = 12   # some name styles may have custom max lengths
 
 class NameList:
