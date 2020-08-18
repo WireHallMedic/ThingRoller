@@ -2,6 +2,7 @@
 	"botInfo":"Hello, I'm ThingRoller! I roll dice and tables and stuff. I am case-insensitive.\n__Recognized Commands__:"
 	, "formatExamples":"  !d6\n  !1d6\n  !advantage\n  !disadvantage\n  !1d6 + 3\n  !advantage + d4 + 3d8 - 8\n  !-4\n  !5 * 3\n  !-3d6 / 4"
 	, "parsingFailure":"I feel like I should calculate '{}', but can't parse it. Sorry."
+	, "nameParsingFailure":"I was unable to parse the command {}. Please enter name generation in the format of !name [type] [gender]."
 	, "formatNotes":"Note: I don't recognize parentheses, and I evaluate left to right. I won't roll more than a million dice at a time."
 	, "goodStatus":"ThingRoller status: online"
 	,"recognizedCommands":
@@ -11,6 +12,7 @@
 		,"!tavern <1-20>":" - generate a random tavern name"
 		,"!stat block":" - 4d6 drop the lowest eight times, take the top 6"
 		,"!interlude":" - generate an interlude"
+		,"!name [type] [gender] <1-20>":" - generate a number of names. I can generate names of the following type: dragonborn, dwarf, elf, european, gnome, halfling, orc."
 	}
 	,"commandNotes":"*<> indicates an optional argument*"
 }

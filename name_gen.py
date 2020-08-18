@@ -10,6 +10,11 @@ class NameList:
    def __init__(self, listA, listB):
       self.listA = listA
       self.listB = listB
+      for element in self.listA:
+         element = element.lower()
+      if self.listB is not None:
+         for element in self.listB:
+            element = element.lower()
    
    def isCompoundList(self):
       if self.listB == None:
@@ -91,7 +96,7 @@ class MarkovNameGen:
          outWord = word[1:-1] # strip control characters
          if len(outWord) >= self.minLen and len(outWord) <= self.maxLen:
             goodLength = True
-      return formatOutput(outStr)
+      return formatOutput(outWord)
 
 
 class CompoundNameGen:
@@ -158,8 +163,8 @@ if __name__ == "__main__":
    for i in range(0, 10):
       print(" {}".format(foreGen.generate()))
    """
-   foreNameGen = generatorGenerator("name_dwarf_male.txt")
-   surNameGen = generatorGenerator("name_dwarf_surname.txt")
+   foreNameGen = generatorGenerator("name_european_male.txt")
+   surNameGen = generatorGenerator("name_european_surname.txt")
    for i in range(0, 10):
       print("{} {}".format(foreNameGen.generate(), surNameGen.generate()))
    

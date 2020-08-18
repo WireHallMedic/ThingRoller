@@ -2,6 +2,7 @@ import discord
 import json
 import re
 import random
+import name_gen
 
 # various regExes
 diceRegEx = "\d+d\d+|advantage|disadvantage"
@@ -22,6 +23,12 @@ tavernSuffixes = open("tavernSuffixes.txt", "r").read().split("\n");
 tavernForename = open("tavernForenames.txt", "r").read().split("\n");
 tavernSurname = open("tavernSurnames.txt", "r").read().split("\n");
 interludes = open("interludes.txt", "r").read().split("\n");
+
+# load name generations
+nameDict = {}
+nameDict["dragonborn_female"] = name_gen.generatorGenerator("name_dragonborn_female.txt")
+nameDict["dragonborn_male"] = name_gen.generatorGenerator("name_dragonborn_male.txt")
+nameDict["dragonborn_surname"] = name_gen.generatorGenerator("name_dragonborn_surname.txt")
 
 client = discord.Client()
 
