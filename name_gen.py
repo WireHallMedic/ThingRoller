@@ -2,6 +2,8 @@ import random
 
 STARTING_CHAR = "@"
 ENDING_CHAR = "#"
+MIN_MARKOV_NAME_LEN = 5
+MAX_MARKOV_NAME_LEN = 12   # some name styles may have custom max lengths
 
 class NameList:
    """Simple struct for holding two lists."""
@@ -70,10 +72,17 @@ class MarkovNameGen:
    def generate(self):
       global STARTING_CHAR
       global ENDING_CHAR
-      word = random.choice(self.startingChains)
-      while ENDING_CHAR not in word:
-         word += self.root.retreive(word[-3:])
-      return word[1:-1]
+      global MIN_MARKOV_NAME_LEN
+      global MAX_MARKOV_NAME_LEN
+      goodLength = False
+      while goodLength == False:
+         word = random.choice(self.startingChains)
+         while ENDING_CHAR not in word:
+            word += self.root.retreive(word[-3:])
+         outWord = word[1:-1]
+         if len(outWord) >= MIN_MARKOV_NAME_LEN and len(outWord) <= MAX_MARKOV_NAME_LEN:
+            goodLength = True
+      return outWord.capitalize()
 
 class CompoundNameGen:
    """Master class for compound generation"""
