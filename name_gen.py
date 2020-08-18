@@ -122,11 +122,11 @@ def readFile(fileName):
       return None
    return outList
 
-def generatorGenerator(fileName):
+def generatorGenerator(fileName, min = None, max = None):
    nameList = readFile(fileName)
    if nameList.isCompoundList():
       return CompoundNameGen(nameList)
-   return MarkovNameGen(nameList)
+   return MarkovNameGen(nameList, min, max)
 
 if __name__ == "__main__":
    """
