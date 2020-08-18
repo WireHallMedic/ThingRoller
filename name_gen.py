@@ -39,9 +39,9 @@ class MarkovNode:
          self.aftStrList.append(str[2])
    
    def retreive(self, str):
-      """Get a random chain who's first two match the last two of the passed string"""
+      """Get end of a random chain who's first two match the last two of the passed string"""
       if str[1:3] == self.foreStr:
-         return self.foreStr + random.choice(self.aftStrList)
+         return random.choice(self.aftStrList)
       if str[1:3] < self.foreStr:
          return self.left.retreive(str)
       else:
@@ -49,9 +49,24 @@ class MarkovNode:
 
 class MarkovNameGen:
    """Master class for Markovian generation"""
-   def __init__(self):
+   def __init__(self, nameList):
       self.root = None
       self.startingChains = []
+      for element in nameList.listA:
+         self.addWord(element)
+   
+   def addWord(self, word):
+      global STARTING_CHAR
+      global ENDING_CHAR
+      word = STARTING_CHAR + word + ENDING_CHAR
+      self.startingChains.append(word[0:3])
+      if self.root == None:
+         self.root = MarkovNode(word[0:3])
+      else:
+         self.root.insert(word[0:3])
+      for i in range(1, len(word) - 3):
+         self.root.insert(word[i:i + 3])
+         print(word[i:i+3])
 
 class CompoundNameGen:
    """Master class for compound generation"""
@@ -60,6 +75,7 @@ class CompoundNameGen:
    
    def generate(self):
       return random.choice(self.list.listA) + random.choice(self.list.listB)
+
 
 def read_file(file_name):
    "returns file contents in a NameList"
