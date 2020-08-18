@@ -1,4 +1,10 @@
+import random
+
+STARTING_CHAR = "@"
+ENDING_CHAR = "#"
+
 class NameList:
+   """Simple struct for holding two lists."""
    def __init__(self, listA, listB):
       self.listA = listA
       self.listB = listB
@@ -7,6 +13,50 @@ class NameList:
       if self.listB == None:
          return False
       return True
+
+class MarkovNode:
+   """Node for a BST implementation of Markov chains. Expects 3 character chains"""
+   def __init__(self, str):
+      self.foreStr = str[0:2]
+      self.aftStrList = []
+      self.aftStrList.append(str[2])
+      self.left = None
+      self.right = None
+   
+   def insert(self, str):
+      """Insert a 3-character string into the tree"""
+      if str[0:2] < self.foreStr:
+         if self.left is None:
+            self.left = MarkovNode(str)
+         else:
+            self.left.insert(str)
+      elif str[0:2] > self.foreStr:
+         if self.right is None:
+            self.right = MarkovNode(str)
+         else:
+            self.right.insert(str)
+      else:       # matches
+         self.aftStrList.append(str[2])
+   
+   def retreive(self, str):
+      """Get a random chain who's first two match the last two of the passed string"""
+      if str[1:3] == self.foreStr:
+         return self.foreStr + random.choice(self.aftStrList)
+      if str[1:3] < self.foreStr:
+         return self.left.retreive(str)
+      else
+         return self.right.retreive(str)
+
+class MarkovNameGen:
+   """Master class for Markovian generation"""
+   def __init__(self):
+      self.root = None
+      self.startingChains = []
+
+class CompoundNameGen:
+   """Master class for compound generation"""
+   def __init__(self, fileName):
+      pass
 
 def read_file(file_name):
    "returns file contents in a NameList"
@@ -25,9 +75,6 @@ def read_file(file_name):
    except:
       return None
    return outList
-
-def generate_names(race, gender):
-   return ""
 
 if __name__ == "__main__":
    foreList = read_file("name_dwarf_male.txt")
