@@ -109,14 +109,18 @@ def readFile(fileName):
    outList = None
    try:
       rawList = open(fileName, "r").read().split();
-      outList = NameList(rawList[1:], None) # Markov as default
-      if rawList[0] == "COMPOUND":
+      outList = None
+      if rawList[0] == "MARKOV":
+         outList = NameList(rawList[1:], None)
+      elif rawList[0] == "COMPOUND":
          breakLine = -1
          for i in range(0, len(rawList)):
             if rawList[i] == "BREAK":
                breakLine = i
                break
          outList = NameList(rawList[1:breakLine], rawList[breakLine + 1:])
+      else:
+         print("No recognized format in file {}".format(fileName))
       return outList
    except:
       return None
