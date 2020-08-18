@@ -54,7 +54,15 @@ class MarkovNode:
 
 class MarkovNameGen:
    """Master class for Markovian generation"""
-   def __init__(self, nameList):
+   def __init__(self, nameList, min = None, max = None):
+      global MIN_MARKOV_NAME_LEN
+      global MAX_MARKOV_NAME_LEN
+      self.minLen = MIN_MARKOV_NAME_LEN
+      self.maxLen = MAX_MARKOV_NAME_LEN
+      if min != None:
+         self.minLen = min
+      if max != None:
+         self.maxLen = max
       self.root = None
       self.startingChains = []
       for element in nameList.listA:
@@ -75,15 +83,13 @@ class MarkovNameGen:
    def generate(self):
       global STARTING_CHAR
       global ENDING_CHAR
-      global MIN_MARKOV_NAME_LEN
-      global MAX_MARKOV_NAME_LEN
       goodLength = False
       while goodLength == False:
          word = random.choice(self.startingChains)
          while ENDING_CHAR not in word:
             word += self.root.retreive(word[-3:])
          outWord = word[1:-1] # strip control characters
-         if len(outWord) >= MIN_MARKOV_NAME_LEN and len(outWord) <= MAX_MARKOV_NAME_LEN:
+         if len(outWord) >= self.minLen and len(outWord) <= self.maxLen:
             goodLength = True
       return outWord.capitalize()
 
