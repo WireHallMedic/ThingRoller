@@ -252,6 +252,7 @@ def rollSingleStat():
 
 def generateNames(cmd, intArg):
    strList = cmd.split()
+   strList.append("")   # beacuse not everything needs a gender
    reps = 5
    if intArg != 0:
       reps = intArg
