@@ -19,10 +19,10 @@ MAX_DICE = 1000000
 # let's load some things from files
 token = open("token.txt", "r").read()
 msgDict = json.loads(open("messages.json","r").read())
-tavernSuffixes = open("tavernSuffixes.txt", "r").read().split("\n");
-tavernForename = open("tavernForenames.txt", "r").read().split("\n");
-tavernSurname = open("tavernSurnames.txt", "r").read().split("\n");
-interludes = open("interludes.txt", "r").read().split("\n");
+tavernSuffixes = open("tavernSuffixes.txt", "r").read().split("\n")
+tavernForename = open("tavernForenames.txt", "r").read().split("\n")
+tavernSurname = open("tavernSurnames.txt", "r").read().split("\n")
+interludes = open("interludes.txt", "r").read().split("\n")
 
 # load name generations
 nameDict = {}
