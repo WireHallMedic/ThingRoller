@@ -48,7 +48,7 @@ nameDict["orc_female"] = name_gen.generatorGenerator("name_orc_female.txt")
 nameDict["orc_male"] = name_gen.generatorGenerator("name_orc_male.txt")
 nameDict["angel"] = name_gen.generatorGenerator("name_angel.txt")
 nameDict["demon"] = name_gen.generatorGenerator("name_demon.txt")
-nameDict["dragon"] = name_gen.generatorGenerator("name_dragon.txt")
+nameDict["dragon"] = name_gen.generatorGenerator("name_dragon.txt", min = 8, max = 20)
 
 client = discord.Client()
 
