@@ -46,6 +46,7 @@ nameDict["halfling_male"] = name_gen.generatorGenerator("name_halfling_male.txt"
 nameDict["halfling_surname"] = name_gen.generatorGenerator("name_halfling_surname.txt")
 nameDict["orc_female"] = name_gen.generatorGenerator("name_orc_female.txt")
 nameDict["orc_male"] = name_gen.generatorGenerator("name_orc_male.txt")
+nameDict["angel"] = name_gen.generatorGenerator("name_angel.txt")
 
 client = discord.Client()
 
