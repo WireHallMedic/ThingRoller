@@ -47,6 +47,7 @@ nameDict["halfling_surname"] = name_gen.generatorGenerator("name_halfling_surnam
 nameDict["orc_female"] = name_gen.generatorGenerator("name_orc_female.txt")
 nameDict["orc_male"] = name_gen.generatorGenerator("name_orc_male.txt")
 nameDict["angel"] = name_gen.generatorGenerator("name_angel.txt")
+nameDict["demon"] = name_gen.generatorGenerator("name_demon.txt")
 
 client = discord.Client()
 
@@ -301,6 +302,10 @@ def getSingleName(race, sex):
          return nameDict["orc_female"].generate()
       elif sex == "male":
          return nameDict["orc_male"].generate()
+   elif race == "angel":
+      return nameDict["angel"].generate()
+   elif race == "demon":
+      return nameDict["demon"].generate()
    print("bad name request {} {}".format(race, sex))
    raise Exception("bad name request {} {}".format(race, sex))
    return None
