@@ -51,6 +51,21 @@ nameDict["angel"] = name_gen.generatorGenerator("name_angel.txt")
 nameDict["demon"] = name_gen.generatorGenerator("name_demon.txt")
 nameDict["dragon"] = name_gen.generatorGenerator("name_dragon.txt", min = 8, max = 20)
 
+#everone loves lists
+relicCreator = []
+relicHistory = []
+relicMinorProp = []
+relicQuirk = []
+
+for key in relicDict["creator"]:
+      relicCreator.append(profanityDict["creator"][key])
+for key in relicDict["history"]:
+      relicHistory.append(profanityDict["history"][key])
+for key in relicDict["minor"]:
+      relicMinorProp.append(profanityDict["minor"][key])
+for key in relicDict["quirk"]:
+      relicQuirk.append(profanityDict["quirk"][key])
+
 client = discord.Client()
 
 @client.event
@@ -321,23 +336,23 @@ def getSingleName(race, sex):
 
 # stuff for relic generation
 def getCreator():
-   return random.choice(relicDict["creator"])
+   return random.choice(relicCreator)
 
 def getHistory():
-   return random.choice(relicDict["history"])
+   return random.choice(relicHistory)
 
 def getQuirk():
-   return random.choice(relicDict["quirk"])
+   return random.choice(relicQuirk)
 
 def getMinorProp():
-   outStr1 = random.choice(relicDict["minor"])
+   outStr1 = random.choice(relicMinorProp)
    outStr2 = ""
    if outStr1 == "ROLL_TWICE":
-      outStr2 = random.choice(relicDict["minor"])
+      outStr2 = random.choice(relicMinorProp)
    while outStr1 == "ROLL_TWICE":
-      outStr1 = random.choice(relicDict["minor"])
+      outStr1 = random.choice(relicMinorProp)
    while outStr2 == outStr1 or outStr2 == "ROLL_TWICE":
-      outStr2 = random.choice(relicDict["minor"])
+      outStr2 = random.choice(relicMinorProp)
    if outStr != "":
       outStr1 += "\n"
    return outStr1 + outStr2
