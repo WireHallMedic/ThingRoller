@@ -18,7 +18,7 @@
 		, "gnome":"Gnome: This item is crafted to appear ordinary, and it might look worn. It could also incorporate gears and mechanical components, even if these aren't essential to the item's function."
 		, "undead":"Undead: This item incorporates imagery of death, such as bones and skulls, and it might be crafted from parts of corpses. It feels cold to the touch."}
 	, "history":{
-		, "arcane":"Arcane: This item was created for an ancient order of spellcasters and bears the order's symbol."
+		"arcane":"Arcane: This item was created for an ancient order of spellcasters and bears the order's symbol."
 		, "bane":"Bane: This item was created by the foes of a particular cultur or kind of creature. If the culture or creatures are still around, they might recognize the item and single out the bearer as an enemy."
 		, "heroic":"Heroic: A great hero once wielded this item. Anyone who's familiar with the item's history expects great deeds from the item's new owner."
 		, "ornament":"Ornament: This item was created to honor a special occasion. Inset gemstones, gold or platinum inlays, and gold or silver filigree adorn its surface."
@@ -48,7 +48,7 @@
 		, "illusion":"Illusion: This item is imbued with illusion magic, allowing its bearer to alter the item's appearance in minor ways. Such alterations don't change how the item is worn, carried, or wielded, an dthey have not effect on its other magical properties. For example, the wearer could make a red robe appear blue, or make a gold rign look like it's made of ivory. The item reverts to its true appearance when no one is carrying or wearing it."
 		, "ROLL_TWICE":"ROLL_TWICE"}
 	, "quirk":{
-		, "blissful":"Blissful: While in possession of the item, the bearer feels fortuante and optimistic about what the future holds.  Butterflies and other harmless creatures might frolic in the item's presence."
+		"blissful":"Blissful: While in possession of the item, the bearer feels fortuante and optimistic about what the future holds.  Butterflies and other harmless creatures might frolic in the item's presence."
 		, "confident":"Confident: This item helps its bearer feel self-assured."
 		, "covetous":"Covetous: This item's bearer becomes obsessed with material wealth."
 		, "frail":"Frail: This item crumbles, frays, chips, or cracks slightly when wielded, worn, or activated. This quirk has no effect on its properties, but if the item has seen much use, it looks decrepit."
