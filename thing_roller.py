@@ -353,7 +353,7 @@ def getMinorProp():
       outStr1 = random.choice(relicMinorProp)
    while outStr2 == outStr1 or outStr2 == "ROLL_TWICE":
       outStr2 = random.choice(relicMinorProp)
-   if outStr != "":
+   if outStr2 != "":
       outStr1 += "\n"
    return outStr1 + outStr2
 
