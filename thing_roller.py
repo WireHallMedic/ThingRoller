@@ -107,6 +107,10 @@ async def on_message(message):
       if outStr == None:
          outStr = msgDict["parsingFailure"].format(cmd)
    
+   #relic generator
+   if cmd == "interlude":
+      outStr = generateRelic()
+   
    #name generator
    if re.search("^name", cmd):
       outStr = generateNames(cmd, intArg)
@@ -337,6 +341,9 @@ def getMinorProp():
    if outStr != "":
       outStr1 += "\n"
    return outStr1 + outStr2
+
+def generateRelic():
+   return relicDict["format"].format(getCreator(), getHistory(), getMinorProp(), getQuirk())
 
 # fire this bad boy up
 client.run(token)
