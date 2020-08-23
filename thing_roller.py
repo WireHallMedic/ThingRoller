@@ -19,6 +19,7 @@ MAX_DICE = 1000000
 # let's load some things from files
 token = open("token.txt", "r").read()
 msgDict = json.loads(open("messages.json","r").read())
+relicDict = json.loads(open("relicDescription.json","r").read())
 tavernSuffixes = open("tavernSuffixes.txt", "r").read().split("\n")
 tavernForename = open("tavernForenames.txt", "r").read().split("\n")
 tavernSurname = open("tavernSurnames.txt", "r").read().split("\n")
@@ -313,6 +314,29 @@ def getSingleName(race, sex):
    print("bad name request {} {}".format(race, sex))
    raise Exception("bad name request {} {}".format(race, sex))
    return None
+
+# stuff for relic generation
+def getCreator():
+   return random.choice(relicDict["creator"])
+
+def getHistory():
+   return random.choice(relicDict["history"])
+
+def getQuirk():
+   return random.choice(relicDict["quirk"])
+
+def getMinorProp():
+   outStr1 = random.choice(relicDict["minor"])
+   outStr2 = ""
+   if outStr1 == "ROLL_TWICE":
+      outStr2 = random.choice(relicDict["minor"])
+   while outStr1 == "ROLL_TWICE":
+      outStr1 = random.choice(relicDict["minor"])
+   while outStr2 == outStr1 or outStr2 == "ROLL_TWICE":
+      outStr2 = random.choice(relicDict["minor"])
+   if outStr != "":
+      outStr1 += "\n"
+   return outStr1 + outStr2
 
 # fire this bad boy up
 client.run(token)
