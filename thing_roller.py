@@ -95,11 +95,11 @@ async def on_message(message):
       
    # roll tavern
    if re.search("^tavern", cmd):
-      outStr = genTavern(intArg)
+      outStr = generateTavern(intArg)
       
    # roll interlude
    if cmd == "interlude":
-      outStr = genInterlude()
+      outStr = generateInterlude()
    
    #roll some dice and/or calculate
    if re.search(shouldCalcRegEx, cmd) != None:
@@ -124,7 +124,7 @@ def cleanMessage(str):
    newStr = newStr.strip()
    return newStr
 
-def genTavern(reps):
+def generateTavern(reps):
    reps = max(1, reps)
    reps = min(20, reps)
    str = ""
@@ -207,7 +207,7 @@ def resolveDisadvantage():
 def roll(val):
    return random.randint(1, val)
 
-def genInterlude():
+def generateInterlude():
    return random.choice(interludes)
 
 def resolveAllOperators(valList, opList):
