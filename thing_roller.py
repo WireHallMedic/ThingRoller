@@ -58,13 +58,13 @@ relicMinorProp = []
 relicQuirk = []
 
 for key in relicDict["creator"]:
-      relicCreator.append(profanityDict["creator"][key])
+      relicCreator.append(relicDict["creator"][key])
 for key in relicDict["history"]:
-      relicHistory.append(profanityDict["history"][key])
+      relicHistory.append(relicDict["history"][key])
 for key in relicDict["minor"]:
-      relicMinorProp.append(profanityDict["minor"][key])
+      relicMinorProp.append(relicDict["minor"][key])
 for key in relicDict["quirk"]:
-      relicQuirk.append(profanityDict["quirk"][key])
+      relicQuirk.append(relicDict["quirk"][key])
 
 client = discord.Client()
 
