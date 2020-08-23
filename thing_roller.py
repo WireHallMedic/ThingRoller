@@ -108,7 +108,7 @@ async def on_message(message):
          outStr = msgDict["parsingFailure"].format(cmd)
    
    #relic generator
-   if cmd == "interlude":
+   if cmd == "relic":
       outStr = generateRelic()
    
    #name generator
