@@ -18,8 +18,16 @@ class Card():
       self.value = 0
    
       # set the suit
-      if s == "H" or s == "S" or s == "D" or s == "C":
-         self.suit = s
+      #if s == "H" or s == "S" or s == "D" or s == "C":
+      #   self.suit = s
+      if s == "H":
+         self.suit = HEART_CHAR
+      elif s == "S":
+         self.suit = SPADE_CHAR
+      elif s == "D":
+         self.suit = DIAMOND_CHAR
+      elif s == "C":
+         self.suit = CLUB_CHAR
       else:
          raise Exception("Invalid suit value in bjcard.py")
       
