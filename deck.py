@@ -1,5 +1,10 @@
 import random
 
+HEART_CHAR = str(chr(9829))
+SPADE_CHAR  = str(chr(9824))
+CLUB_CHAR  = str(chr(9872))
+DIAMOND_CHAR  = str(chr(9830))
+
 class Card():
    """
    A class for representing a single playing card (no jokers).
