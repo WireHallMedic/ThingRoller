@@ -14,6 +14,8 @@
 		,"!interlude":" - generate an interlude"
 		,"!name [type] [gender] <1-20>":" - generate 5 names, or a user-specified number. I can generate names of the following type: angel (genderless), demon (genderless), dragon (genderless), dragonborn, dwarf, elf, european, gnome, halfling, orc."
 		,"!relic":" - generate relic details"
+		,"!draw <1-52>":" - draw a card from a standard 52-card deck. Deck reshuffles when it runs out."
+		,"!shuffle":" - resuffle the deck"
 	}
 	,"commandNotes":"*<> indicates an optional argument*"
 }

@@ -69,6 +69,7 @@ for key in relicDict["quirk"]:
 
 # deck of cards
 deck = deck.Deck()
+deck.shuffle()
 
 client = discord.Client()
 
