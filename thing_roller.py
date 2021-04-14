@@ -3,6 +3,7 @@ import json
 import re
 import random
 import name_gen
+import deck
 
 # various regExes
 diceRegEx = "\d+d\d+|advantage|disadvantage"
@@ -66,6 +67,9 @@ for key in relicDict["minor"]:
 for key in relicDict["quirk"]:
       relicQuirk.append(relicDict["quirk"][key])
 
+# deck of cards
+deck = deck.Deck()
+
 client = discord.Client()
 
 @client.event
@@ -125,6 +129,14 @@ async def on_message(message):
    #relic generator
    if cmd == "relic":
       outStr = generateRelic()
+   
+   #draw cards
+   if cmd == "draw":
+      num_to_draw = max(1, intArg)
+      num_to_draw = min(52, num_to_draw)
+      outStr = ""
+      for i in range(num_to_draw):
+         outStr = outStr + str(deck.drawCard()) + " "
    
    #name generator
    if re.search("^name", cmd):
