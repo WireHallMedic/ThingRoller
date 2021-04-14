@@ -131,7 +131,15 @@ async def on_message(message):
       outStr = generateRelic()
    
    #draw cards
-   if cmd == "draw":
+   if re.search("^draw", cmd):
+      num_to_draw = max(1, intArg)
+      num_to_draw = min(52, num_to_draw)
+      outStr = ""
+      for i in range(num_to_draw):
+         outStr = outStr + str(deck.drawCard()) + " "
+   
+   #shuffle cards
+   if cmd == "shuffle":
       num_to_draw = max(1, intArg)
       num_to_draw = min(52, num_to_draw)
       outStr = ""
