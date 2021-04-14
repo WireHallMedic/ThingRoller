@@ -140,11 +140,8 @@ async def on_message(message):
    
    #shuffle cards
    if cmd == "shuffle":
-      num_to_draw = max(1, intArg)
-      num_to_draw = min(52, num_to_draw)
-      outStr = ""
-      for i in range(num_to_draw):
-         outStr = outStr + str(deck.drawCard()) + " "
+      deck.shuffle()
+      outStr = "Deck reshuffled"
    
    #name generator
    if re.search("^name", cmd):
