@@ -1,9 +1,9 @@
 import random
 
-HEART_CHAR = str(chr(9829))
-SPADE_CHAR  = str(chr(9824))
-CLUB_CHAR  = str(chr(9872))
-DIAMOND_CHAR  = str(chr(9830))
+HEART_CHAR = ":hearts:"
+DIAMOND_CHAR  = ":diamonds:"
+SPADE_CHAR  = ":spades:"
+CLUB_CHAR  = ":clubs:"
 
 class Card():
    """
@@ -18,8 +18,9 @@ class Card():
       self.value = 0
    
       # set the suit
-      #if s == "H" or s == "S" or s == "D" or s == "C":
-      #   self.suit = s
+      if s == "H" or s == "S" or s == "D" or s == "C":
+         self.suit = s
+         """
       if s == "H":
          self.suit = HEART_CHAR
       elif s == "S":
@@ -27,7 +28,7 @@ class Card():
       elif s == "D":
          self.suit = DIAMOND_CHAR
       elif s == "C":
-         self.suit = CLUB_CHAR
+         self.suit = CLUB_CHAR"""
       else:
          raise Exception("Invalid suit value in bjcard.py")
       
