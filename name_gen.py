@@ -17,11 +17,13 @@ class NameList:
             element = element.lower()
    
    def isCompoundList(self):
+      """Returns true if list is formatted for A+B generation, else false"""
       if self.listB == None:
          return False
       return True
    
    def isMarkovList(self):
+      """Returns true if list is formatted for Markov generation, else false"""
       return not self.isCompoundList()
 
 class MarkovNode:
@@ -74,6 +76,7 @@ class MarkovNameGen:
          self.addWord(element)
    
    def addWord(self, word):
+      """Add a word's components to the tree"""
       global STARTING_CHAR
       global ENDING_CHAR
       word = STARTING_CHAR + word + ENDING_CHAR
@@ -86,6 +89,7 @@ class MarkovNameGen:
          self.root.insert(word[i:i + 3])
    
    def generate(self):
+      """Generate a word using the tree"""
       global STARTING_CHAR
       global ENDING_CHAR
       goodLength = False
@@ -109,12 +113,13 @@ class CompoundNameGen:
       return formatOutput(outStr)
 
 def formatOutput(str):
+   """Make it pretty"""
    outStr = str.replace("_", " ")
    outStr = str.capitalize()
    return outStr
 
 def readFile(fileName):
-   "returns file contents in a NameList"
+   """Returns file contents in a NameList"""
    outList = None
    try:
       rawList = open(fileName, "r").read().split();
@@ -136,6 +141,7 @@ def readFile(fileName):
    return outList
 
 def generatorGenerator(fileName, min = None, max = None):
+   """Create a Markov generator for the passed text file"""
    nameList = readFile(fileName)
    if nameList.isCompoundList():
       return CompoundNameGen(nameList)
