@@ -143,6 +143,12 @@ async def on_message(message):
    if cmd == "shuffle":
       deck.shuffle()
       outStr = "Deck reshuffled"
+   if cmd == "shuffle jokers" or cmd == "jokers":
+      deck.shuffle(True)
+      outStr = "Deck reshuffled (jokers included)"
+   if cmd == "shuffle no jokers" or cmd == "no jokers":
+      deck.shuffle(False)
+      outStr = "Deck reshuffled (jokers excluded)"
    
    #name generator
    if re.search("^name", cmd):
