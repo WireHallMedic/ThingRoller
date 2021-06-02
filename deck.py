@@ -4,6 +4,7 @@ HEART_CHAR = ":hearts:"
 DIAMOND_CHAR  = ":diamonds:"
 SPADE_CHAR  = ":spades:"
 CLUB_CHAR  = ":clubs:"
+JOKER_CHAR = "!"
 
 class Card():
    """
@@ -18,7 +19,7 @@ class Card():
       self.value = 0
    
       # set the suit
-      if s == "H" or s == "S" or s == "D" or s == "C":
+      if s == "H" or s == "S" or s == "D" or s == "C" or s == JOKER_CHAR:
          self.suit = s
          """
       if s == "H":
@@ -43,11 +44,18 @@ class Card():
             self.value = 1 # 11 option handled in bjhand.py
          elif self.face == "J" or self.face == "Q" or self.face == "K":
             self.value = 10
+         elif self.face == JOKER_CHAR:
+            self.value = 0
          else: # throw an exception if the input is invalid
             raise Exception("Invalid card value in bjcard.py")
    
    # to string method
    def __str__(self):
+      if self.is_joker:
+         if self.suit == "H":
+            return "Joker (red)"
+         else:
+            return "Joker (black)"
       return str(self.face) + self.suit
 
 class Deck():
