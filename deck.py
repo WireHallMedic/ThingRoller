@@ -69,7 +69,7 @@ class Deck():
     def __init__(self, has_jokers = False):
         _new_deck(has_jokers)
     
-    def _new_deck(has_jokers)
+    def _new_deck(has_jokers):
         """
         Creates a new deck.
         """
@@ -107,7 +107,6 @@ class Deck():
         card = self.deck[self.index]
         self.index += 1
         return card
-
     
     def printDeck(self):
         """
@@ -115,3 +114,11 @@ class Deck():
         """
         for c in self.deck:
             print(c)
+
+""" Test functions """
+if __name__ == "__main__":
+   deck = Deck()
+   deck = Deck(false)
+   deck.printDeck()
+   deck.shuffle(true)
+   deck.printDeck()
