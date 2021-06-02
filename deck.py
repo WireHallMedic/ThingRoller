@@ -58,13 +58,13 @@ class Card():
             return "Joker (black)"
       return str(self.face) + self.suit
 
+
 class Deck():
     """
     A class representing a deck of playing cards, initially ordered.
     Cards are dealt by an index value which moves through the list; shuffling reorders the list
     and resets the index.
     """
-    
     
     def __init__(self, has_jokers = False):
         _new_deck(has_jokers)
@@ -82,12 +82,13 @@ class Deck():
         if self.jokers:
             self.deck.append(Card(JOKER_CHAR, "H"))
             self.deck.append(Card(JOKER_CHAR, "S"))
-
     
-    def shuffle(self):
+    def shuffle(self, has_jokers = self.jokers):
         """
         Reorders the list of cards and resets the index.
         """
+        if has_jokers != self.jokers:
+            self._new_deck(has_jokers)
         self.index = 0
         newDeck = []
         while len(self.deck) > 0:
@@ -95,8 +96,7 @@ class Deck():
             newDeck.append(card)
             self.deck.remove(card)
         self.deck = newDeck
-    		
-	
+	 
     def drawCard(self):
         """
         Draws the top card, increments the index, and reshuffles if necessary.
