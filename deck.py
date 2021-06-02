@@ -51,7 +51,7 @@ class Card():
    
    # to string method
    def __str__(self):
-      if self.is_joker:
+      if self.is_joker():
          if self.suit == "H":
             return "Joker (red)"
          else:
@@ -123,5 +123,5 @@ if __name__ == "__main__":
    deck = Deck()
    deck = Deck(False)
    deck.printDeck()
-   deck.shuffle(true)
+   deck.shuffle(True)
    deck.printDeck()
