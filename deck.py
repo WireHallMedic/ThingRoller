@@ -57,7 +57,10 @@ class Card():
          else:
             return "Joker (black)"
       return str(self.face) + self.suit
-
+      
+   # is this card a joker
+   def is_joker(self):
+      return self.face == JOKER_CHAR
 
 class Deck():
     """
