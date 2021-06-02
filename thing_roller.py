@@ -68,7 +68,7 @@ for key in relicDict["quirk"]:
       relicQuirk.append(relicDict["quirk"][key])
 
 # deck of cards
-deck = deck.Deck()
+deck = deck.Deck(has_jokers = False)
 deck.shuffle()
 
 client = discord.Client()

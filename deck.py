@@ -67,6 +67,9 @@ class Deck():
     
     
     def __init__(self, has_jokers = False):
+        _new_deck(has_jokers)
+    
+    def _new_deck(has_jokers)
         """
         Creates a new deck.
         """
