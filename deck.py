@@ -83,11 +83,11 @@ class Deck():
             self.deck.append(Card(JOKER_CHAR, "H"))
             self.deck.append(Card(JOKER_CHAR, "S"))
     
-    def shuffle(self, has_jokers = self.jokers):
+    def shuffle(self, has_jokers = None):
         """
         Reorders the list of cards and resets the index.
         """
-        if has_jokers != self.jokers:
+        if has_jokers != None and has_jokers != self.jokers:
             self._new_deck(has_jokers)
         self.index = 0
         newDeck = []
