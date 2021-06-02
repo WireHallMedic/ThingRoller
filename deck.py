@@ -66,15 +66,19 @@ class Deck():
     """
     
     
-    def __init__(self):
+    def __init__(self, has_jokers = False):
         """
         Creates a new deck.
         """
         self.deck = []
         self.index = 0
+        self.jokers = has_jokers
         for s in ["S", "H", "D", "C"]:
             for f in ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"]:
                 self.deck.append(Card(f, s))
+        if self.jokers:
+            self.deck.append(Card(JOKER_CHAR, "H"))
+            self.deck.append(Card(JOKER_CHAR, "S"))
 
     
     def shuffle(self):
