@@ -4,6 +4,7 @@ import re
 import random
 import name_gen
 import deck
+import socket
 
 # various regExes
 diceRegEx = "\d+d\d+|advantage|disadvantage"
