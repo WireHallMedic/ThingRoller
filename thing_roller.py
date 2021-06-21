@@ -102,6 +102,8 @@ async def on_message(message):
       outStr += "\n" + msgDict["commandNotes"]
    elif cmd == "status":
       outStr = msgDict["goodStatus"]
+      addr = getIPAddress()
+      outStr = "{}\nHostname: {}\nIP Address: {}".format(outStr, addr[0], addr[1]);
       
    # dice expression examples
    if cmd == "examples":
@@ -383,6 +385,19 @@ def getMinorProp():
 
 def generateRelic():
    return relicDict["format"].format(getCreator(), getHistory(), getMinorProp(), getQuirk())
+
+def getIPAddress():
+   vals = ["", ""]
+   addr = ["Unable to get hostname", "Unable to get IP"]
+   try:
+      addr[0] = socket.gethostname()
+   except:
+      addr[0] = "Unable to get hostname"
+   try:
+      addr[1] = socket.gethostbyname(addr[0])
+   except:
+      addr[1] = "Unable to get IP address"
+   return addr
 
 # fire this bad boy up
 client.run(token)
