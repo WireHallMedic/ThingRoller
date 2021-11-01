@@ -5,6 +5,7 @@ import random
 import name_gen
 import deck
 import socket
+import tdquestgen
 
 # various regExes
 diceRegEx = "\d+d\d+|advantage|disadvantage"
@@ -71,6 +72,9 @@ for key in relicDict["quirk"]:
 # deck of cards
 deck = deck.Deck(has_jokers = False)
 deck.shuffle()
+
+# quest generator
+quest_gen = tdquestgen.QuestGenerator("questparts.txt")
 
 client = discord.Client()
 
@@ -141,6 +145,15 @@ async def on_message(message):
       outStr = ""
       for i in range(num_to_draw):
          outStr = outStr + str(deck.drawCard()) + " "
+   
+   #generate quests
+   if re.search("^quest", cmd):
+      num_of_quests = max(1, intArg)
+      num_of_quests = min(5, num_of_quests)
+      outStr = ""
+      for i in range(num_of_quests):
+         outStr = outStr + quest_gen.generate() + "\n"
+      outStr = outStr.strip()
    
    #shuffle cards
    if cmd == "shuffle":
