@@ -108,7 +108,7 @@ async def on_message(message):
    # bots, but by default this will kill running bots. Command in Linux format.
    if cmd == "restart":
       if authorName == adminName:
-         os.system("shutdown -r now")
+         os.system("systemctl reboot -i")
    
    # bot info
    if cmd == "thingroller":
