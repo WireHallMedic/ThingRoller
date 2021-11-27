@@ -1,6 +1,7 @@
 import discord
 import json
 import re
+import os
 import random
 import name_gen
 import deck
