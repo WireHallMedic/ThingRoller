@@ -19,6 +19,9 @@ numberRegEx = "\d+"
 notYetImplementedStr = ":warning: This feature is not yet implemented :warning:"
 MAX_DICE = 1000000
 
+# change cwd in case this is called from shell script
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 # let's load some things from files
 token = open("token.txt", "r").read()
 msgDict = json.loads(open("messages.json","r").read())
