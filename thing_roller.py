@@ -104,12 +104,6 @@ async def on_message(message):
    if re.search(intRegEx, cmd) != None:
       intArg = int(re.search(intRegEx, cmd)[0])
    
-   # restart the server computer. Mine uses a shell script to automatically launch
-   # bots, but by default this will kill running bots. Command in Linux format.
-   if cmd == "restart":
-      if authorName == adminName:
-         os.system("systemctl reboot -i")
-   
    # bot info
    if cmd == "thingroller":
       outStr = msgDict["botInfo"]
