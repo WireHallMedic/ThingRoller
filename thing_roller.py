@@ -100,12 +100,6 @@ async def on_message(message):
    intArg = 0
    outStr = None
    
-   # restart the server computer. Mine uses a shell script to automatically launch
-   # bots, but by default this will kill running bots.
-   if cmd == "restart":
-      if authorName == adminName:
-         os.system("shutdown /r /t 1")
-   
    # extract any integer argument passed in
    if re.search(intRegEx, cmd) != None:
       intArg = int(re.search(intRegEx, cmd)[0])
