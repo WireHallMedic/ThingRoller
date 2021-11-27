@@ -19,6 +19,7 @@ numberRegEx = "\d+"
 
 notYetImplementedStr = ":warning: This feature is not yet implemented :warning:"
 MAX_DICE = 1000000
+adminName = "wire_hall_medic"
 
 # change cwd in case this is called from shell script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -98,6 +99,12 @@ async def on_message(message):
    cmd = cleanMessage(message.content)
    intArg = 0
    outStr = None
+   
+   # restart the server computer. Mine uses a shell script to automatically launch
+   # bots, but by default this will kill running bots.
+   if cmd == "restart":
+      if authorName == adminName:
+         os.system("shutdown /s /t 0")
    
    # extract any integer argument passed in
    if re.search(intRegEx, cmd) != None:
