@@ -7,6 +7,7 @@ import name_gen
 import deck
 import socket
 import tdquestgen
+import subtable_main
 
 # various regExes
 diceRegEx = "\d+d\d+|advantage|disadvantage"
@@ -58,6 +59,8 @@ nameDict["orc_male"] = name_gen.generatorGenerator("name_orc_male.txt")
 nameDict["angel"] = name_gen.generatorGenerator("name_angel.txt")
 nameDict["demon"] = name_gen.generatorGenerator("name_demon.txt")
 nameDict["dragon"] = name_gen.generatorGenerator("name_dragon.txt", min = 8, max = 20)
+
+kung_fu_generator = subtable_main.TableController("Kung Fu.txt")
 
 #everone loves lists
 relicCreator = []
@@ -128,6 +131,9 @@ async def on_message(message):
    # roll tavern
    if re.search("^tavern", cmd):
       outStr = generateTavern(intArg)
+   
+   if re.search("^kung fu", cmd):
+      outStr = generateKungFu(intArg)
       
    # roll interlude
    if cmd == "interlude":
@@ -315,6 +321,14 @@ def rollStatBlock():
 
 def rollSingleStat():
    return [roll(6), roll(6), roll(6), roll(6)]
+
+def generateKungFu(reps):
+   reps = max(1, reps)
+   reps = min(20, reps)
+   outStr = ""
+   for i in range(reps):
+      outStr = "{}\n{}".format(outStr, kung_fu_generator.roll())
+   return outStr
 
 def generateNames(cmd, intArg):
    strList = cmd.split()
