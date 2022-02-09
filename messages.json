@@ -17,6 +17,7 @@
 		,"!quest <1-5>":" - generate a random quest using the Tiny Dungeons method, or up to five at a time."
 		,"!draw <1-52>":" - draw a card from a standard 52-card deck. Deck reshuffles when it runs out."
 		,"!shuffle":" - resuffle the deck"
+		,"!kung fu <1-20>":" - generate a random Kung Fu move name"
 	}
 	,"commandNotes":"*<> indicates an optional argument*"
 }
