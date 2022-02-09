@@ -79,7 +79,6 @@ deck = deck.Deck(has_jokers = False)
 deck.shuffle()
 
 # table-based generators
-
 kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
 
