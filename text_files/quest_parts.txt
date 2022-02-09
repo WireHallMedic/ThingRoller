@@ -1,0 +1,192 @@
+#MAIN
+The adventurers must [VERB] the [SUBJECT] in the [PLACE], while dealing with [HINDRANCE] and opposing the [ANTAGONIST].
+
+#VERB
+attack
+rescue
+escort
+investigate
+aid
+transport
+steal
+fight
+blackmail
+hide
+shelter
+trick
+negotiate
+defend
+retrieve
+overcome
+invade
+kill
+capture
+free
+secure
+heal
+trade
+scare
+hunt
+find
+defend
+prevent
+cause
+serve
+take
+bargain
+explore
+sabotage
+kidnap
+lead
+
+#SUBJECT
+human
+fey
+dwarf
+goblin
+salimar
+treefolk
+karhu
+lizardfolk
+royalty
+priest
+wizard
+scribe
+monster
+animal
+pirate
+bandit
+magic item
+enemy
+passenger
+riddle
+merchandise
+contraband
+performer
+caravan
+merchant
+thief
+warrior
+healer
+peasant
+beggar
+traveler
+innkeeper
+ghost
+city watch
+witness
+alchemist
+
+#PLACE
+mountain top
+ruins
+ocean
+desert
+island
+canyon
+mountain pass
+temple
+ice cave
+volcano
+forest
+whirlpool
+sunken city
+subterranean city
+forbidden city
+floating fortress
+airship
+fortress
+market
+tower
+city jail
+bridge
+sewers
+docks
+dungeon
+graveyard
+gambling house
+faerie realm
+land of dreams
+other dimension
+castle
+monastery
+mine
+enemy territory
+dragon's den
+labyrinth
+
+#HINDRANCE
+an ally
+betrayal
+love
+a broken promise
+deception
+a rival
+a mentor
+a family
+an attack
+a trap
+physical illness
+the weather
+finances
+a theft
+a spy
+a double agent
+revenge
+mental illness
+a red herring
+transportation
+a hostage
+a kidnapping
+an assassination
+the city watch
+greed
+trust issues
+hatred
+jealousy
+bad luck
+pride
+laziness
+lust
+gluttony
+neglect
+forgetfulness
+ignorance
+
+#ANTAGONIST
+city watch
+city leader
+spy
+politics
+moneylender
+scandal
+bandits
+pirates
+secret society
+wizard's guild
+thieves' guild
+army
+monster
+flora
+fauna
+undead
+magic
+disease
+wizard
+necromancer
+cultists
+merchants
+alchemist
+murderer
+assassin
+time
+demon
+invasion
+evil genius
+dragon
+robber
+imposter
+faerie
+curse
+parasite
+adventurers
