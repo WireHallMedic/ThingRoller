@@ -56,9 +56,9 @@ nameDict["halfling_male"] = name_gen.generatorGenerator("text_files/name_halflin
 nameDict["halfling_surname"] = name_gen.generatorGenerator("text_files/name_halfling_surname.txt")
 nameDict["orc_female"] = name_gen.generatorGenerator("text_files/name_orc_female.txt")
 nameDict["orc_male"] = name_gen.generatorGenerator("text_files/name_orc_male.txt")
-nameDict["angel"] = text_files/name_gen.generatorGenerator("text_files/name_angel.txt")
-nameDict["demon"] = text_files/name_gen.generatorGenerator("text_files/name_demon.txt")
-nameDict["dragon"] = text_files/name_gen.generatorGenerator("text_files/name_dragon.txt", min = 8, max = 20)
+nameDict["angel"] = name_gen.generatorGenerator("text_files/name_angel.txt")
+nameDict["demon"] = name_gen.generatorGenerator("text_files/name_demon.txt")
+nameDict["dragon"] = name_gen.generatorGenerator("text_files/name_dragon.txt", min = 8, max = 20)
 
 kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 
