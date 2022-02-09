@@ -6,7 +6,6 @@ import random
 import name_gen
 import deck
 import socket
-import tdquestgen
 import subtable_main
 
 # various regExes
@@ -60,8 +59,6 @@ nameDict["angel"] = name_gen.generatorGenerator("text_files/name_angel.txt")
 nameDict["demon"] = name_gen.generatorGenerator("text_files/name_demon.txt")
 nameDict["dragon"] = name_gen.generatorGenerator("text_files/name_dragon.txt", min = 8, max = 20)
 
-kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
-
 #everone loves lists
 relicCreator = []
 relicHistory = []
@@ -81,8 +78,10 @@ for key in relicDict["quirk"]:
 deck = deck.Deck(has_jokers = False)
 deck.shuffle()
 
-# quest generator
-quest_gen = tdquestgen.QuestGenerator("text_files/questparts.txt")
+# table-based generators
+
+kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
+quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
 
 client = discord.Client()
 
@@ -163,7 +162,7 @@ async def on_message(message):
       num_of_quests = min(5, num_of_quests)
       outStr = ""
       for i in range(num_of_quests):
-         outStr = outStr + quest_gen.generate() + "\n"
+         outStr = outStr + quest_generator.roll() + "\n"
       outStr = outStr.strip()
    
    #shuffle cards
@@ -177,7 +176,7 @@ async def on_message(message):
       deck.shuffle(False)
       outStr = "Deck reshuffled (jokers excluded)"
    
-   #name generator
+   # name generator
    if re.search("^name", cmd):
       outStr = generateNames(cmd, intArg)
    
