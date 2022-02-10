@@ -153,7 +153,7 @@ async def on_message(message):
       num_to_draw = min(52, num_to_draw)
       out_str = ""
       for i in range(num_to_draw):
-         out_str = out_str + str(deck.drawCard()) + " "
+         out_str = out_str + str(deck.draw_card()) + " "
    
    #generate quests
    if re.search("^quest", cmd):

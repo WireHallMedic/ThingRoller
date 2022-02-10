@@ -93,14 +93,14 @@ class Deck():
         if has_jokers != None and has_jokers != self.jokers:
             self._new_deck(has_jokers)
         self.index = 0
-        newDeck = []
+        new_deck = []
         while len(self.deck) > 0:
             card = self.deck[random.randint(0, len(self.deck) - 1)]
-            newDeck.append(card)
+            new_deck.append(card)
             self.deck.remove(card)
-        self.deck = newDeck
+        self.deck = new_deck
 	 
-    def drawCard(self):
+    def draw_card(self):
         """
         Draws the top card, increments the index, and reshuffles if necessary.
         Note: This means it is possible to draw the same card twice, in extremely rare cases.
@@ -111,7 +111,7 @@ class Deck():
         self.index += 1
         return card
     
-    def printDeck(self):
+    def print_deck(self):
         """
         Test function. Prints out the deck to the console.
         """
@@ -122,6 +122,6 @@ class Deck():
 if __name__ == "__main__":
    deck = Deck()
    deck = Deck(False)
-   deck.printDeck()
+   deck.print_deck()
    deck.shuffle(True)
-   deck.printDeck()
+   deck.print_deck()
