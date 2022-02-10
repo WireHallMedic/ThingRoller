@@ -28,9 +28,6 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 token = open("token.txt", "r").read()
 message_dict = json.loads(open("json_files/messages.json","r").read())
 relic_dict = json.loads(open("json_files/relicDescription.json","r").read())
-tavern_suffixes = open("text_files/tavern_suffixes.txt", "r").read().split("\n")
-tavern_forename = open("text_files/tavern_forenames.txt", "r").read().split("\n")
-tavern_surname = open("text_files/tavern_surnames.txt", "r").read().split("\n")
 interludes = open("text_files/interludes.txt", "r").read().split("\n")
 
 # load name generations
@@ -81,6 +78,7 @@ deck.shuffle()
 # table-based generators
 kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
+tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
 client = discord.Client()
 
@@ -193,10 +191,7 @@ def generate_tavern(reps):
    reps = min(20, reps)
    str = ""
    for i in range(reps):
-      str += "The "
-      str += random.choice(tavern_forename) + " "
-      str += random.choice(tavern_surname) + " "
-      str += random.choice(tavern_suffixes) + "\n"
+      str += "{}\n".format(tavern_generator.roll())
    str = str.strip()
    return str;
 
