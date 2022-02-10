@@ -9,70 +9,70 @@ import socket
 import subtable_main
 
 # various regExes
-diceRegEx = "\d+d\d+|advantage|disadvantage"
-intRegEx = "\d+"
-opRegEx = "[+\-/*x]"
-nonOpRegEx = "[^+\-/\*x]"
-shouldCalcRegEx = "^[+\-\d]|^d\d|^advantage|^disadvantage"
-shouldInsertOne = "^d\d"
-numberRegEx = "\d+"
+DICE_REG_EX = "\d+d\d+|advantage|disadvantage"
+INT_REG_EX = "\d+"
+OPERATOR_REG_EX = "[+\-/*x]"
+NON_OPERATOR_REG_EX = "[^+\-/\*x]"
+SHOULD_CALCULATE_REG_EX = "^[+\-\d]|^d\d|^advantage|^disadvantage"
+SHOULD_INSERT_ONE_REG_EX = "^d\d"
+NUMBER_REG_EX = "\d+"
 
-notYetImplementedStr = ":warning: This feature is not yet implemented :warning:"
+NOT_YET_IMPLEMENTED_STR = ":warning: This feature is not yet implemented :warning:"
 MAX_DICE = 1000000
-adminName = "wire_hall_medic"
+ADMIN_NAME = "wire_hall_medic"
 
 # change cwd in case this is called from shell script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # let's load some things from files
 token = open("token.txt", "r").read()
-msgDict = json.loads(open("json_files/messages.json","r").read())
-relicDict = json.loads(open("json_files/relicDescription.json","r").read())
-tavernSuffixes = open("text_files/tavernSuffixes.txt", "r").read().split("\n")
-tavernForename = open("text_files/tavernForenames.txt", "r").read().split("\n")
-tavernSurname = open("text_files/tavernSurnames.txt", "r").read().split("\n")
+message_dict = json.loads(open("json_files/messages.json","r").read())
+relic_dict = json.loads(open("json_files/relicDescription.json","r").read())
+tavern_suffixes = open("text_files/tavern_suffixes.txt", "r").read().split("\n")
+tavern_forename = open("text_files/tavern_forenames.txt", "r").read().split("\n")
+tavern_surname = open("text_files/tavern_surnames.txt", "r").read().split("\n")
 interludes = open("text_files/interludes.txt", "r").read().split("\n")
 
 # load name generations
-nameDict = {}
-nameDict["dragonborn_female"] = name_gen.generatorGenerator("text_files/name_dragonborn_female.txt", max = 20)
-nameDict["dragonborn_male"] = name_gen.generatorGenerator("text_files/name_dragonborn_male.txt", max = 20)
-nameDict["dragonborn_surname"] = name_gen.generatorGenerator("text_files/name_dragonborn_surname.txt")
-nameDict["dwarf_female"] = name_gen.generatorGenerator("text_files/name_dwarf_female.txt")
-nameDict["dwarf_male"] = name_gen.generatorGenerator("text_files/name_dwarf_male.txt")
-nameDict["dwarf_surname"] = name_gen.generatorGenerator("text_files/name_dwarf_surname.txt")
-nameDict["elf_female"] = name_gen.generatorGenerator("text_files/name_elf_female.txt")
-nameDict["elf_male"] = name_gen.generatorGenerator("text_files/name_elf_male.txt")
-nameDict["elf_surname"] = name_gen.generatorGenerator("text_files/name_elf_surname.txt")
-nameDict["european_female"] = name_gen.generatorGenerator("text_files/name_european_female.txt")
-nameDict["european_male"] = name_gen.generatorGenerator("text_files/name_european_male.txt")
-nameDict["european_surname"] = name_gen.generatorGenerator("text_files/name_european_surname.txt")
-nameDict["gnome_female"] = name_gen.generatorGenerator("text_files/name_gnome_female.txt")
-nameDict["gnome_male"] = name_gen.generatorGenerator("text_files/name_gnome_male.txt")
-nameDict["gnome_surname"] = name_gen.generatorGenerator("text_files/name_gnome_surname.txt")
-nameDict["halfling_female"] = name_gen.generatorGenerator("text_files/name_halfling_female.txt")
-nameDict["halfling_male"] = name_gen.generatorGenerator("text_files/name_halfling_male.txt")
-nameDict["halfling_surname"] = name_gen.generatorGenerator("text_files/name_halfling_surname.txt")
-nameDict["orc_female"] = name_gen.generatorGenerator("text_files/name_orc_female.txt")
-nameDict["orc_male"] = name_gen.generatorGenerator("text_files/name_orc_male.txt")
-nameDict["angel"] = name_gen.generatorGenerator("text_files/name_angel.txt")
-nameDict["demon"] = name_gen.generatorGenerator("text_files/name_demon.txt")
-nameDict["dragon"] = name_gen.generatorGenerator("text_files/name_dragon.txt", min = 8, max = 20)
+name_dict = {}
+name_dict["dragonborn_female"] = name_gen.generatorGenerator("text_files/name_dragonborn_female.txt", max = 20)
+name_dict["dragonborn_male"] = name_gen.generatorGenerator("text_files/name_dragonborn_male.txt", max = 20)
+name_dict["dragonborn_surname"] = name_gen.generatorGenerator("text_files/name_dragonborn_surname.txt")
+name_dict["dwarf_female"] = name_gen.generatorGenerator("text_files/name_dwarf_female.txt")
+name_dict["dwarf_male"] = name_gen.generatorGenerator("text_files/name_dwarf_male.txt")
+name_dict["dwarf_surname"] = name_gen.generatorGenerator("text_files/name_dwarf_surname.txt")
+name_dict["elf_female"] = name_gen.generatorGenerator("text_files/name_elf_female.txt")
+name_dict["elf_male"] = name_gen.generatorGenerator("text_files/name_elf_male.txt")
+name_dict["elf_surname"] = name_gen.generatorGenerator("text_files/name_elf_surname.txt")
+name_dict["european_female"] = name_gen.generatorGenerator("text_files/name_european_female.txt")
+name_dict["european_male"] = name_gen.generatorGenerator("text_files/name_european_male.txt")
+name_dict["european_surname"] = name_gen.generatorGenerator("text_files/name_european_surname.txt")
+name_dict["gnome_female"] = name_gen.generatorGenerator("text_files/name_gnome_female.txt")
+name_dict["gnome_male"] = name_gen.generatorGenerator("text_files/name_gnome_male.txt")
+name_dict["gnome_surname"] = name_gen.generatorGenerator("text_files/name_gnome_surname.txt")
+name_dict["halfling_female"] = name_gen.generatorGenerator("text_files/name_halfling_female.txt")
+name_dict["halfling_male"] = name_gen.generatorGenerator("text_files/name_halfling_male.txt")
+name_dict["halfling_surname"] = name_gen.generatorGenerator("text_files/name_halfling_surname.txt")
+name_dict["orc_female"] = name_gen.generatorGenerator("text_files/name_orc_female.txt")
+name_dict["orc_male"] = name_gen.generatorGenerator("text_files/name_orc_male.txt")
+name_dict["angel"] = name_gen.generatorGenerator("text_files/name_angel.txt")
+name_dict["demon"] = name_gen.generatorGenerator("text_files/name_demon.txt")
+name_dict["dragon"] = name_gen.generatorGenerator("text_files/name_dragon.txt", min = 8, max = 20)
 
 #everone loves lists
-relicCreator = []
-relicHistory = []
-relicMinorProp = []
-relicQuirk = []
+relic_creator = []
+relic_history = []
+relic_minor_prop = []
+relic_quick = []
 
-for key in relicDict["creator"]:
-      relicCreator.append(relicDict["creator"][key])
-for key in relicDict["history"]:
-      relicHistory.append(relicDict["history"][key])
-for key in relicDict["minor"]:
-      relicMinorProp.append(relicDict["minor"][key])
-for key in relicDict["quirk"]:
-      relicQuirk.append(relicDict["quirk"][key])
+for key in relic_dict["creator"]:
+      relic_creator.append(relic_dict["creator"][key])
+for key in relic_dict["history"]:
+      relic_history.append(relic_dict["history"][key])
+for key in relic_dict["minor"]:
+      relic_minor_prop.append(relic_dict["minor"][key])
+for key in relic_dict["quirk"]:
+      relic_quick.append(relic_dict["quirk"][key])
 
 # deck of cards
 deck = deck.Deck(has_jokers = False)
@@ -98,161 +98,161 @@ async def on_message(message):
    
    # we've got a potential command, format it
    cmd = cleanMessage(message.content)
-   intArg = 0
-   outStr = None
+   int_arg = 0
+   out_str = None
    
    # extract any integer argument passed in
-   if re.search(intRegEx, cmd) != None:
-      intArg = int(re.search(intRegEx, cmd)[0])
+   if re.search(INT_REG_EX, cmd) != None:
+      int_arg = int(re.search(INT_REG_EX, cmd)[0])
    
    # bot info
    if cmd == "thingroller":
-      outStr = msgDict["botInfo"]
-      for key in msgDict["recognizedCommands"]:
-         outStr += "\n  " + key + " " + msgDict["recognizedCommands"][key]
-      outStr += "\n" + msgDict["commandNotes"]
+      out_str = message_dict["botInfo"]
+      for key in message_dict["recognizedCommands"]:
+         out_str += "\n  " + key + " " + message_dict["recognizedCommands"][key]
+      out_str += "\n" + message_dict["commandNotes"]
    elif cmd == "status":
-      outStr = msgDict["goodStatus"]
+      out_str = message_dict["goodStatus"]
       addr = getIPAddress()
-      outStr = "{}\nHostname: {}\nIP Address: {}".format(outStr, addr[0], addr[1]);
+      out_str = "{}\nHostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
       
    # dice expression examples
    if cmd == "examples":
-      outStr = "__Examples of Things I Can Calculate__:\n"
-      outStr += msgDict["formatExamples"] + "\n"
-      outStr += msgDict["formatNotes"]
+      out_str = "__Examples of Things I Can Calculate__:\n"
+      out_str += message_dict["formatExamples"] + "\n"
+      out_str += message_dict["formatNotes"]
       
    # stat block
    if cmd == "stat block":
-      outStr = rollStatBlock()
+      out_str = roll_stat_block()
       
    # roll tavern
    if re.search("^tavern", cmd):
-      outStr = generateTavern(intArg)
+      out_str = generate_tavern(int_arg)
    
    if re.search("^kung fu", cmd):
-      outStr = generateKungFu(intArg)
+      out_str = generate_kung_fu(int_arg)
       
    # roll interlude
    if cmd == "interlude":
-      outStr = generateInterlude()
+      out_str = generate_interlude()
    
    #roll some dice and/or calculate
-   if re.search(shouldCalcRegEx, cmd) != None:
-      outStr = resolveDiceExpr(cmd.replace("*", "x"))
-      if outStr == None:
-         outStr = msgDict["parsingFailure"].format(cmd)
+   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
+      out_str = resolve_dice_expression(cmd.replace("*", "x"))
+      if out_str == None:
+         out_str = message_dict["parsingFailure"].format(cmd)
    
    #relic generator
    if cmd == "relic":
-      outStr = generateRelic()
+      out_str = generate_relic()
    
    #draw cards
    if re.search("^draw", cmd):
-      num_to_draw = max(1, intArg)
+      num_to_draw = max(1, int_arg)
       num_to_draw = min(52, num_to_draw)
-      outStr = ""
+      out_str = ""
       for i in range(num_to_draw):
-         outStr = outStr + str(deck.drawCard()) + " "
+         out_str = out_str + str(deck.drawCard()) + " "
    
    #generate quests
    if re.search("^quest", cmd):
-      num_of_quests = max(1, intArg)
+      num_of_quests = max(1, int_arg)
       num_of_quests = min(5, num_of_quests)
-      outStr = ""
+      out_str = ""
       for i in range(num_of_quests):
-         outStr = outStr + quest_generator.roll() + "\n"
-      outStr = outStr.strip()
+         out_str = out_str + quest_generator.roll() + "\n"
+      out_str = out_str.strip()
    
    #shuffle cards
    if cmd == "shuffle":
       deck.shuffle()
-      outStr = "Deck reshuffled"
+      out_str = "Deck reshuffled"
    if cmd == "shuffle jokers" or cmd == "jokers":
       deck.shuffle(True)
-      outStr = "Deck reshuffled (jokers included)"
+      out_str = "Deck reshuffled (jokers included)"
    if cmd == "shuffle no jokers" or cmd == "no jokers":
       deck.shuffle(False)
-      outStr = "Deck reshuffled (jokers excluded)"
+      out_str = "Deck reshuffled (jokers excluded)"
    
    # name generator
    if re.search("^name", cmd):
-      outStr = generateNames(cmd, intArg)
+      out_str = generate_names(cmd, int_arg)
    
-   if outStr != None:
-      await message.channel.send(outStr)
+   if out_str != None:
+      await message.channel.send(out_str)
 
 def cleanMessage(str):
-   newStr = str[1:]
-   newStr = newStr.lower()
-   newStr = newStr.strip()
-   return newStr
+   new_str = str[1:]
+   new_str = new_str.lower()
+   new_str = new_str.strip()
+   return new_str
 
-def generateTavern(reps):
+def generate_tavern(reps):
    reps = max(1, reps)
    reps = min(20, reps)
    str = ""
    for i in range(reps):
       str += "The "
-      str += random.choice(tavernForename) + " "
-      str += random.choice(tavernSurname) + " "
-      str += random.choice(tavernSuffixes) + "\n"
+      str += random.choice(tavern_forename) + " "
+      str += random.choice(tavern_surname) + " "
+      str += random.choice(tavern_suffixes) + "\n"
    str = str.strip()
    return str;
 
-def resolveDiceExpr(diceExpr):
+def resolve_dice_expression(dice_expression):
    try:
       # strip out spaces
-      diceExpr = diceExpr.replace(" ", "")
+      dice_expression = dice_expression.replace(" ", "")
       # if it starts with a negative number or expression, put in a zero
-      if diceExpr[0] == "-":
-         diceExpr = "0" + diceExpr
+      if dice_expression[0] == "-":
+         dice_expression = "0" + dice_expression
       # make lists of expressions and operators
-      exprList = re.split(opRegEx, diceExpr)
-      opList = re.findall(opRegEx, diceExpr)
+      expression_list = re.split(OPERATOR_REG_EX, dice_expression)
+      operator_list = re.findall(OPERATOR_REG_EX, dice_expression)
       # resolve expressions
-      valList = []
-      for val in exprList:
-         valList.append(resolveSingleDiceExpr(val))
+      val_list = []
+      for val in expression_list:
+         val_list.append(resolve_single_dice_expression(val))
       # resolve operators
-      sum = resolveAllOperators(valList, opList);
+      sum = resolve_all_operators(val_list, operator_list);
       # compile output
-      outStr = f'**Result: {sum}**\n'
-      outStr += "Rolled: "
-      outStr += valList[0][1]
-      for i in range(1, len(valList)):
-         outStr += " " + opList[i - 1] + " " + valList[i][1]
-      return outStr
+      out_str = f'**Result: {sum}**\n'
+      out_str += "Rolled: "
+      out_str += val_list[0][1]
+      for i in range(1, len(val_list)):
+         out_str += " " + operator_list[i - 1] + " " + val_list[i][1]
+      return out_str
    except:
       return None
 
-def resolveSingleDiceExpr(diceExpr):
+def resolve_single_dice_expression(dice_expression):
    try:
       # handle advantage and disadvantage
-      if diceExpr == "advantage":
-         return resolveAdvantage()
-      if diceExpr == "disadvantage":
-         return resolveDisadvantage()
+      if dice_expression == "advantage":
+         return resolve_advantage()
+      if dice_expression == "disadvantage":
+         return resolve_disadvantage()
       
-      val = [0, diceExpr]
+      val = [0, dice_expression]
       # handle raw numbers
-      if re.search("d", diceExpr) == None:
-         val[0] = int(diceExpr)
+      if re.search("d", dice_expression) == None:
+         val[0] = int(dice_expression)
          return val
       
       # handle dice
-      diceExpr = diceExpr.split("d")
-      iterations = int(diceExpr[0])
+      dice_expression = dice_expression.split("d")
+      iterations = int(dice_expression[0])
       if iterations > MAX_DICE:
          return None
       for i in range(iterations):
-         val[0] += roll(int(diceExpr[1]))
+         val[0] += roll(int(dice_expression[1]))
       val[1] = f'{val[0]}'
       return val
    except:
       return None
 
-def resolveAdvantage():
+def resolve_advantage():
    a = roll(20)
    b = roll(20)
    val = [0, ""]
@@ -260,7 +260,7 @@ def resolveAdvantage():
    val[1] = f'max({a}, {b})'
    return val
 
-def resolveDisadvantage():
+def resolve_disadvantage():
    a = roll(20)
    b = roll(20)
    val = [0, ""]
@@ -271,21 +271,21 @@ def resolveDisadvantage():
 def roll(val):
    return random.randint(1, val)
 
-def generateInterlude():
+def generate_interlude():
    return random.choice(interludes)
 
-def resolveAllOperators(valList, opList):
+def resolve_all_operators(val_list, operator_list):
    try:
-      sum = valList[0][0];
-      valIndex = 1
-      while valIndex < len(valList):
-         sum = resolveSingleOperator(sum, valList[valIndex][0], opList[valIndex - 1])
-         valIndex += 1
+      sum = val_list[0][0];
+      val_index = 1
+      while val_index < len(val_list):
+         sum = resolve_single_operator(sum, val_list[val_index][0], operator_list[val_index - 1])
+         val_index += 1
       return sum
    except:
       return None
 
-def resolveSingleOperator(sum, val, op):
+def resolve_single_operator(sum, val, op):
    if op == "+":
       return sum + val
    elif op == "-":
@@ -296,126 +296,126 @@ def resolveSingleOperator(sum, val, op):
       return sum * val
    return None
 
-def rollStatBlock():
+def roll_stat_block():
    stat = []
-   rolledStr = []
+   rolled_str = []
    for i in range(8):
-      rollArr = rollSingleStat()
-      sum = rollArr[0] + rollArr[1] + rollArr[2] + rollArr[3] - min(rollArr)
-      rolledStr.append(f'{sum} ({rollArr[0]}, {rollArr[1]}, {rollArr[2]}, {rollArr[3]})')
+      roll_arr = roll_single_stat()
+      sum = roll_arr[0] + roll_arr[1] + roll_arr[2] + roll_arr[3] - min(roll_arr)
+      rolled_str.append(f'{sum} ({roll_arr[0]}, {roll_arr[1]}, {roll_arr[2]}, {roll_arr[3]})')
       stat.append(sum)
    stat.sort(reverse=True)
    stat = stat[0:-2]
-   outStr = "**Results : "
+   out_str = "**Results : "
    for i in range(0, 6):
-      outStr += f'{stat[i]}'
+      out_str += f'{stat[i]}'
       if i < 5:
-         outStr += ", "
+         out_str += ", "
       else:
-         outStr += "**"
-   for element in rolledStr:
-      outStr += "\n  " + element
-   return outStr
+         out_str += "**"
+   for element in rolled_str:
+      out_str += "\n  " + element
+   return out_str
 
-def rollSingleStat():
+def roll_single_stat():
    return [roll(6), roll(6), roll(6), roll(6)]
 
-def generateKungFu(reps):
+def generate_kung_fu(reps):
    reps = max(1, reps)
    reps = min(20, reps)
-   outStr = ""
+   out_str = ""
    for i in range(reps):
-      outStr = "{}\n{}".format(outStr, kung_fu_generator.roll())
-   return outStr
+      out_str = "{}\n{}".format(out_str, kung_fu_generator.roll())
+   return out_str
 
-def generateNames(cmd, intArg):
-   strList = cmd.split()
-   strList.append("")   # beacuse not everything needs a gender
+def generate_names(cmd, int_arg):
+   str_list = cmd.split()
+   str_list.append("")   # beacuse not everything needs a gender
    reps = 5
-   if intArg != 0:
-      reps = intArg
+   if int_arg != 0:
+      reps = int_arg
    reps = max(1, reps)
    reps = min(20, reps)
-   outStr = ""
+   out_str = ""
    try:
       for i in range(0, reps):
-         outStr += getSingleName(strList[1], strList[2]) + "\n"
-      outStr = outStr[:-1] # trim the last newline
-      return outStr
+         out_str += get_single_name(str_list[1], str_list[2]) + "\n"
+      out_str = out_str[:-1] # trim the last newline
+      return out_str
    except:
-      return msgDict["nameParsingFailure"].format(cmd)
+      return message_dict["nameParsingFailure"].format(cmd)
 
-def getSingleName(race, sex):
+def get_single_name(race, sex):
    if race == "dragonborn":
       if sex == "female":
-         return "{} {}".format(nameDict["dragonborn_female"].generate(), nameDict["dragonborn_surname"].generate())
+         return "{} {}".format(name_dict["dragonborn_female"].generate(), name_dict["dragonborn_surname"].generate())
       elif sex == "male":
-         return "{} {}".format(nameDict["dragonborn_male"].generate(), nameDict["dragonborn_surname"].generate())
+         return "{} {}".format(name_dict["dragonborn_male"].generate(), name_dict["dragonborn_surname"].generate())
    elif race == "dwarf":
       if sex == "female":
-         return "{} {}".format(nameDict["dwarf_female"].generate(), nameDict["dwarf_surname"].generate())
+         return "{} {}".format(name_dict["dwarf_female"].generate(), name_dict["dwarf_surname"].generate())
       elif sex == "male":
-         return "{} {}".format(nameDict["dwarf_male"].generate(), nameDict["dwarf_surname"].generate())
+         return "{} {}".format(name_dict["dwarf_male"].generate(), name_dict["dwarf_surname"].generate())
    elif race == "elf":
       if sex == "female":
-         return "{} {}".format(nameDict["elf_female"].generate(), nameDict["elf_surname"].generate())
+         return "{} {}".format(name_dict["elf_female"].generate(), name_dict["elf_surname"].generate())
       elif sex == "male":
-         return "{} {}".format(nameDict["elf_male"].generate(), nameDict["elf_surname"].generate())
+         return "{} {}".format(name_dict["elf_male"].generate(), name_dict["elf_surname"].generate())
    elif race == "european":
       if sex == "female":
-         return "{} {}".format(nameDict["european_female"].generate(), nameDict["european_surname"].generate())
+         return "{} {}".format(name_dict["european_female"].generate(), name_dict["european_surname"].generate())
       elif sex == "male":
-         return "{} {}".format(nameDict["european_male"].generate(), nameDict["european_surname"].generate())
+         return "{} {}".format(name_dict["european_male"].generate(), name_dict["european_surname"].generate())
    elif race == "gnome":
       if sex == "female":
-         return "{} {}".format(nameDict["gnome_female"].generate(), nameDict["gnome_surname"].generate())
+         return "{} {}".format(name_dict["gnome_female"].generate(), name_dict["gnome_surname"].generate())
       elif sex == "male":
-         return "{} {}".format(nameDict["gnome_male"].generate(), nameDict["gnome_surname"].generate())
+         return "{} {}".format(name_dict["gnome_male"].generate(), name_dict["gnome_surname"].generate())
    elif race == "halfling":
       if sex == "female":
-         return "{} {}".format(nameDict["halfling_female"].generate(), nameDict["halfling_surname"].generate())
+         return "{} {}".format(name_dict["halfling_female"].generate(), name_dict["halfling_surname"].generate())
       elif sex == "male":
-         return "{} {}".format(nameDict["halfling_male"].generate(), nameDict["halfling_surname"].generate())
+         return "{} {}".format(name_dict["halfling_male"].generate(), name_dict["halfling_surname"].generate())
    elif race == "orc":
       if sex == "female":
-         return nameDict["orc_female"].generate()
+         return name_dict["orc_female"].generate()
       elif sex == "male":
-         return nameDict["orc_male"].generate()
+         return name_dict["orc_male"].generate()
    elif race == "angel":
-      return nameDict["angel"].generate()
+      return name_dict["angel"].generate()
    elif race == "demon":
-      return nameDict["demon"].generate()
+      return name_dict["demon"].generate()
    elif race == "dragon":
-      return nameDict["dragon"].generate()
+      return name_dict["dragon"].generate()
    print("bad name request {} {}".format(race, sex))
    raise Exception("bad name request {} {}".format(race, sex))
    return None
 
 # stuff for relic generation
-def getCreator():
-   return random.choice(relicCreator)
+def get_creator():
+   return random.choice(relic_creator)
 
-def getHistory():
-   return random.choice(relicHistory)
+def get_history():
+   return random.choice(relic_history)
 
-def getQuirk():
-   return random.choice(relicQuirk)
+def get_quirk():
+   return random.choice(relic_quick)
 
-def getMinorProp():
-   outStr1 = random.choice(relicMinorProp)
-   outStr2 = ""
-   if outStr1 == "ROLL_TWICE":
-      outStr2 = random.choice(relicMinorProp)
-   while outStr1 == "ROLL_TWICE":
-      outStr1 = random.choice(relicMinorProp)
-   while outStr2 == outStr1 or outStr2 == "ROLL_TWICE":
-      outStr2 = random.choice(relicMinorProp)
-   if outStr2 != "":
-      outStr1 += "\n"
-   return outStr1 + outStr2
+def get_relic_minor_prop():
+   out_str1 = random.choice(relic_minor_prop)
+   out_str2 = ""
+   if out_str1 == "ROLL_TWICE":
+      out_str2 = random.choice(relic_minor_prop)
+   while out_str1 == "ROLL_TWICE":
+      out_str1 = random.choice(relic_minor_prop)
+   while out_str2 == out_str1 or out_str2 == "ROLL_TWICE":
+      out_str2 = random.choice(relic_minor_prop)
+   if out_str2 != "":
+      out_str1 += "\n"
+   return out_str1 + out_str2
 
-def generateRelic():
-   return relicDict["format"].format(getCreator(), getHistory(), getMinorProp(), getQuirk())
+def generate_relic():
+   return relic_dict["format"].format(get_creator(), get_history(), get_relic_minor_prop(), get_quirk())
 
 def getIPAddress():
    vals = ["", ""]
