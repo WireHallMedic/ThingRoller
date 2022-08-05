@@ -117,7 +117,7 @@ async def on_message(message):
       
    # stat block
    if cmd == "stat block":
-      out_str = roll_stat_block()
+      out_str = dice.roll_stat_block()
       
    # roll tavern
    if re.search("^tavern", cmd):
@@ -136,7 +136,7 @@ async def on_message(message):
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
-      out_str = resolve_dice_expression(cmd.replace("*", "x"))
+      out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
       if out_str == None:
          out_str = message_dict["parsingFailure"].format(cmd)
    
@@ -193,36 +193,6 @@ def generate_tavern(reps):
       str += "{}\n".format(tavern_generator.roll())
    str = str.strip()
    return str;
-
-def resolve_dice_expression(dice_expression):
-   return dice.resolve_dice_expression(dice_expression)
-
-def resolve_single_dice_expression(dice_expression):
-   return dice.resolve_single_dice_expression(dice_expression)
-
-def resolve_advantage():
-   return dice.resolve_advantage()
-
-def resolve_disadvantage():
-   return dice.resolve_advantage()
-
-def roll(val):
-   return dice.roll(val)
-
-def roll_fudge_die():
-   return dice.roll_fudge_dice()
-
-def resolve_all_operators(val_list, operator_list):
-   return dice.resolve_all_operators(val_list, operator_list)
-
-def resolve_single_operator(sum, val, op):
-   return dice.resolve_single_operator(sum, val, op)
-
-def roll_stat_block():
-   return dice.roll_stat_block()
-
-def roll_single_stat():
-   return dice.roll_single_stat()
 
 def generate_interlude():
    return random.choice(interludes)
