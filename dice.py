@@ -29,7 +29,8 @@ def resolve_dice_expression(dice_expression):
       for i in range(1, len(val_list)):
          out_str += " " + operator_list[i - 1] + " " + val_list[i][1]
       return out_str
-   except:
+   except Exception as ex:
+      print(ex)
       return None
 
 def resolve_single_dice_expression(dice_expression):
@@ -51,7 +52,7 @@ def resolve_single_dice_expression(dice_expression):
       dice_expression = dice_expression.split("d")
       iterations = int(dice_expression[0])
       result = 0
-      if iterations > constants.MAX_DICE:
+      if iterations > MAX_DICE:
          return None
       for i in range(iterations):
          if dice_expression[1] == 'f':
@@ -62,7 +63,8 @@ def resolve_single_dice_expression(dice_expression):
          val[1] = val[1] + f', {result}'
       val[1] = f"({val[1][2:]})"
       return val
-   except:
+   except Exception as ex:
+      print(ex)
       return None
 
 def resolve_advantage():
