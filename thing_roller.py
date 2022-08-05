@@ -9,9 +9,6 @@ import socket
 import subtable_main
 import constants
 
-# various regExes
-
-
 # change cwd in case this is called from shell script
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
