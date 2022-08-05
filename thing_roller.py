@@ -13,7 +13,7 @@ DICE_REG_EX = "\d+d\d+|advantage|disadvantage"
 INT_REG_EX = "\d+"
 OPERATOR_REG_EX = "[+\-/*x]"
 NON_OPERATOR_REG_EX = "[^+\-/\*x]"
-SHOULD_CALCULATE_REG_EX = "^[+\-\d]|^d\d|^advantage|^disadvantage"
+SHOULD_CALCULATE_REG_EX = "^[+\-\d]|^d\d|^advantage|^disadvantage|\d+df"
 SHOULD_INSERT_ONE_REG_EX = "^d\d"
 NUMBER_REG_EX = "\d+"
 FUDGE_DICE_REG_EX = "\d+df"
@@ -242,7 +242,10 @@ def resolve_single_dice_expression(dice_expression):
       if iterations > MAX_DICE:
          return None
       for i in range(iterations):
-         val[0] += roll(int(dice_expression[1]))
+         if dice_expression[1] == 'f':
+            val[0] += roll_fudge_die()
+         else:
+            val[0] += roll(int(dice_expression[1]))
       val[1] = f'{val[0]}'
       return val
    except:
