@@ -237,6 +237,7 @@ def resolve_single_dice_expression(dice_expression):
          return val
       
       # handle dice
+      val[1] = ""
       dice_expression = dice_expression.split("d")
       iterations = int(dice_expression[0])
       if iterations > MAX_DICE:
@@ -245,8 +246,10 @@ def resolve_single_dice_expression(dice_expression):
          if dice_expression[1] == 'f':
             val[0] += roll_fudge_die()
          else:
-            val[0] += roll(int(dice_expression[1]))
-      val[1] = f'{val[0]}'
+            result = roll(int(dice_expression[1]))
+            val[0] += result
+            val[1] = val[1] + f', {result}'
+      val[1] = val[1][2:]
       return val
    except:
       return None
