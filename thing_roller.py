@@ -266,6 +266,9 @@ def resolve_disadvantage():
 def roll(val):
    return random.randint(1, val)
 
+def roll_fudge_die():
+   return random.randint(-1, 1)
+
 def generate_interlude():
    return random.choice(interludes)
 
