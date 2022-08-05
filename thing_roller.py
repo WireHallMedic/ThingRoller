@@ -135,6 +135,10 @@ async def on_message(message):
    # roll interlude
    if cmd == "interlude":
       out_str = generate_interlude()
+      
+   # aliases for 4dF
+   if cmd == "fudge" or cmd == "fate":
+      cmd = "4df"
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
