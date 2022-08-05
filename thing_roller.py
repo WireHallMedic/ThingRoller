@@ -176,6 +176,7 @@ async def on_message(message):
    if re.search("^name", cmd):
       out_str = generate_names(cmd, int_arg)
    
+   # return result
    if out_str != None:
       await message.channel.send(out_str)
 
