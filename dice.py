@@ -1,6 +1,10 @@
 import re
 import random
-import constants
+
+INT_REG_EX = "\d+"
+OPERATOR_REG_EX = "[+\-/*x]"
+
+MAX_DICE = 1000000
 
 def resolve_dice_expression(dice_expression):
    try:
@@ -47,7 +51,7 @@ def resolve_single_dice_expression(dice_expression):
       dice_expression = dice_expression.split("d")
       iterations = int(dice_expression[0])
       result = 0
-      if iterations > MAX_DICE:
+      if iterations > constants.MAX_DICE:
          return None
       for i in range(iterations):
          if dice_expression[1] == 'f':
