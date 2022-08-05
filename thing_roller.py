@@ -64,9 +64,6 @@ for key in relic_dict["quirk"]:
 deck = deck.Deck(has_jokers = False)
 deck.shuffle()
 
-# dice
-dice = dice.Dice()
-
 # table-based generators
 kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
