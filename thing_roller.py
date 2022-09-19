@@ -76,8 +76,7 @@ quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
 tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
 intents = discord.Intents.default()
-intents.message_content = True
-
+intents.messages = True
 client = discord.Client(intents=intents)
 
 @client.event
