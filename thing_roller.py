@@ -75,7 +75,10 @@ kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
 tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
