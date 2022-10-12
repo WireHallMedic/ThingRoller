@@ -141,8 +141,8 @@ async def on_message(message):
    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
       cmd = "fate"
       roll_obj = fate_dice.roll()
-      #out_str = roll_obj[0]
-      out_file = roll_obj[1]
+      out_str = roll_obj[0]
+      out_file = File(roll_obj[1])
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
