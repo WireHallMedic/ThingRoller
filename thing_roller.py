@@ -10,6 +10,7 @@ import dice
 import socket
 import subtable_main
 import fate_roller
+import PIL
 
 #constants
 INT_REG_EX = "\d+"
@@ -140,11 +141,14 @@ async def on_message(message):
       
    # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
-      cmd = "4df"
-#       roll_obj = fate_dice.roll()
-#       out_str = roll_obj[0]
-#       # out_file needs to be a filelike object
-#       out_file = io.BytesIO(roll_obj[1].tobytes())
+      cmd = "fate"
+      roll_obj = fate_dice.roll()
+      out_str = roll_obj[0]
+      # save image because we need a file
+      roll_obj[1].save("last_roll", "PNG")
+      with open("last_roll.png", 'rb') as f:
+         out_file = discord.File(f)
+      
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
@@ -189,13 +193,14 @@ async def on_message(message):
       out_str = generate_names(cmd, int_arg)
    
    # mixed output
-   if out_file != None:
-      await message.channel.send(file=out_file)
+   if out_file != None and out_str != None:
+      await message.channel.send(out_str, file=out_file)
       return
    
    # return result
    if out_str != None:
       await message.channel.send(out_str)
+      return
 
 def cleanMessage(str):
    new_str = str[1:]
