@@ -6,6 +6,7 @@ class FateRoller:
       self.blank_img = Image.open(f"Blank Die.png")
       self.plus_img = Image.open(f"Plus Die.png")
       self.minus_img = Image.open(f"Minus Die.png")
+      self.die_size = self.blank_img.width
    
    def _get_image(self, val):
       if val == -1:
@@ -30,9 +31,9 @@ class FateRoller:
       return f"{prefix}{sum} {arr}"
    
    def _create_image(self, arr):
-      img = Image.new("RGBA", (96, 24))
+      img = Image.new("RGBA", (self.die_size * 4, self.die_size))
       for i in range(4):
-         inset = i * 24
+         inset = i * self.die_size
          die_img = self._get_image(arr[i])
          img.paste(die_img, (inset, 0))
       return img
