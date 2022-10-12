@@ -140,11 +140,11 @@ async def on_message(message):
       
    # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
-      cmd = "fate"
-      roll_obj = fate_dice.roll()
-      out_str = roll_obj[0]
-      # out_file needs to be a filelike object
-      out_file = io.BytesIO(roll_obj[1].tobytes())
+      cmd = "4df"
+#       roll_obj = fate_dice.roll()
+#       out_str = roll_obj[0]
+#       # out_file needs to be a filelike object
+#       out_file = io.BytesIO(roll_obj[1].tobytes())
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
