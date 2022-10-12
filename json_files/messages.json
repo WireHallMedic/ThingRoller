@@ -18,7 +18,9 @@
 		,"!relic":" - generate relic details"
 		,"!quest <1-5>":" - generate a random quest using the Tiny Dungeons method, or up to five at a time."
 		,"!draw <1-52>":" - draw a card from a standard 52-card deck. Deck reshuffles when it runs out."
-		,"!shuffle":" - resuffle the deck"
+		,"!shuffle":" - resuffle the deck (leaving jokers as they already were; in or out)"
+		,"!jokers":" - resuffle the deck, using jokers"
+		,"!no jokers":" - resuffle the deck, leaving jokers out"
 		,"!kung fu <1-20>":" - generate a random Kung Fu move name"
 	}
 	,"commandNotes":"*<> indicates an optional argument*"
