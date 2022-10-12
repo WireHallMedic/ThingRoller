@@ -8,6 +8,7 @@ import deck
 import dice
 import socket
 import subtable_main
+import fate_roller
 
 #constants
 INT_REG_EX = "\d+"
