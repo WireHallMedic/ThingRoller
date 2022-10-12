@@ -143,7 +143,8 @@ async def on_message(message):
    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
       cmd = "fate"
       roll_obj = fate_dice.roll()
-      out_str = roll_obj[0]
+      out_str = roll_obj[0].replace("[", "(").replace("]", ")")
+      out_str = "**" + out_str.split(" ", 1)[0] + "** " + out_str.split(" ", 1)[1]
       # save image because we need a file
       roll_obj[1].save("last_roll.png", "PNG")
       with open("last_roll.png", 'rb') as f:
