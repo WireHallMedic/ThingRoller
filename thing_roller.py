@@ -71,6 +71,9 @@ for key in relic_dict["quirk"]:
 deck = deck.Deck(has_jokers = False)
 deck.shuffle()
 
+#fate dice object
+fate_dice = fate_roller.FateRoller()
+
 # table-based generators
 kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
@@ -96,6 +99,7 @@ async def on_message(message):
    cmd = cleanMessage(message.content)
    int_arg = 0
    out_str = None
+   out_file = None
    
    # extract any integer argument passed in
    if re.search(INT_REG_EX, cmd) != None:
@@ -133,9 +137,12 @@ async def on_message(message):
    if cmd == "interlude":
       out_str = generate_interlude()
       
-   # aliases for 4dF
-   if cmd == "fudge" or cmd == "fate":
-      cmd = "4df"
+   # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
+   if cmd == "fudge" or cmd == "4df" or cmd = "fate":
+      cmd = "fate"
+      roll_obj = fate_dice.roll()
+      out_str = roll_obj[0]
+      out_file = roll_obj[1]
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
@@ -178,6 +185,10 @@ async def on_message(message):
    # name generator
    if re.search("^name", cmd):
       out_str = generate_names(cmd, int_arg)
+   
+   # mixed output
+   if out_str != None and out_file != None:
+      await message.channel.send(out_str, file=out_file)
    
    # return result
    if out_str != None:
