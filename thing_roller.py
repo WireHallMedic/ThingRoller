@@ -145,7 +145,7 @@ async def on_message(message):
       roll_obj = fate_dice.roll()
       out_str = roll_obj[0]
       # save image because we need a file
-      roll_obj[1].save("last_roll", "PNG")
+      roll_obj[1].save("last_roll.png", "PNG")
       with open("last_roll.png", 'rb') as f:
          out_file = discord.File(f)
       
