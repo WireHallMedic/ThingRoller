@@ -144,7 +144,7 @@ async def on_message(message):
       roll_obj = fate_dice.roll()
       out_str = roll_obj[0]
       # out_file needs to be a filelike object
-      out_file = io.bytesio(roll_obj[1].tobytes())
+      out_file = io.BytesIO(roll_obj[1].tobytes())
    
    #roll some dice and/or calculate
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
