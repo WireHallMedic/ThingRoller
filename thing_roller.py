@@ -138,7 +138,7 @@ async def on_message(message):
       out_str = generate_interlude()
       
    # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
-   if cmd == "fudge" or cmd == "4df" or cmd = "fate":
+   if cmd == "fudge" or cmd == "4df" or cmd == "fate":
       cmd = "fate"
       roll_obj = fate_dice.roll()
       out_str = roll_obj[0]
@@ -189,6 +189,7 @@ async def on_message(message):
    # mixed output
    if out_str != None and out_file != None:
       await message.channel.send(out_str, file=out_file)
+      return
    
    # return result
    if out_str != None:
