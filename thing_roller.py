@@ -86,7 +86,7 @@ tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 intents = discord.Intents.default()
 intents.messages = True
 # client = discord.Client(intents=intents)
-client = Bot(intents=intents)
+client = Bot(command_prefix = "!", intents = intents)
 
 @client.event
 async def on_ready():
