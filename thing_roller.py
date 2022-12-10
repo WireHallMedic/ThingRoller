@@ -214,7 +214,7 @@ async def on_message(message):
    # return result
    if out_str != None:
       #await message.channel.send(out_str)
-      await client.send_message(message.channel, content=out_str)
+      await client.send(message.channel, content=out_str)
       return
 
 def cleanMessage(str):
