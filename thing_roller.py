@@ -89,6 +89,15 @@ client = discord.Client(intents=intents)
 async def on_ready():
     print(f'{client.user} has connected to Discord')
     
+# voie channels
+@bot.command()
+async def join(ctx):
+   channel = ctx.author.voice.channel
+   await channel.connect()
+@bot.command()
+async def leave(ctx):
+   await ctx.voice_client.disconnect()
+    
 @client.event
 async def on_message(message):
    # don't respond to self, empty messages, or things that don't start with a bang
