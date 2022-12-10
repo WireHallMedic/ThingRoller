@@ -94,16 +94,12 @@ async def on_ready():
     
 # voice channels
 @client.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
-async def _join(ctx, *, channel: discord.VoiceChannel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
+async def _join(ctx, *, channel: discord.Channel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
    """Joins a voice channel."""
-   destination = channel if channel else ctx.author.voice.channel # CHOOSING THE DESTINATION, MIGHT BE THE REQUESTED ONE, BUT IF NOT THEN WE PICK AUTHORS VOICE CHANNEL
-
-   if ctx.voice_client: # CHECKING IF THE BOT IS PLAYING SOMETHING
-      await ctx.voice_state.voice.move_to(destination) # IF THE BOT IS PLAYING WE JUST MOVE THE BOT TO THE DESTINATION
-      return
+   destination = channel
 
    await destination.connect() # CONNECTING TO DESTINATION
-   await ctx.send(f"Succesfully joined the voice channel: {destination.name} ({destination.id}).")
+   await ctx.send(f"Succesfully joined the channel: {destination.name} ({destination.id}).")
     
 @client.event
 async def on_message(message):
