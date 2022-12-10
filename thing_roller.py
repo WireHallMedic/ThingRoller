@@ -1,5 +1,6 @@
 import discord
 import discord.ext
+import discord.bot
 import json
 import re
 import os
