@@ -1,5 +1,6 @@
 import discord
 import discord.ext
+from discord.ext.commands import Bot
 import json
 import re
 import os
@@ -84,14 +85,15 @@ tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
 intents = discord.Intents.default()
 intents.messages = True
-client = discord.Client(intents=intents)
+# client = discord.Client(intents=intents)
+client = Bot(intents=intents)
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord')
     
 # voice channels
-@ client.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
+@client.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
 async def _join(ctx, *, channel: discord.VoiceChannel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
    """Joins a voice channel."""
    destination = channel if channel else ctx.author.voice.channel # CHOOSING THE DESTINATION, MIGHT BE THE REQUESTED ONE, BUT IF NOT THEN WE PICK AUTHORS VOICE CHANNEL
