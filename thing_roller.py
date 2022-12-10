@@ -99,7 +99,7 @@ async def _join(ctx, *, channel: discord.channel = None): # TAKING ARGUMENT CHAN
    destination = channel 
 
    await destination.connect() # CONNECTING TO DESTINATION
-   await ctx.send(f"Succesfully joined the channel: {destination.name} ({destination.id}).")
+   #await ctx.send(f"Succesfully joined the channel: {destination.name} ({destination.id}).")
     
 @client.event
 async def on_message(message):
