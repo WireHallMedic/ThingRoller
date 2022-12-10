@@ -207,7 +207,8 @@ async def on_message(message):
    
    # mixed output
    if out_file != None and out_str != None:
-      await message.channel.send(out_str, file=out_file)
+      #await message.channel.send(out_str, file=out_file)
+      await client.send_message(message.channel, content=out_str, file=out_file)
       return
    
    # return result
