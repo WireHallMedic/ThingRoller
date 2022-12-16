@@ -85,20 +85,20 @@ tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
 intents = discord.Intents.default()
 intents.messages = True
-# client = discord.Client(intents=intents)
-client = Bot(command_prefix = "!", intents = intents)
+client = discord.Client(intents=intents)
+#client = Bot(command_prefix = "!", intents = intents)
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord')
     
 # voice channels
-@client.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
-async def _join(ctx, *, channel: discord.channel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
-   """Joins a voice channel."""
-   destination = channel 
-
-   await destination.connect() # CONNECTING TO DESTINATION
+# @client.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
+# async def _join(ctx, *, channel: discord.channel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
+#    """Joins a voice channel."""
+#    destination = channel 
+# 
+#    await destination.connect() # CONNECTING TO DESTINATION
    #await ctx.send(f"Succesfully joined the channel: {destination.name} ({destination.id}).")
     
 @client.event
@@ -207,14 +207,12 @@ async def on_message(message):
    
    # mixed output
    if out_file != None and out_str != None:
-      #await message.channel.send(out_str, file=out_file)
-      await client.send_message(message.channel, content=out_str, file=out_file)
+      await message.channel.send(out_str, file=out_file)
       return
    
    # return result
    if out_str != None:
-      #await message.channel.send(out_str)
-      await client.send(message.channel, content=out_str)
+      await message.channel.send(out_str)
       return
 
 def cleanMessage(str):
