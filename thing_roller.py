@@ -92,8 +92,8 @@ client = Bot(command_prefix = "!", intents = intents)
 async def on_ready():
     print(f'{client.user} has connected to Discord')
 
-@bot.command()
-async def status(ctx, *):
+@client.command()
+async def status(ctx, arg):
    out_str = message_dict["goodStatus"]
    addr = getIPAddress()
    out_str = "{}\nBot hostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
