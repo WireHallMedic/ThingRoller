@@ -100,7 +100,8 @@ async def on_ready():
 # 
 #    await destination.connect() # CONNECTING TO DESTINATION
    #await ctx.send(f"Succesfully joined the channel: {destination.name} ({destination.id}).")
-    
+voice_channel = None
+
 @client.event
 async def on_message(message):
    # don't respond to self, empty messages, or things that don't start with a bang
@@ -110,8 +111,8 @@ async def on_message(message):
       return
    
    # join voice channel
-   if (message.member.voice.channel) {
-    const connection = await message.member.voice.channel.join();
+   if message.member.voice.channel and voice_channel == None
+      voice_channel = await message.member.voice.channel.join();
     
    # we've got a potential command, format it
    cmd = cleanMessage(message.content)
