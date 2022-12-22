@@ -287,7 +287,7 @@ def generate_kung_fu(reps):
    return out_str
 
 def generate_names(cmd, int_arg):
-   print(str_list)
+   print(cmd)
    str_list = cmd.split()
    str_list.append("")   # beacuse not everything needs a gender
    reps = 5
