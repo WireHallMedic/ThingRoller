@@ -85,126 +85,134 @@ tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
 intents = discord.Intents.default()
 intents.messages = True
-client = discord.Client(intents=intents)
-#client = Bot(command_prefix = "!", intents = intents)
+#client = discord.Client(intents=intents)
+client = Bot(command_prefix = "!", intents = intents)
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord')
 
-@client.event
-async def on_message(message):
-   # don't respond to self, empty messages, or things that don't start with a bang
-   if message.author == client.user or \
-      len(message.content) == 0 or \
-      message.content[0] != "!":
-      return
-    
-   # we've got a potential command, format it
-   cmd = cleanMessage(message.content)
-   int_arg = 0
-   out_str = None
-   out_file = None
-   
-   # extract any integer argument passed in
-   if re.search(INT_REG_EX, cmd) != None:
-      int_arg = int(re.search(INT_REG_EX, cmd)[0])
-   
-   # bot info
-   if cmd == "thingroller":
-      out_str = message_dict["botInfo"]
-      for key in message_dict["recognizedCommands"]:
-         out_str += "\n  " + key + " " + message_dict["recognizedCommands"][key]
-      out_str += "\n" + message_dict["commandNotes"]
-   elif cmd == "status":
-      out_str = message_dict["goodStatus"]
-      addr = getIPAddress()
-      out_str = "{}\nHostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
-      
-   # dice expression examples
-   if cmd == "examples":
-      out_str = "__Examples of Things I Can Calculate__:\n"
-      out_str += message_dict["formatExamples"] + "\n"
-      out_str += message_dict["formatNotes"]
-      
-   # stat block
-   if cmd == "stat block":
-      out_str = dice.roll_stat_block()
-      
-   # roll tavern
-   if re.search("^tavern", cmd):
-      out_str = generate_tavern(int_arg)
-   
-   if re.search("^kung fu", cmd):
-      out_str = generate_kung_fu(int_arg)
-      
-   # roll interlude
-   if cmd == "interlude":
-      out_str = generate_interlude()
-      
-   # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
-   if cmd == "fudge" or cmd == "4df" or cmd == "fate":
-      cmd = "fate"
-      roll_obj = fate_dice.roll()
-      out_str = roll_obj[0].replace("[", "(").replace("]", ")")
-      out_str = "**" + out_str.split(" ", 1)[0] + "** " + out_str.split(" ", 1)[1]
-      # save image because we need a file
-      roll_obj[1].save("last_roll.png", "PNG")
-      with open("last_roll.png", 'rb') as f:
-         out_file = discord.File(f)
-      
-   
-   #roll some dice and/or calculate
-   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
-      out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
-      if out_str == None:
-         out_str = message_dict["parsingFailure"].format(cmd)
-   
-   #relic generator
-   if cmd == "relic":
-      out_str = generate_relic()
-   
-   #draw cards
-   if re.search("^draw", cmd):
-      num_to_draw = max(1, int_arg)
-      num_to_draw = min(52, num_to_draw)
-      out_str = ""
-      for i in range(num_to_draw):
-         out_str = out_str + str(deck.draw_card()) + " "
-   
-   #generate quests
-   if re.search("^quest", cmd):
-      num_of_quests = max(1, int_arg)
-      num_of_quests = min(5, num_of_quests)
-      out_str = ""
-      for i in range(num_of_quests):
-         out_str = out_str + quest_generator.roll() + "\n"
-      out_str = out_str.strip()
-   
-   #shuffle cards
-   if cmd == "shuffle":
-      deck.shuffle()
-      out_str = "Deck reshuffled"
-   if cmd == "shuffle jokers" or cmd == "jokers":
-      deck.shuffle(True)
-      out_str = "Deck reshuffled (jokers included)"
-   if cmd == "shuffle no jokers" or cmd == "no jokers":
-      deck.shuffle(False)
-      out_str = "Deck reshuffled (jokers excluded)"
-   
-   # name generator
-   if re.search("^name", cmd):
-      out_str = generate_names(cmd, int_arg)
-   
-   # mixed output
-   if out_file != None and out_str != None:
-      await message.channel.send(out_str, file=out_file)
-      return
-   
-   # return result
-   if out_str != None:
-      await message.channel.send(out_str)
-      return
+@bot.command()
+async def status(ctx, *):
+   out_str = message_dict["goodStatus"]
+   addr = getIPAddress()
+   out_str = "{}\nBot hostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
+   await ctx.send(out_str)
+
+# @client.event
+# async def on_message(message):
+#    # don't respond to self, empty messages, or things that don't start with a bang
+#    if message.author == client.user or \
+#       len(message.content) == 0 or \
+#       message.content[0] != "!":
+#       return
+#     
+#    # we've got a potential command, format it
+#    cmd = cleanMessage(message.content)
+#    int_arg = 0
+#    out_str = None
+#    out_file = None
+#    
+#    # extract any integer argument passed in
+#    if re.search(INT_REG_EX, cmd) != None:
+#       int_arg = int(re.search(INT_REG_EX, cmd)[0])
+#    
+#    # bot info
+#    if cmd == "thingroller":
+#       out_str = message_dict["botInfo"]
+#       for key in message_dict["recognizedCommands"]:
+#          out_str += "\n  " + key + " " + message_dict["recognizedCommands"][key]
+#       out_str += "\n" + message_dict["commandNotes"]
+
+#    elif cmd == "status":
+#       out_str = message_dict["goodStatus"]
+#       addr = getIPAddress()
+#       out_str = "{}\nHostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
+#       
+#    # dice expression examples
+#    if cmd == "examples":
+#       out_str = "__Examples of Things I Can Calculate__:\n"
+#       out_str += message_dict["formatExamples"] + "\n"
+#       out_str += message_dict["formatNotes"]
+#       
+#    # stat block
+#    if cmd == "stat block":
+#       out_str = dice.roll_stat_block()
+#       
+#    # roll tavern
+#    if re.search("^tavern", cmd):
+#       out_str = generate_tavern(int_arg)
+#    
+#    if re.search("^kung fu", cmd):
+#       out_str = generate_kung_fu(int_arg)
+#       
+#    # roll interlude
+#    if cmd == "interlude":
+#       out_str = generate_interlude()
+#       
+#    # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
+#    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
+#       cmd = "fate"
+#       roll_obj = fate_dice.roll()
+#       out_str = roll_obj[0].replace("[", "(").replace("]", ")")
+#       out_str = "**" + out_str.split(" ", 1)[0] + "** " + out_str.split(" ", 1)[1]
+#       # save image because we need a file
+#       roll_obj[1].save("last_roll.png", "PNG")
+#       with open("last_roll.png", 'rb') as f:
+#          out_file = discord.File(f)
+#       
+#    
+#    #roll some dice and/or calculate
+#    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
+#       out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
+#       if out_str == None:
+#          out_str = message_dict["parsingFailure"].format(cmd)
+#    
+#    #relic generator
+#    if cmd == "relic":
+#       out_str = generate_relic()
+#    
+#    #draw cards
+#    if re.search("^draw", cmd):
+#       num_to_draw = max(1, int_arg)
+#       num_to_draw = min(52, num_to_draw)
+#       out_str = ""
+#       for i in range(num_to_draw):
+#          out_str = out_str + str(deck.draw_card()) + " "
+#    
+#    #generate quests
+#    if re.search("^quest", cmd):
+#       num_of_quests = max(1, int_arg)
+#       num_of_quests = min(5, num_of_quests)
+#       out_str = ""
+#       for i in range(num_of_quests):
+#          out_str = out_str + quest_generator.roll() + "\n"
+#       out_str = out_str.strip()
+#    
+#    #shuffle cards
+#    if cmd == "shuffle":
+#       deck.shuffle()
+#       out_str = "Deck reshuffled"
+#    if cmd == "shuffle jokers" or cmd == "jokers":
+#       deck.shuffle(True)
+#       out_str = "Deck reshuffled (jokers included)"
+#    if cmd == "shuffle no jokers" or cmd == "no jokers":
+#       deck.shuffle(False)
+#       out_str = "Deck reshuffled (jokers excluded)"
+#    
+#    # name generator
+#    if re.search("^name", cmd):
+#       out_str = generate_names(cmd, int_arg)
+#    
+#    # mixed output
+#    if out_file != None and out_str != None:
+#       await message.channel.send(out_str, file=out_file)
+#       return
+#    
+#    # return result
+#    if out_str != None:
+#       await message.channel.send(out_str)
+#       return
 
 def cleanMessage(str):
    new_str = str[1:]
