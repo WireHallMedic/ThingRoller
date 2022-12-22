@@ -233,7 +233,7 @@ async def r(ctx, *, arg_str):
 async def name(ctx, *, arg_str):
    try:
       name_args = get_args_for_name(arg_str)
-      await ctx.send(name_args[0], name_args[1])
+      await ctx.send(generate_names(name_args[0], name_args[1]))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
