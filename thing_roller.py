@@ -233,7 +233,8 @@ async def r(ctx, *, arg_str):
 async def name(ctx, *, arg_str):
    try:
       name_args = get_args_for_name(arg_str)
-      await ctx.send(generate_names(name_args[0], name_args[1]))
+      name_list = generate_names(name_args[0], name_args[1])
+      await ctx.send(name_list)
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
@@ -286,6 +287,7 @@ def generate_kung_fu(reps):
    return out_str
 
 def generate_names(cmd, int_arg):
+   print(str_list)
    str_list = cmd.split()
    str_list.append("")   # beacuse not everything needs a gender
    reps = 5
