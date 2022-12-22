@@ -218,50 +218,37 @@ async def draw(ctx, *args):
       out_str = out_str + str(deck.draw_card()) + " "
    await ctx.send(out_str)
 
+# roll
+@client.command()
+async def roll(ctx, *, arg_str):
+   do_roll(ctx, arg_str)
+
+# r
+@client.command()
+async def r(ctx, *, arg_str):
+   do_roll(ctx, arg_str)
+
 # name
 @client.command()
-async def name(ctx, *args):
+async def name(ctx, *, arg_str):
    try:
-      int_arg = get_int_arg(args)
-      await ctx.send(generate_tavern(int_arg))
+      int_arg = get_int_arg(arg_str)
+      try:
+         int_arg = int(int_arg)
+      except:
+         int_arg = 1
+      await ctx.send(generate_names(arg_str, int_arg))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
-   
-# dice expressions are handled differently, as they have no command (but start with a !)
-# also handles names
-@client.event
-async def on_message(message):
-   # don't respond to self, empty messages, or things that don't start with a bang
-   if message.author == client.user or \
-      len(message.content) == 0 or \
-      message.content[0] != "!":
-      return
-    
-   # we've got a potential command, format it
-   cmd = cleanMessage(message.content)
-   out_str = None
-   int_arg = 1
-   
-   # extract any integer argument passed in
-   if re.search(INT_REG_EX, cmd) != None:
-      int_arg = int(re.search(INT_REG_EX, cmd)[0])
-  
-   #roll some dice and/or calculate
+
+# roll some dice and/or calculate
+async def do_roll(ctx, arg_str):
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
       out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
-      if out_str == None:
-         out_str = message_dict["parsingFailure"].format(cmd)
+   if out_str == None:
+      out_str = message_dict["parsingFailure"].format(cmd)
+   await ctx.send(out_str)
    
-   # name generator
-   if re.search("^name", cmd):
-      out_str = generate_names(cmd, int_arg)
-   
-   # return result
-   if out_str != None:
-      #await message.channel.send(content=out_str)
-      await client.send_message(message.channel, out_str)
-      return
-
 # extracts last argument if longer than min length
 def get_int_arg(args, min_length = 0):
    int_arg = 1
