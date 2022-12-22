@@ -117,12 +117,12 @@ async def statblock(ctx, *args):
 # fudge
 @client.command()
 async def fudge(ctx, *args):
-   do_fudge_roll(ctx, args)
+   await do_fudge_roll(ctx, args)
 
 # fate
 @client.command()
 async def fate(ctx, *args):
-   do_fudge_roll(ctx, args)
+   await do_fudge_roll(ctx, args)
 
 # work method for fudge/fate
 async def do_fudge_roll(ctx, args):
