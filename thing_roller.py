@@ -92,14 +92,6 @@ client = Bot(command_prefix = "!", intents = intents)
 async def on_ready():
     print(f'{client.user} has connected to Discord')
 
-# status
-@client.command()
-async def status(ctx, *args):
-   out_str = message_dict["goodStatus"]
-   addr = getIPAddress()
-   out_str = "{}\nBot hostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
-   await ctx.send(out_str)
-
 # table of contents
 @client.command()
 async def thingroller(ctx, *args):
@@ -108,7 +100,23 @@ async def thingroller(ctx, *args):
       out_str += "\n  " + key + " " + message_dict["recognizedCommands"][key]
    out_str += "\n" + message_dict["commandNotes"]
    await ctx.send(out_str)
+   
+# status
+@client.command()
+async def status(ctx, *args):
+   out_str = message_dict["goodStatus"]
+   addr = getIPAddress()
+   out_str = "{}\nBot hostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
+   await ctx.send(out_str)
 
+# examples
+@client.command()
+async def examples(ctx, *args):
+   out_str = "__Examples of Things I Can Calculate__:\n"
+   out_str += message_dict["formatExamples"] + "\n"
+   out_str += message_dict["formatNotes"]
+   await ctx.send(out_str)
+   
 # stat block
 @client.command()
 async def statblock(ctx, *args):
@@ -220,7 +228,6 @@ async def name(ctx, *args):
       await ctx.send(f"Unable to understand '{args[0]}'.")
    
 
-#       out_str = 
 # @client.event
 # async def on_message(message):
 #    # don't respond to self, empty messages, or things that don't start with a bang
@@ -239,25 +246,7 @@ async def name(ctx, *args):
 #    if re.search(INT_REG_EX, cmd) != None:
 #       int_arg = int(re.search(INT_REG_EX, cmd)[0])
 #   
-#       
-#    # dice expression examples
-#    if cmd == "examples":
-#       out_str = "__Examples of Things I Can Calculate__:\n"
-#       out_str += message_dict["formatExamples"] + "\n"
-#       out_str += message_dict["formatNotes"]
-
-#       
-#    # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
-#    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
-#       cmd = "fate"
-#       roll_obj = fate_dice.roll()
-#       out_str = roll_obj[0].replace("[", "(").replace("]", ")")
-#       out_str = "**" + out_str.split(" ", 1)[0] + "** " + out_str.split(" ", 1)[1]
-#       # save image because we need a file
-#       roll_obj[1].save("last_roll.png", "PNG")
-#       with open("last_roll.png", 'rb') as f:
-#          out_file = discord.File(f)
-#       
+#    
 #    
 #    #roll some dice and/or calculate
 #    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
