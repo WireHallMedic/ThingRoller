@@ -109,6 +109,10 @@ async def on_message(message):
       message.content[0] != "!":
       return
    
+   # join voice channel
+   if (message.member.voice.channel) {
+    const connection = await message.member.voice.channel.join();
+    
    # we've got a potential command, format it
    cmd = cleanMessage(message.content)
    int_arg = 0
