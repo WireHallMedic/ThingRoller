@@ -258,7 +258,7 @@ async def on_message(message):
    
    # return result
    if out_str != None:
-      await message.channel.send(out_str)
+      await message.channel.send(content=out_str)
       return
 
 # extracts last argument if longer than min length
