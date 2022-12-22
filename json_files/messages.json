@@ -12,7 +12,7 @@
 		,"!fudge":" - roll 4dF (used in the game FUDGE)"
 		,"!fate":" - roll 4dF (used in the game Fate)"
 		,"!tavern <1-20>":" - generate a random tavern name"
-		,"!stat block":" - 4d6 drop the lowest eight times, take the top 6"
+		,"!statblock":" - 4d6 drop the lowest eight times, take the top 6"
 		,"!interlude":" - generate an interlude"
 		,"!name [type] [gender] <1-20>":" - generate 5 names, or a user-specified number. I can generate names of the following type: angel (genderless), demon (genderless), dragon (genderless), dragonborn, dwarf, elf, european, gnome, halfling, orc."
 		,"!relic":" - generate relic details"
@@ -20,8 +20,8 @@
 		,"!draw <1-52>":" - draw a card from a standard 52-card deck. Deck reshuffles when it runs out."
 		,"!shuffle":" - resuffle the deck (leaving jokers as they already were; in or out)"
 		,"!jokers":" - resuffle the deck, using jokers"
-		,"!no jokers":" - resuffle the deck, leaving jokers out"
-		,"!kung fu <1-20>":" - generate a random Kung Fu move name"
+		,"!nojokers":" - resuffle the deck, leaving jokers out"
+		,"!kungfu <1-20>":" - generate a random Kung Fu move name"
 	}
 	,"commandNotes":"*<> indicates an optional argument*"
 }

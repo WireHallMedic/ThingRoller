@@ -92,6 +92,7 @@ client = Bot(command_prefix = "!", intents = intents)
 async def on_ready():
     print(f'{client.user} has connected to Discord')
 
+# status
 @client.command()
 async def status(ctx, *args):
    out_str = message_dict["goodStatus"]
@@ -99,6 +100,83 @@ async def status(ctx, *args):
    out_str = "{}\nBot hostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
    await ctx.send(out_str)
 
+# table of contents
+@client.command()
+async def thingroller(ctx, *args):
+   out_str = message_dict["botInfo"]
+   for key in message_dict["recognizedCommands"]:
+      out_str += "\n  " + key + " " + message_dict["recognizedCommands"][key]
+   out_str += "\n" + message_dict["commandNotes"]
+   await ctx.send(out_str)
+
+# stat block
+@client.command()
+async def statblock(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# fudge
+@client.command()
+async def fudge(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# fate
+@client.command()
+async def fate(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# tavern
+@client.command()
+async def tavern(ctx, *args):
+   try:
+      int_arg = 0
+      if len(args) > 0:
+         int_arg = int(args[0])
+      await ctx.send(generate_tavern(int_arg))
+   except:
+      await ctx.send(f"Unable to understand '{args}'.")
+
+#interlude
+@client.command()
+async def interlude(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# relic
+@client.command()
+async def relic(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# quest
+@client.quest()
+async def statblock(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# kungfu
+@client.quest()
+async def statblock(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# shuffle
+@client.command()
+async def shuffle(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# jokers
+@client.command()
+async def jokers(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# nojokers
+@client.command()
+async def nojokers(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+
+# name
+@client.command()
+async def statblock(ctx, *args):
+   await ctx.send(dice.roll_stat_block())
+   
+
+#       out_str = 
 # @client.event
 # async def on_message(message):
 #    # don't respond to self, empty messages, or things that don't start with a bang
@@ -116,32 +194,14 @@ async def status(ctx, *args):
 #    # extract any integer argument passed in
 #    if re.search(INT_REG_EX, cmd) != None:
 #       int_arg = int(re.search(INT_REG_EX, cmd)[0])
-#    
-#    # bot info
-#    if cmd == "thingroller":
-#       out_str = message_dict["botInfo"]
-#       for key in message_dict["recognizedCommands"]:
-#          out_str += "\n  " + key + " " + message_dict["recognizedCommands"][key]
-#       out_str += "\n" + message_dict["commandNotes"]
-
-#    elif cmd == "status":
-#       out_str = message_dict["goodStatus"]
-#       addr = getIPAddress()
-#       out_str = "{}\nHostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
+#   
 #       
 #    # dice expression examples
 #    if cmd == "examples":
 #       out_str = "__Examples of Things I Can Calculate__:\n"
 #       out_str += message_dict["formatExamples"] + "\n"
 #       out_str += message_dict["formatNotes"]
-#       
-#    # stat block
-#    if cmd == "stat block":
-#       out_str = dice.roll_stat_block()
-#       
-#    # roll tavern
-#    if re.search("^tavern", cmd):
-#       out_str = generate_tavern(int_arg)
+
 #    
 #    if re.search("^kung fu", cmd):
 #       out_str = generate_kung_fu(int_arg)
