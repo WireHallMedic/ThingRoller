@@ -232,12 +232,7 @@ async def r(ctx, *, arg_str):
 @client.command()
 async def name(ctx, *, arg_str):
    try:
-      int_arg = get_int_arg(arg_str)
-      try:
-         int_arg = int(int_arg)
-      except:
-         int_arg = 1
-      await ctx.send(generate_names(arg_str, int_arg))
+      await ctx.send(get_args_for_name(arg_str))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
@@ -249,18 +244,25 @@ async def do_roll(ctx, arg_str):
       out_str = message_dict["parsingFailure"].format(arg_str)
    await ctx.send(out_str)
    
-# extracts last argument if longer than min length
+# extracts last argument if longer than min length, else 1
 def get_int_arg(args, min_length = 0):
    int_arg = 1
    if len(args) > min_length:
-      int_arg = args[len(args) - 1]
+      int_arg = args.pop()
    return int_arg
 
-def cleanMessage(str):
-   new_str = str[1:]
-   new_str = new_str.lower()
-   new_str = new_str.strip()
-   return new_str
+# return a tuple of the main argument string, and the int arg
+def get_args_for_name(arg_str):
+   main_arg_str = arg_str
+   int_arg = 1
+   try:
+      split_args = arg_str.split(" ")
+      last_arg = split_args.pop()
+      int_arg = int(last_arg)
+      arg_str = arg_str.replace(last_arg, "").strip()
+      return (arg_str, int_arg)
+   except:
+      return (arg_str, 1)
 
 def generate_tavern(reps):
    reps = max(1, reps)
