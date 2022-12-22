@@ -172,7 +172,7 @@ async def nojokers(ctx, *args):
 
 # name
 @client.command()
-async def statblock(ctx, *args):
+async def name(ctx, *args):
    await ctx.send(dice.roll_stat_block())
    
 
