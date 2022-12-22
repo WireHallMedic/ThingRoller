@@ -146,13 +146,13 @@ async def relic(ctx, *args):
    await ctx.send(dice.roll_stat_block())
 
 # quest
-@client.quest()
-async def statblock(ctx, *args):
+@client.command()
+async def quest(ctx, *args):
    await ctx.send(dice.roll_stat_block())
 
 # kungfu
-@client.quest()
-async def statblock(ctx, *args):
+@client.command()
+async def kungfu(ctx, *args):
    await ctx.send(dice.roll_stat_block())
 
 # shuffle
