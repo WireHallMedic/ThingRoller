@@ -91,16 +91,6 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord')
-    
-# voice channels
-# @client.command(name='join',aliases = ['summon']) # CREATING COMMAND "JOIN" WITH ALIAS SUMMON
-# async def _join(ctx, *, channel: discord.channel = None): # TAKING ARGUMENT CHANNEL SO PPL CAN MAKE THE BOT JOIN A VOICE CHANNEL THAT THEY ARE NOT IN
-#    """Joins a voice channel."""
-#    destination = channel 
-# 
-#    await destination.connect() # CONNECTING TO DESTINATION
-   #await ctx.send(f"Succesfully joined the channel: {destination.name} ({destination.id}).")
-voice_channel = None
 
 @client.event
 async def on_message(message):
@@ -109,10 +99,6 @@ async def on_message(message):
       len(message.content) == 0 or \
       message.content[0] != "!":
       return
-   
-   # join voice channel
-   if message.member.voice.channel and voice_channel == None
-      voice_channel = await message.member.voice.channel.join();
     
    # we've got a potential command, format it
    cmd = cleanMessage(message.content)
