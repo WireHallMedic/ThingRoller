@@ -287,7 +287,6 @@ def generate_kung_fu(reps):
    return out_str
 
 def generate_names(cmd, int_arg):
-   print(cmd)
    str_list = cmd.split()
    str_list.append("")   # beacuse not everything needs a gender
    reps = 5
@@ -298,7 +297,7 @@ def generate_names(cmd, int_arg):
    out_str = ""
    try:
       for i in range(0, reps):
-         out_str += get_single_name(str_list[1], str_list[2]) + "\n"
+         out_str += get_single_name(str_list[0], str_list[1]) + "\n"
       out_str = out_str[:-1] # trim the last newline
       return out_str
    except:
