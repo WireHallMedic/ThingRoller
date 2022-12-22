@@ -1,13 +1,14 @@
 {
 	"botInfo":"Hello, I'm ThingRoller! I roll dice and tables and stuff. I am case-insensitive.\n__Recognized Commands__:"
-	, "formatExamples":"  !d6\n  !1d6\n  !advantage\n  !disadvantage\n  !1d6 + 3\n  !advantage + d4 + 3d8 - 8\n  !-4\n  !5 * 3\n  !-3d6 / 4\n  4dF\n  Advantage is the higer of two d20\n  Disadvantage is the lower of two d20\n  A dF is a d6 marked with -1, -1, 0, 0, +1, +1"
+	, "formatExamples":"  !roll d6\n  !r 1d6\n  !r advantage\n  !r disadvantage\n  !r 1d6 + 3\n  !r advantage + d4 + 3d8 - 8\n  !r -4\n  !r 5 * 3\n  !r -3d6 / 4\n  Advantage is the higer of two d20\n  Disadvantage is the lower of two d20"
 	, "parsingFailure":"I feel like I should calculate '{}', but can't parse it. Sorry."
 	, "nameParsingFailure":"I was unable to parse the command {}. Please enter name generation in the format of !name [type] [gender]."
 	, "formatNotes":"Note: I don't recognize parentheses, and I evaluate left to right. I won't roll more than a million dice at a time."
 	, "goodStatus":"ThingRoller status: online"
 	,"recognizedCommands":
 	{
-		"![dice expression]":" - roll and calculate"
+		"!roll [dice expression]":" - roll and calculate"
+		,"!r [dice expression]":" - roll and calculate"
 		,"!examples":" - show examples of legal dice expressions"
 		,"!fudge":" - roll 4dF (used in the game FUDGE)"
 		,"!fate":" - roll 4dF (used in the game Fate)"
