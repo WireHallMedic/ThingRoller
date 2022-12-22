@@ -117,7 +117,14 @@ async def statblock(ctx, *args):
 # fudge
 @client.command()
 async def fudge(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   roll_obj = fate_dice.roll()
+   out_str = roll_obj[0].replace("[", "(").replace("]", ")")
+   out_str = "**" + out_str.split(" ", 1)[0] + "** " + out_str.split(" ", 1)[1]
+   # save image because we need a file
+   roll_obj[1].save("last_roll.png", "PNG")
+   with open("last_roll.png", 'rb') as f:
+      out_file = discord.File(f)
+   await ctx.send(out_str, file=out_file)
 
 # fate
 @client.command()
@@ -128,52 +135,85 @@ async def fate(ctx, *args):
 @client.command()
 async def tavern(ctx, *args):
    try:
-      int_arg = 0
-      if len(args) > 0:
-         int_arg = int(args[0])
+      int_arg = get_int_arg(args)
       await ctx.send(generate_tavern(int_arg))
    except:
-      await ctx.send(f"Unable to understand '{args}'.")
+      await ctx.send(f"Unable to understand '{args[0]}'.")
 
-#interlude
+# interlude
 @client.command()
 async def interlude(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   await ctx.send(generate_interlude())
 
 # relic
 @client.command()
 async def relic(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   await ctx.send(generate_relic())
 
 # quest
 @client.command()
 async def quest(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   try:
+      int_arg = get_int_arg(args)
+      num_of_quests = max(1, int_arg)
+      num_of_quests = min(5, num_of_quests)
+      out_str = ""
+      for i in range(num_of_quests):
+         out_str = out_str + quest_generator.roll() + "\n"
+      out_str = out_str.strip()
+      await ctx.send(generate_tavern(int_arg))
+   except:
+      await ctx.send(f"Unable to understand '{args[0]}'.")
 
 # kungfu
 @client.command()
 async def kungfu(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   try:
+      int_arg = get_int_arg(args)
+      await ctx.send(generate_kung_fu(int_arg))
+   except:
+      await ctx.send(f"Unable to understand '{args[0]}'.")
 
 # shuffle
 @client.command()
 async def shuffle(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   deck.shuffle()
+   out_str = "Deck reshuffled"
+   await ctx.send(out_str)
 
 # jokers
 @client.command()
 async def jokers(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   deck.shuffle(True)
+   out_str = "Deck reshuffled (jokers included)."
+   await ctx.send(out_str)
 
 # nojokers
 @client.command()
 async def nojokers(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   deck.shuffle(True)
+   out_str = "Deck reshuffled (jokers excluded)."
+   await ctx.send(out_str)
+
+# draw
+@client.command()
+async def draw(ctx, *args):
+   int_arg = get_int_arg(args)
+   num_to_draw = max(1, int_arg)
+   num_to_draw = min(52, num_to_draw)
+   out_str = ""
+   for i in range(num_to_draw):
+      out_str = out_str + str(deck.draw_card()) + " "
+   await ctx.send(out_str)
 
 # name
 @client.command()
 async def name(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   try:
+      int_arg = get_int_arg(args)
+      await ctx.send(generate_tavern(int_arg))
+   except:
+      await ctx.send(f"Unable to understand '{args[0]}'.")
    
 
 #       out_str = 
@@ -202,13 +242,6 @@ async def name(ctx, *args):
 #       out_str += message_dict["formatExamples"] + "\n"
 #       out_str += message_dict["formatNotes"]
 
-#    
-#    if re.search("^kung fu", cmd):
-#       out_str = generate_kung_fu(int_arg)
-#       
-#    # roll interlude
-#    if cmd == "interlude":
-#       out_str = generate_interlude()
 #       
 #    # aliases for Fate dice (4dF are special, other xdF handled by dice roller)
 #    if cmd == "fudge" or cmd == "4df" or cmd == "fate":
@@ -228,38 +261,6 @@ async def name(ctx, *args):
 #       if out_str == None:
 #          out_str = message_dict["parsingFailure"].format(cmd)
 #    
-#    #relic generator
-#    if cmd == "relic":
-#       out_str = generate_relic()
-#    
-#    #draw cards
-#    if re.search("^draw", cmd):
-#       num_to_draw = max(1, int_arg)
-#       num_to_draw = min(52, num_to_draw)
-#       out_str = ""
-#       for i in range(num_to_draw):
-#          out_str = out_str + str(deck.draw_card()) + " "
-#    
-#    #generate quests
-#    if re.search("^quest", cmd):
-#       num_of_quests = max(1, int_arg)
-#       num_of_quests = min(5, num_of_quests)
-#       out_str = ""
-#       for i in range(num_of_quests):
-#          out_str = out_str + quest_generator.roll() + "\n"
-#       out_str = out_str.strip()
-#    
-#    #shuffle cards
-#    if cmd == "shuffle":
-#       deck.shuffle()
-#       out_str = "Deck reshuffled"
-#    if cmd == "shuffle jokers" or cmd == "jokers":
-#       deck.shuffle(True)
-#       out_str = "Deck reshuffled (jokers included)"
-#    if cmd == "shuffle no jokers" or cmd == "no jokers":
-#       deck.shuffle(False)
-#       out_str = "Deck reshuffled (jokers excluded)"
-#    
 #    # name generator
 #    if re.search("^name", cmd):
 #       out_str = generate_names(cmd, int_arg)
@@ -273,6 +274,13 @@ async def name(ctx, *args):
 #    if out_str != None:
 #       await message.channel.send(out_str)
 #       return
+
+# extracts last argument if longer than min length
+def get_int_arg(args, min_length = 0):
+   int_arg = 1
+   if len(args) > min_length:
+      int_arg = args[len(args) - 1]
+   return int_arg
 
 def cleanMessage(str):
    new_str = str[1:]
