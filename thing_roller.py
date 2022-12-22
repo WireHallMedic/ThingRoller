@@ -243,10 +243,10 @@ async def name(ctx, *, arg_str):
 
 # roll some dice and/or calculate
 async def do_roll(ctx, arg_str):
-   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
-      out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
+   if re.search(SHOULD_CALCULATE_REG_EX, arg_str) != None:
+      out_str = dice.resolve_dice_expression(arg_str.replace("*", "x"))
    if out_str == None:
-      out_str = message_dict["parsingFailure"].format(cmd)
+      out_str = message_dict["parsingFailure"].format(arg_str)
    await ctx.send(out_str)
    
 # extracts last argument if longer than min length
