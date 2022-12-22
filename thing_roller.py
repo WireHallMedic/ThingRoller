@@ -227,46 +227,39 @@ async def name(ctx, *args):
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
    
-
-# @client.event
-# async def on_message(message):
-#    # don't respond to self, empty messages, or things that don't start with a bang
-#    if message.author == client.user or \
-#       len(message.content) == 0 or \
-#       message.content[0] != "!":
-#       return
-#     
-#    # we've got a potential command, format it
-#    cmd = cleanMessage(message.content)
-#    int_arg = 0
-#    out_str = None
-#    out_file = None
-#    
-#    # extract any integer argument passed in
-#    if re.search(INT_REG_EX, cmd) != None:
-#       int_arg = int(re.search(INT_REG_EX, cmd)[0])
-#   
-#    
-#    
-#    #roll some dice and/or calculate
-#    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
-#       out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
-#       if out_str == None:
-#          out_str = message_dict["parsingFailure"].format(cmd)
-#    
-#    # name generator
-#    if re.search("^name", cmd):
-#       out_str = generate_names(cmd, int_arg)
-#    
-#    # mixed output
-#    if out_file != None and out_str != None:
-#       await message.channel.send(out_str, file=out_file)
-#       return
-#    
-#    # return result
-#    if out_str != None:
-#       await message.channel.send(out_str)
-#       return
+# dice expressions are handled differently, as they have no command (but start with a !)
+# also handles names
+@client.event
+async def on_message(message):
+   # don't respond to self, empty messages, or things that don't start with a bang
+   if message.author == client.user or \
+      len(message.content) == 0 or \
+      message.content[0] != "!":
+      return
+    
+   # we've got a potential command, format it
+   cmd = cleanMessage(message.content)
+   out_str = None
+   int_arg = 1
+   
+   # extract any integer argument passed in
+   if re.search(INT_REG_EX, cmd) != None:
+      int_arg = int(re.search(INT_REG_EX, cmd)[0])
+  
+   #roll some dice and/or calculate
+   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
+      out_str = dice.resolve_dice_expression(cmd.replace("*", "x"))
+      if out_str == None:
+         out_str = message_dict["parsingFailure"].format(cmd)
+   
+   # name generator
+   if re.search("^name", cmd):
+      out_str = generate_names(cmd, int_arg)
+   
+   # return result
+   if out_str != None:
+      await message.channel.send(out_str)
+      return
 
 # extracts last argument if longer than min length
 def get_int_arg(args, min_length = 0):
