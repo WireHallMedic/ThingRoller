@@ -232,7 +232,8 @@ async def r(ctx, *, arg_str):
 @client.command()
 async def name(ctx, *, arg_str):
    try:
-      await ctx.send(get_args_for_name(arg_str))
+      name_args = get_args_for_name(arg_str)
+      await ctx.send(name_args[0], name_args[1])
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
