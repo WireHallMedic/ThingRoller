@@ -117,13 +117,12 @@ def resolve_single_operator(sum, val, op):
 def roll_stat_block():
    stat = []
    rolled_str = []
-   for i in range(8):
+   for i in range(6):
       roll_arr = roll_single_stat()
       sum = roll_arr[0] + roll_arr[1] + roll_arr[2] + roll_arr[3] - min(roll_arr)
       rolled_str.append(f'{sum} ({roll_arr[0]}, {roll_arr[1]}, {roll_arr[2]}, {roll_arr[3]})')
       stat.append(sum)
    stat.sort(reverse=True)
-   stat = stat[0:-2]
    out_str = "**Results : "
    for i in range(0, 6):
       out_str += f'{stat[i]}'
