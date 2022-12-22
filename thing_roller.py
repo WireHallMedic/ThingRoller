@@ -117,6 +117,15 @@ async def statblock(ctx, *args):
 # fudge
 @client.command()
 async def fudge(ctx, *args):
+   do_fudge_roll(ctx, *args)
+
+# fate
+@client.command()
+async def fate(ctx, *args):
+   do_fudge_roll(ctx, *args)
+
+# work method for fudge/fate
+async def do_fudge_roll(ctx, args):
    roll_obj = fate_dice.roll()
    out_str = roll_obj[0].replace("[", "(").replace("]", ")")
    out_str = "**" + out_str.split(" ", 1)[0] + "** " + out_str.split(" ", 1)[1]
@@ -124,12 +133,7 @@ async def fudge(ctx, *args):
    roll_obj[1].save("last_roll.png", "PNG")
    with open("last_roll.png", 'rb') as f:
       out_file = discord.File(f)
-   await ctx.send(out_str, file=out_file)
-
-# fate
-@client.command()
-async def fate(ctx, *args):
-   await ctx.send(dice.roll_stat_block())
+   await ctx.send(content=out_str, file=out_file)
 
 # tavern
 @client.command()
