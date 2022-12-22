@@ -221,12 +221,12 @@ async def draw(ctx, *args):
 # roll
 @client.command()
 async def roll(ctx, *, arg_str):
-   do_roll(ctx, arg_str)
+   await do_roll(ctx, arg_str)
 
 # r
 @client.command()
 async def r(ctx, *, arg_str):
-   do_roll(ctx, arg_str)
+   await do_roll(ctx, arg_str)
 
 # name
 @client.command()
