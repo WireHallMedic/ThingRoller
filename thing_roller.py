@@ -250,8 +250,8 @@ async def do_roll(ctx, arg_str):
 def get_int_arg(args, min_length = 0):
    int_arg = 1
    try:
-   if len(args) > min_length:
-      int_arg = int(args.pop())
+      if len(args) > min_length:
+         int_arg = int(args.pop())
    except:
       int_arg = 1
    return int_arg
