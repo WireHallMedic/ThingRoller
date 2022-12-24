@@ -181,6 +181,7 @@ async def quest(ctx, *args):
 @client.command()
 async def kungfu(ctx, *args):
    try:
+      print(args)
       int_arg = get_int_arg(args)
       await ctx.send(generate_kung_fu(int_arg))
    except:
