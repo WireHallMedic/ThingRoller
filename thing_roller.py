@@ -85,7 +85,6 @@ tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 
 intents = discord.Intents.default()
 intents.messages = True
-#client = discord.Client(intents=intents)
 client = Bot(command_prefix = "!", intents = intents)
 
 @client.event
@@ -145,9 +144,9 @@ async def do_fudge_roll(ctx, args):
 
 # tavern
 @client.command()
-async def tavern(ctx, *args):
+async def tavern(ctx, *, arg_str):
    try:
-      int_arg = get_int_arg(args)
+      int_arg = get_int_arg(arg_str)
       await ctx.send(generate_tavern(int_arg))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
@@ -164,9 +163,9 @@ async def relic(ctx, *args):
 
 # quest
 @client.command()
-async def quest(ctx, *args):
+async def quest(ctx, *, arg_str):
    try:
-      int_arg = get_int_arg(args)
+      int_arg = get_int_arg(arg_str)
       num_of_quests = max(1, int_arg)
       num_of_quests = min(5, num_of_quests)
       out_str = ""
@@ -179,39 +178,39 @@ async def quest(ctx, *args):
 
 # kungfu
 @client.command()
-async def kungfu(ctx, *args):
+async def kungfu(ctx, *, arg_str):
    try:
       print(args)
-      int_arg = get_int_arg(args)
+      int_arg = get_int_arg(arg_str)
       await ctx.send(generate_kung_fu(int_arg))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
 # shuffle
 @client.command()
-async def shuffle(ctx, *args):
+async def shuffle(ctx, *, arg_str):
    deck.shuffle()
    out_str = "Deck reshuffled"
    await ctx.send(out_str)
 
 # jokers
 @client.command()
-async def jokers(ctx, *args):
+async def jokers(ctx, *, arg_str):
    deck.shuffle(True)
    out_str = "Deck reshuffled (jokers included)."
    await ctx.send(out_str)
 
 # nojokers
 @client.command()
-async def nojokers(ctx, *args):
+async def nojokers(ctx, *, arg_str):
    deck.shuffle(True)
    out_str = "Deck reshuffled (jokers excluded)."
    await ctx.send(out_str)
 
 # draw
 @client.command()
-async def draw(ctx, *args):
-   int_arg = get_int_arg(args)
+async def draw(ctx, *, arg_str):
+   int_arg = get_int_arg(arg_str)
    num_to_draw = max(1, int_arg)
    num_to_draw = min(52, num_to_draw)
    out_str = ""
