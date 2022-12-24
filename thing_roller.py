@@ -250,16 +250,16 @@ async def do_roll(ctx, arg_str):
 def get_int_arg(args, min_length = 0):
    int_arg = 1
    try:
-      arg_array = args.split(' ')
-      if len(arg_array) > min_length:
-         int_arg = int(arg_array.pop())
+      split_args = arg_str.split(" ")
+      if len(split_args) > min_length:
+         last_arg = split_args.pop()
+         int_arg = int(last_arg)
+      return int_arg
    except:
-      int_arg = 1
-   return int_arg
+      return 1
 
 # return a tuple of the main argument string, and the int arg
 def get_args_for_name(arg_str):
-   main_arg_str = arg_str
    int_arg = 1
    try:
       split_args = arg_str.split(" ")
