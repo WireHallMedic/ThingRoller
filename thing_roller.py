@@ -144,9 +144,9 @@ async def do_fudge_roll(ctx, args):
 
 # tavern
 @client.command()
-async def tavern(ctx, *, arg_str):
+async def tavern(ctx, *args):
    try:
-      int_arg = get_int_arg(arg_str)
+      int_arg = get_int_arg(args)
       await ctx.send(generate_tavern(int_arg))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
@@ -163,9 +163,9 @@ async def relic(ctx, *args):
 
 # quest
 @client.command()
-async def quest(ctx, *, arg_str):
+async def quest(ctx, *args):
    try:
-      int_arg = get_int_arg(arg_str)
+      int_arg = get_int_arg(args)
       num_of_quests = max(1, int_arg)
       num_of_quests = min(5, num_of_quests)
       out_str = ""
@@ -178,9 +178,9 @@ async def quest(ctx, *, arg_str):
 
 # kungfu
 @client.command()
-async def kungfu(ctx, *, arg_str):
+async def kungfu(ctx, *args):
    try:
-      int_arg = get_int_arg(arg_str)
+      int_arg = get_int_arg(args)
       await ctx.send(generate_kung_fu(int_arg))
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
@@ -208,8 +208,8 @@ async def nojokers(ctx, *, arg_str):
 
 # draw
 @client.command()
-async def draw(ctx, *, arg_str):
-   int_arg = get_int_arg(arg_str)
+async def draw(ctx, *args):
+   int_arg = get_int_arg(args)
    num_to_draw = max(1, int_arg)
    num_to_draw = min(52, num_to_draw)
    out_str = ""
@@ -245,15 +245,10 @@ async def do_roll(ctx, arg_str):
       out_str = message_dict["parsingFailure"].format(arg_str)
    await ctx.send(out_str)
    
-# extracts last argument if longer than min length, else 1
-def get_int_arg(args, min_length = 0):
-   int_arg = 1
+# extracts integer argument if exists
+def get_int_arg(arg):
    try:
-      split_args = arg_str.split(" ")
-      if len(split_args) > min_length:
-         last_arg = split_args.pop()
-         int_arg = int(last_arg)
-      return int_arg
+      return int(arg[0])
    except:
       return 1
 
