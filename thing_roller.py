@@ -249,8 +249,11 @@ async def do_roll(ctx, arg_str):
 # extracts last argument if longer than min length, else 1
 def get_int_arg(args, min_length = 0):
    int_arg = 1
+   try:
    if len(args) > min_length:
-      int_arg = args.pop()
+      int_arg = int(args.pop())
+   except:
+      int_arg = 1
    return int_arg
 
 # return a tuple of the main argument string, and the int arg
