@@ -82,7 +82,7 @@ fate_dice = fate_roller.FateRoller()
 kung_fu_generator = subtable_main.TableController("text_files/kung_fu.txt")
 quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
 tavern_generator = subtable_main.TableController("text_files/taverns.txt")
-town_generator = sname_gen.generator_generator("text_files/town.txt")
+town_generator = name_gen.generator_generator("text_files/town.txt")
 
 intents = discord.Intents.default()
 intents.messages = True
