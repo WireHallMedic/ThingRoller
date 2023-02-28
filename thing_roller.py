@@ -291,7 +291,7 @@ def generate_town(reps):
    str = ""
    for i in range(reps):
       str += "{}\n".format(town_generator.generate())
-   str = str.strip
+   str = str.strip()
    return str
 
 # generate an interlude
