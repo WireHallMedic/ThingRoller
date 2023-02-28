@@ -280,7 +280,7 @@ def generate_tavern(reps):
    reps = min(20, reps)
    str = ""
    for i in range(reps):
-      str += "{}\n".format(tavern_generator.roll())
+      str += "{}\n".format(tavern_generator.generate_names(1))
    str = str.strip()
    return str;
 
