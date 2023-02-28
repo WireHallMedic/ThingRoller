@@ -289,7 +289,10 @@ def generate_town(reps):
    reps = max(1, reps)
    reps = min(20, reps)
    str = ""
-   return town_generator.generate_names(reps)
+   for i in range(reps):
+      str += "{}\n".format(town_generator.generate())
+   str = str.strip
+   return str
 
 # generate an interlude
 def generate_interlude():
