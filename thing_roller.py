@@ -265,6 +265,7 @@ def get_args_for_name(arg_str):
    except:
       return (arg_str, 1)
 
+# generate tavern names
 def generate_tavern(reps):
    reps = max(1, reps)
    reps = min(20, reps)
@@ -274,9 +275,21 @@ def generate_tavern(reps):
    str = str.strip()
    return str;
 
+# generate town names
+def generate_town(reps):
+   reps = max(1, reps)
+   reps = min(20, reps)
+   str = ""
+   for i in range(reps):
+      str += "{}\n".format(town_generator.roll())
+   str = str.strip()
+   return str;
+
+# generate an interlude
 def generate_interlude():
    return random.choice(interludes)
 
+# generate kung fu moves
 def generate_kung_fu(reps):
    reps = max(1, reps)
    reps = min(20, reps)
@@ -285,6 +298,7 @@ def generate_kung_fu(reps):
       out_str = "{}\n{}".format(out_str, kung_fu_generator.roll())
    return out_str
 
+# name generation
 def generate_names(cmd, int_arg):
    str_list = cmd.split()
    str_list.append("")   # beacuse not everything needs a gender
