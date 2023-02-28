@@ -152,6 +152,15 @@ async def tavern(ctx, *args):
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
+# town
+@client.command()
+async def town(ctx, *args):
+   try:
+      int_arg = get_int_arg(args)
+      await ctx.send(generate_town(int_arg))
+   except:
+      await ctx.send(f"Unable to understand '{args[0]}'.")
+
 # interlude
 @client.command()
 async def interlude(ctx, *args):
