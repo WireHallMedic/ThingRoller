@@ -280,19 +280,16 @@ def generate_tavern(reps):
    reps = min(20, reps)
    str = ""
    for i in range(reps):
-      str += "{}\n".format(tavern_generator.generate_names(1))
+      str += "{}\n".format(tavern_generator.roll())
    str = str.strip()
-   return str;
+   return str
 
 # generate town names
 def generate_town(reps):
    reps = max(1, reps)
    reps = min(20, reps)
    str = ""
-   for i in range(reps):
-      str += "{}\n".format(town_generator.roll())
-   str = str.strip()
-   return str;
+   return town_generator.generate_names(reps)
 
 # generate an interlude
 def generate_interlude():
