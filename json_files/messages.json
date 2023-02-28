@@ -18,11 +18,12 @@
 		,"!name [type] [gender] <1-20>":" - generate 5 names, or a user-specified number. I can generate names of the following type: angel (genderless), demon (genderless), dragon (genderless), dragonborn, dwarf, elf, european, gnome, halfling, orc."
 		,"!relic":" - generate relic details"
 		,"!quest <1-5>":" - generate a random quest using the Tiny Dungeons method, or up to five at a time."
+		,"!kungfu <1-20>":" - generate a random Kung Fu move name"
+		,"!town <1-20>":" - generate a random town name"
 		,"!draw <1-52>":" - draw a card from a standard 52-card deck. Deck reshuffles when it runs out."
 		,"!shuffle":" - resuffle the deck (leaving jokers as they already were; in or out)"
 		,"!jokers":" - resuffle the deck, using jokers"
 		,"!nojokers":" - resuffle the deck, leaving jokers out"
-		,"!kungfu <1-20>":" - generate a random Kung Fu move name"
 	}
 	,"commandNotes":"*<> indicates an optional argument*"
 }
