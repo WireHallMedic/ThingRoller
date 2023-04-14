@@ -182,7 +182,7 @@ async def quest(ctx, *args):
       for i in range(num_of_quests):
          out_str = out_str + quest_generator.roll() + "\n"
       out_str = out_str.strip()
-      await ctx.send(generate_tavern(int_arg))
+      await ctx.send(out_str)
    except:
       await ctx.send(f"Unable to understand '{args[0]}'.")
 
