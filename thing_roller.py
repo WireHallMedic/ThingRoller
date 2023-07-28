@@ -84,7 +84,7 @@ quest_generator = subtable_main.TableController("text_files/quest_parts.txt")
 tavern_generator = subtable_main.TableController("text_files/taverns.txt")
 town_generator = name_gen.generator_generator("text_files/town.txt")
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.messages = True
 client = Bot(command_prefix = "!", intents = intents)
 
