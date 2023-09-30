@@ -197,21 +197,21 @@ async def kungfu(ctx, *args):
 
 # shuffle
 @client.command()
-async def shuffle(ctx, *, arg_str):
+async def shuffle(ctx, *args):
    deck.shuffle()
    out_str = "Deck reshuffled"
    await ctx.send(out_str)
 
 # jokers
 @client.command()
-async def jokers(ctx, *, arg_str):
+async def jokers(ctx, *args):
    deck.shuffle(True)
    out_str = "Deck reshuffled (jokers included)."
    await ctx.send(out_str)
 
 # nojokers
 @client.command()
-async def nojokers(ctx, *, arg_str):
+async def nojokers(ctx, *args):
    deck.shuffle(True)
    out_str = "Deck reshuffled (jokers excluded)."
    await ctx.send(out_str)
