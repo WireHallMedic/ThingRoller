@@ -411,6 +411,6 @@ def getIPAddress():
    return addr
 
 # fire this bad boy up
-client.run(token)
+client.run(token, reconnect=True)
 
 # {message.channel}: {message.author}: {message.author.name}: {message.content}
