@@ -83,8 +83,13 @@ def resolve_disadvantage():
    val[1] = f'min({a}, {b})'
    return val
 
-def roll(val):
-   return random.randint(1, val)
+def roll(val, exploding = False):
+   rolled_val = random.randint(1, val)
+   total = rolled_val
+   while rolled_val == val and exploding == True:
+      rolled_val = random.randint(1, val)
+      total += rolled_val
+   return total
 
 def roll_fudge_die():
    return random.randint(-1, 1)
