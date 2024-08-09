@@ -6,7 +6,7 @@ OPERATOR_REG_EX = "[+\-/*x]"
 
 MAX_DICE = 1000000
 
-def resolve_dice_expression(dice_expression):
+def resolve_dice_expression(dice_expression, suppress_exception_message = False):
    try:
       # strip out spaces
       dice_expression = dice_expression.replace(" ", "")
@@ -19,7 +19,7 @@ def resolve_dice_expression(dice_expression):
       # resolve expressions
       val_list = []
       for val in expression_list:
-         val_list.append(resolve_single_dice_expression(val))
+         val_list.append(resolve_single_dice_expression(val, suppress_exception_message))
       # resolve operators
       sum = resolve_all_operators(val_list, operator_list);
       # compile output
@@ -30,10 +30,11 @@ def resolve_dice_expression(dice_expression):
          out_str += " " + operator_list[i - 1] + " " + val_list[i][1]
       return out_str
    except Exception as ex:
-      print(ex)
+      if not suppress_exception_message:
+         print(ex)
       return None
 
-def resolve_single_dice_expression(dice_expression):
+def resolve_single_dice_expression(dice_expression, suppress_exception_message = False):
    try:
       # handle advantage and disadvantage
       if dice_expression == "advantage":
@@ -64,7 +65,8 @@ def resolve_single_dice_expression(dice_expression):
       val[1] = f"({val[1][2:]})"
       return val
    except Exception as ex:
-      print(ex)
+      if not suppress_exception_message:
+         print(ex)
       return None
 
 def resolve_advantage():
