@@ -18,6 +18,22 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
       if dice_expression.startswith("-e"):
          exploding = True
          dice_expression = dice_expression[2:]
+      sum_list = []
+      val_list = []
+      sum, vals = resolve_dice_expression_group(dice_expression, exploding, suppress_exception_message)
+      
+      # compile output
+      out_str = f'**Result: {sum}**\n'
+      out_str += "Rolled: "
+      out_str += vals
+      return out_str
+   except Exception as ex:
+      if not suppress_exception_message:
+         print(ex)
+      return None
+
+def resolve_dice_expression_group(dice_expression, exploding, suppress_exception_message):
+   try:
       # if it starts with a negative number or expression, put in a zero
       if dice_expression[0] == "-":
          dice_expression = "0" + dice_expression
@@ -31,12 +47,10 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
       # resolve operators
       sum = resolve_all_operators(val_list, operator_list);
       # compile output
-      out_str = f'**Result: {sum}**\n'
-      out_str += "Rolled: "
-      out_str += val_list[0][1]
+      out_str = val_list[0][1]
       for i in range(1, len(val_list)):
          out_str += " " + operator_list[i - 1] + " " + val_list[i][1]
-      return out_str
+      return (sum, out_str)
    except Exception as ex:
       if not suppress_exception_message:
          print(ex)
