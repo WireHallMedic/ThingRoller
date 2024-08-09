@@ -10,6 +10,13 @@ def resolve_dice_expression(dice_expression, exploding = False, suppress_excepti
    try:
       # strip out spaces
       dice_expression = dice_expression.replace(" ", "")
+      # check for explosions
+      if dice_expression.startswith("e"):
+         exploding = True
+         dice_expression = dice_expression[1:]
+      if dice_expression.startswith("-e"):
+         exploding = True
+         dice_expression = dice_expression[2:]
       # if it starts with a negative number or expression, put in a zero
       if dice_expression[0] == "-":
          dice_expression = "0" + dice_expression
