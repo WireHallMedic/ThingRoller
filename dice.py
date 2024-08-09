@@ -21,12 +21,15 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
       sum_list = []
       val_list = []
       sum, vals = resolve_dice_expression_group(dice_expression, exploding, suppress_exception_message)
-      
+      sum_list.append(sum)
+      val_list.append(vals)
       # compile output
-      out_str = f'**Result: {sum}**\n'
-      out_str += "Rolled: "
-      out_str += vals
-      return out_str
+      sum_str = f'{sum_list[0]}'
+      val_str = f'{val_list[0]}'
+      for i in range(1, len(sum_list)):
+         sum_str += ", " + sum_list[i]
+         val_str += ", " + val_str[i]
+      return f'**Result: {sum_str}**\nRolled: {val_str}'
    except Exception as ex:
       if not suppress_exception_message:
          print(ex)
