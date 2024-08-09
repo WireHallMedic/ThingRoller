@@ -24,7 +24,7 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
       group_list = dice_expression.split(',')
       # roll
       for group in group_list:
-         sum, vals = resolve_dice_expression_group(group, exploding, suppress_exception_message)
+         sum, vals = resolve_dice_expression_group(group.strip(), exploding, suppress_exception_message)
          sum_list.append(sum)
          val_list.append(vals)
       # compile output
@@ -32,7 +32,7 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
       val_str = f'{val_list[0]}'
       for i in range(1, len(sum_list)):
          sum_str += ", " + str(sum_list[i])
-         val_str += ", " + str(val_str[i])
+         val_str += ", " + str(val_list[i])
       return f'**Result: {sum_str}**\nRolled: {val_str}'
    except Exception as ex:
       if not suppress_exception_message:
