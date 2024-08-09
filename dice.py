@@ -51,6 +51,9 @@ def resolve_single_dice_expression(dice_expression, exploding, suppress_exceptio
       # handle dice
       val[1] = ""
       dice_expression = dice_expression.split("d")
+      print(dice_expression)
+      if dice_expression[0] == "":
+         dice_expression[0] = "1"
       iterations = int(dice_expression[0])
       result = 0
       if iterations > MAX_DICE:

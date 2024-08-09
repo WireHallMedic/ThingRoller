@@ -19,4 +19,4 @@ if __name__ == "__main__":
    
    print(dice.resolve_dice_expression("3d6 + 5 - 1d4 / 5 * 4"))
    print(dice.resolve_dice_expression("10d4", exploding = True))
-   
+   print(dice.resolve_dice_expression("d8"))
