@@ -4,11 +4,11 @@
 	, "parsingFailure":"I feel like I should calculate '{}', but can't parse it. Sorry."
 	, "nameParsingFailure":"I was unable to parse the command {}. Please enter name generation in the format of !name [type] [gender]."
 	, "formatNotes":"Note: I don't recognize parentheses, and I evaluate left to right. I won't roll more than a million dice at a time."
-	, "goodStatus":"ThingRoller status: online"
+	, "goodStatus":"ThingRoller status: online\nJokers: {}"
 	,"recognizedCommands":
 	{
-		"!roll [dice expression]":" - roll and calculate. Start with 'e' or -e for exploding dice."
-		,"!r [dice expression]":" - roll and calculate. Start with 'e' or -e for exploding dice."
+		"!roll [dice expression]":" - roll and calculate. Start with 'e' or '-e' for exploding dice. Can include multiple groups, separated by commas."
+		,"!r [dice expression]":" - identical to !roll"
 		,"!examples":" - show examples of legal dice expressions"
 		,"!fudge":" - roll 4dF (used in the game FUDGE)"
 		,"!fate":" - roll 4dF (used in the game Fate)"

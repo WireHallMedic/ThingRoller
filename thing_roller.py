@@ -104,7 +104,7 @@ async def thingroller(ctx, *args):
 # status
 @client.command()
 async def status(ctx, *args):
-   out_str = message_dict["goodStatus"]
+   out_str = message_dict["goodStatus"].format(deck.jokers)
    addr = getIPAddress()
    out_str = "{}\nHostname: {}\nIP Address: {}".format(out_str, addr[0], addr[1]);
    await ctx.send(out_str)
