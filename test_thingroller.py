@@ -1,8 +1,10 @@
 # testing for thingroller.
 import pytest
 import dice
+import random
 
 if __name__ == "__main__":
+   random.seed(10000)
    assert dice.resolve_dice_expression("3d6 + 5 - 1d4 / 5 * 4") is not None
    assert dice.resolve_dice_expression("3d6 + 5 j 1d4 / 5 * 4", suppress_exception_message = True) is None
    assert dice.resolve_advantage() is not None
