@@ -6,11 +6,12 @@ OPERATOR_REG_EX = "[+\-/*x]"
 
 MAX_DICE = 1000000
 
-def resolve_dice_expression(dice_expression, exploding = False, suppress_exception_message = False):
+def resolve_dice_expression(dice_expression, suppress_exception_message = False):
    try:
       # strip out spaces
       dice_expression = dice_expression.replace(" ", "")
       # check for explosions
+      exploding = False
       if dice_expression.startswith("e"):
          exploding = True
          dice_expression = dice_expression[1:]

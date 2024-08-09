@@ -21,6 +21,8 @@ def test_explosions():
    random.seed(10000)
    assert dice.resolve_dice_expression("e 1d2") == "**Result: 3**\nRolled: (3)"
    random.seed(10000)
+   assert dice.resolve_dice_expression("-e 1d2") == "**Result: 3**\nRolled: (3)"
+   random.seed(10000)
    assert dice.resolve_dice_expression("1d2") == "**Result: 2**\nRolled: (2)"
    
 
