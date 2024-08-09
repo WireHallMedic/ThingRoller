@@ -6,7 +6,7 @@ OPERATOR_REG_EX = "[+\-/*x]"
 
 MAX_DICE = 1000000
 
-def resolve_dice_expression(dice_expression, suppress_exception_message = False):
+def resolve_dice_expression(dice_expression, exploding = False, suppress_exception_message = False):
    try:
       # strip out spaces
       dice_expression = dice_expression.replace(" ", "")
@@ -19,7 +19,7 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
       # resolve expressions
       val_list = []
       for val in expression_list:
-         val_list.append(resolve_single_dice_expression(val, suppress_exception_message))
+         val_list.append(resolve_single_dice_expression(val, exploding, suppress_exception_message))
       # resolve operators
       sum = resolve_all_operators(val_list, operator_list);
       # compile output
@@ -34,7 +34,7 @@ def resolve_dice_expression(dice_expression, suppress_exception_message = False)
          print(ex)
       return None
 
-def resolve_single_dice_expression(dice_expression, suppress_exception_message = False):
+def resolve_single_dice_expression(dice_expression, exploding, suppress_exception_message):
    try:
       # handle advantage and disadvantage
       if dice_expression == "advantage":
@@ -59,7 +59,7 @@ def resolve_single_dice_expression(dice_expression, suppress_exception_message =
          if dice_expression[1] == 'f':
             result = roll_fudge_die()
          else:
-            result = roll(int(dice_expression[1]))
+            result = roll(int(dice_expression[1]), exploding)
          val[0] += result
          val[1] = val[1] + f', {result}'
       val[1] = f"({val[1][2:]})"
