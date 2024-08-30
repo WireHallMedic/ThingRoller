@@ -198,8 +198,6 @@ if __name__ == "__main__":
    fore_name_gen = generator_generator("text_files/name_american_male.txt")
    sur_name_gen = generator_generator("text_files/name_american_surname.txt")
    print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
-   for i in range(20):
-      print(fore_name_gen.generate())
    
    fore_name_gen = generator_generator("text_files/name_american_female.txt")
    print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
