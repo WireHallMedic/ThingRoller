@@ -121,7 +121,7 @@ class CompoundNameGen:
 class SampleNameGen:
    """Master class for sampling names from list rather than generating"""
    def __init__(self, name_list):
-      self.list = name_list
+      self.list = name_list.list_a
    
    def generate(self):
       return format_output(random.choice(self.list))
@@ -148,7 +148,7 @@ def read_file(file_name):
                break
          out_list = NameList(raw_list[1:break_line], raw_list[break_line + 1:], COMPOUND_TYPE)
       elif raw_list[0] == "SAMPLE":
-         out_list = NameList(raw_list[1:], None, MARKOV_SAMPLE)
+         out_list = NameList(raw_list[1:], None, SAMPLE_TYPE)
       else:
          print("No recognized format in file {}".format(file_name))
       return out_list
@@ -162,7 +162,12 @@ def generator_generator(file_name, min = None, max = None):
    name_list = read_file(file_name)
    if name_list.is_compound_list():
       return CompoundNameGen(name_list)
-   return MarkovNameGen(name_list, min, max)
+   elif name_list.is_markov_list():
+      return MarkovNameGen(name_list, min, max)
+   elif name_list.is_sample_list():
+      return SampleNameGen(name_list)
+   else:
+      return None
 
 if __name__ == "__main__":
    """
@@ -188,6 +193,14 @@ if __name__ == "__main__":
    """
    fore_name_gen = generator_generator("text_files/name_dwarf_male.txt")
    sur_name_gen = generator_generator("text_files/name_dwarf_surname.txt")
-   for i in range(0, 10):
-      print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
+   print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
+   
+   fore_name_gen = generator_generator("text_files/name_american_male.txt")
+   sur_name_gen = generator_generator("text_files/name_american_surname.txt")
+   print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
+   for i in range(20):
+      print(fore_name_gen.generate())
+   
+   fore_name_gen = generator_generator("text_files/name_american_female.txt")
+   print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
    
