@@ -15,7 +15,7 @@
 		,"!tavern <1-20>":" - generate a random tavern name"
 		,"!statblock":" - 4d6 drop the lowest six times"
 		,"!interlude":" - generate an interlude"
-		,"!name [type] [gender] <1-20>":" - generate 5 names, or a user-specified number. I can generate names of the following type: angel (genderless), demon (genderless), dragon (genderless), dragonborn, dwarf, elf, european, gnome, halfling, orc."
+		,"!name [type] [gender] <1-20>":" - generate 5 names, or a user-specified number. I can generate names of the following type: angel (genderless), demon (genderless), dragon (genderless), dragonborn, dwarf, elf, european, gnome, halfling, orc, and American."
 		,"!relic":" - generate relic details"
 		,"!quest <1-5>":" - generate a random quest using the Tiny Dungeons method, or up to five at a time."
 		,"!kungfu <1-20>":" - generate a random Kung Fu move name"
