@@ -112,6 +112,14 @@ class CompoundNameGen:
       out_str = random.choice(self.list.list_a) + random.choice(self.list.list_b)
       return format_output(out_str)
 
+class SampleNameGen:
+   """Master class for sampling names from list rather than generating"""
+   def __init__(self, name_list):
+      self.list = name_list
+   
+   def generate(self):
+      return format_output(self.list)
+
 def format_output(str):
    """Make it pretty"""
    out_str = str.replace("_", " ")
