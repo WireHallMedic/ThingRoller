@@ -4,12 +4,16 @@ STARTING_CHAR = "@"
 ENDING_CHAR = "#"
 MIN_MARKOV_NAME_LEN = 4
 MAX_MARKOV_NAME_LEN = 12   # some name styles may have custom max lengths
+MARKOV_TYPE = 0
+COMPOUND_TYPE = 1
+SAMPLE_TYPE = 2
 
 class NameList:
    """Simple struct for holding two lists."""
-   def __init__(self, list_a, list_b):
+   def __init__(self, list_a, list_b, list_type):
       self.list_a = list_a
       self.list_b = list_b
+      self.list_type = list_type
       for element in self.list_a:
          element = element.lower()
       if self.list_b is not None:
@@ -18,13 +22,15 @@ class NameList:
    
    def is_compound_list(self):
       """Returns true if list is formatted for A+B generation, else false"""
-      if self.list_b == None:
-         return False
-      return True
+      return self.list_type == COMPOUND_TYPE
    
    def is_markov_list(self):
       """Returns true if list is formatted for Markov generation, else false"""
-      return not self.is_compound_list()
+      return self.list_type == MARKOV_TYPE
+   
+   def is_sample_list(self):
+      """Returns true if list is formatted for sampling, else false"""
+      return self.list_type == SAMPLE_TYPE
 
 class MarkovNode:
    """Node for a BST implementation of Markov chains. Expects 3 character chains"""
@@ -133,18 +139,21 @@ def read_file(file_name):
       raw_list = open(file_name, "r").read().split();
       out_list = None
       if raw_list[0] == "MARKOV":
-         out_list = NameList(raw_list[1:], None)
+         out_list = NameList(raw_list[1:], None, MARKOV_TYPE)
       elif raw_list[0] == "COMPOUND":
          break_line = -1
          for i in range(0, len(raw_list)):
             if raw_list[i] == "BREAK":
                break_line = i
                break
-         out_list = NameList(raw_list[1:break_line], raw_list[break_line + 1:])
+         out_list = NameList(raw_list[1:break_line], raw_list[break_line + 1:], COMPOUND_TYPE)
+      elif raw_list[0] == "SAMPLE":
+         out_list = NameList(raw_list[1:], None, MARKOV_SAMPLE)
       else:
          print("No recognized format in file {}".format(file_name))
       return out_list
-   except:
+   except Exception as ex:
+      print(ex)
       return None
    return out_list
 
@@ -177,8 +186,8 @@ if __name__ == "__main__":
    for i in range(0, 10):
       print(" {}".format(foreGen.generate()))
    """
-   fore_name_gen = generator_generator("name_european_male.txt")
-   sur_name_gen = generator_generator("name_european_surname.txt")
+   fore_name_gen = generator_generator("text_files/name_dwarf_male.txt")
+   sur_name_gen = generator_generator("text_files/name_dwarf_surname.txt")
    for i in range(0, 10):
       print("{} {}".format(fore_name_gen.generate(), sur_name_gen.generate()))
    
