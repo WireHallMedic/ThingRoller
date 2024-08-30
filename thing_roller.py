@@ -32,6 +32,9 @@ interludes = open("text_files/interludes.txt", "r").read().split("\n")
 
 # load name generations
 name_dict = {}
+name_dict["american_female"] = name_gen.generator_generator("text_files/name_american_female.txt")
+name_dict["american_male"] = name_gen.generator_generator("text_files/name_american_male.txt")
+name_dict["american_surname"] = name_gen.generator_generator("text_files/name_american_surname.txt")
 name_dict["dragonborn_female"] = name_gen.generator_generator("text_files/name_dragonborn_female.txt", max = 20)
 name_dict["dragonborn_male"] = name_gen.generator_generator("text_files/name_dragonborn_male.txt", max = 20)
 name_dict["dragonborn_surname"] = name_gen.generator_generator("text_files/name_dragonborn_surname.txt")
@@ -326,6 +329,11 @@ def generate_names(cmd, int_arg):
       return message_dict["nameParsingFailure"].format(cmd)
 
 def get_single_name(race, sex):
+   if race == "american":
+      if sex == "female":
+         return "{} {}".format(name_dict["american_female"].generate(), name_dict["american_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(name_dict["american_male"].generate(), name_dict["american_surname"].generate())
    if race == "dragonborn":
       if sex == "female":
          return "{} {}".format(name_dict["dragonborn_female"].generate(), name_dict["dragonborn_surname"].generate())
