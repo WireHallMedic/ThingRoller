@@ -118,7 +118,7 @@ class SampleNameGen:
       self.list = name_list
    
    def generate(self):
-      return format_output(self.list)
+      return format_output(random.choice(self.list))
 
 def format_output(str):
    """Make it pretty"""
