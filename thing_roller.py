@@ -47,6 +47,9 @@ name_dict["elf_surname"] = name_gen.generator_generator("text_files/name_elf_sur
 name_dict["european_female"] = name_gen.generator_generator("text_files/name_european_female.txt")
 name_dict["european_male"] = name_gen.generator_generator("text_files/name_european_male.txt")
 name_dict["european_surname"] = name_gen.generator_generator("text_files/name_european_surname.txt")
+name_dict["lovecraft_female"] = name_gen.generator_generator("text_files/name_lovecraft_female.txt")
+name_dict["lovecraft_male"] = name_gen.generator_generator("text_files/name_lovecraft_male.txt")
+name_dict["lovecraft_surname"] = name_gen.generator_generator("text_files/name_lovecraft_surname.txt")
 name_dict["gnome_female"] = name_gen.generator_generator("text_files/name_gnome_female.txt")
 name_dict["gnome_male"] = name_gen.generator_generator("text_files/name_gnome_male.txt")
 name_dict["gnome_surname"] = name_gen.generator_generator("text_files/name_gnome_surname.txt")
@@ -365,6 +368,11 @@ def get_single_name(race, sex):
          return "{} {}".format(name_dict["halfling_female"].generate(), name_dict["halfling_surname"].generate())
       elif sex == "male":
          return "{} {}".format(name_dict["halfling_male"].generate(), name_dict["halfling_surname"].generate())
+   elif race == "lovecraft":
+      if sex == "female":
+         return "{} {}".format(name_dict["lovecraft_female"].generate(), name_dict["lovecraft_surname"].generate())
+      elif sex == "male":
+         return "{} {}".format(name_dict["lovecraft_male"].generate(), name_dict["lovecraft_surname"].generate())
    elif race == "orc":
       if sex == "female":
          return name_dict["orc_female"].generate()
