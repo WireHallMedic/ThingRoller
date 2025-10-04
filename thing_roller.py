@@ -92,7 +92,7 @@ town_generator = name_gen.generator_generator("text_files/town.txt")
 
 intents = discord.Intents.all()
 intents.messages = True
-client = Bot(command_prefix = "!", intents = intents, case_insensitive=True)
+client = Bot(command_prefix = "!", intents = intents)
 
 @client.event
 async def on_ready():
