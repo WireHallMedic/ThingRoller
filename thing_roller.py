@@ -13,6 +13,7 @@ import socket
 import subtable_main
 import fate_roller
 import PIL
+import sys
 
 #constants
 INT_REG_EX = r"\d+"
@@ -98,7 +99,7 @@ client = Bot(command_prefix = "!", intents = intents, case_insensitive = True)
 async def on_ready():
     print(f'{client.user} has connected to Discord')
 
-# handle bad command names
+# handle bad unrecognized command names
 @client.event
 async def on_command_error(ctx, error):
    print("Bad command for {}: {}".format(os.path.basename(__file__), str(error)), file = sys.stderr)
