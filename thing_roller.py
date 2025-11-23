@@ -101,7 +101,7 @@ async def on_ready():
 # handle bad command names
 @client.event
 async def on_command_error(ctx, error):
-   print("Bad command for {}: {}".format(os.path.basename(__file__), str(error)))
+   print("Bad command for {}: {}".format(os.path.basename(__file__), str(error)), file = sys.stderr)
 
 # table of contents
 @client.command()
