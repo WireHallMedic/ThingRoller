@@ -113,7 +113,7 @@ async def on_message(message):
       return
    cmd = cleanMessage(message.content)
    if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
-      await do_roll(cmd)
+      await do_roll(message.channel, cmd)
 
 # table of contents
 @client.command()
