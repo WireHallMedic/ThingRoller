@@ -105,14 +105,14 @@ async def on_ready():
 async def on_command_error(ctx, error):
    print("Bad command for {}: {}".format(os.path.basename(__file__), str(error)), file = sys.stderr)
 
-@client.event
-async def on_message(message):
+@client.listen('on_message')
+async def process_message(message):
    # don't respond to self or empty messages
    if message.author == client.user or \
       len(message.content) == 0:
       return
    cmd = cleanMessage(message.content)
-   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
+   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None and message.content[0] == '!':
       await do_roll(message.channel, cmd)
 
 # table of contents
