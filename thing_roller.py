@@ -105,6 +105,16 @@ async def on_ready():
 async def on_command_error(ctx, error):
    print("Bad command for {}: {}".format(os.path.basename(__file__), str(error)), file = sys.stderr)
 
+@client.event
+async def on_message(message):
+   # don't respond to self or empty messages
+   if message.author == client.user or \
+      len(message.content) == 0:
+      return
+   cmd = cleanMessage(message.content)
+   if re.search(SHOULD_CALCULATE_REG_EX, cmd) != None:
+      await do_roll(cmd)
+
 # table of contents
 @client.command()
 async def thingroller(ctx, *args):
@@ -338,6 +348,15 @@ def generate_names(cmd, int_arg):
       return out_str
    except:
       return message_dict["nameParsingFailure"].format(cmd)
+
+#strip message for processing
+def cleanMessage(str):
+   newStr = str
+   if newStr[0] == "!":
+      newStr = newStr[1:]
+   newStr = newStr.lower()
+   newStr = newStr.strip()
+   return newStr
 
 def get_single_name(race, sex):
    if race == "american":
