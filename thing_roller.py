@@ -15,8 +15,8 @@ import fate_roller
 import PIL
 
 #constants
-INT_REG_EX = "\d+"
-SHOULD_CALCULATE_REG_EX = "[+\-\d]|^d\d|^advantage|^disadvantage|\d+df"
+INT_REG_EX = r"\d+"
+SHOULD_CALCULATE_REG_EX = r"[+\-\d]|^d\d|^advantage|^disadvantage|\d+df"
 
 NOT_YET_IMPLEMENTED_STR = ":warning: This feature is not yet implemented :warning:"
 ADMIN_NAME = "wire_hall_medic"
