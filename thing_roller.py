@@ -135,8 +135,7 @@ async def status(ctx, *args):
 # examples
 @client.command()
 async def examples(ctx, *args):
-   out_str = "__Examples of Things I Can Calculate__:\n"
-   out_str += message_dict["formatExamples"] + "\n"
+   out_str = message_dict["formatExamples"] + "\n"
    out_str += message_dict["formatNotes"]
    await ctx.send(out_str)
    
