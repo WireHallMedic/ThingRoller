@@ -19,18 +19,20 @@ def test_basics():
    assert dice.resolve_bonus() == [65, "max(60, 40) + 5"]
    random.seed(10086)
    assert dice.resolve_bonus() == [100, "max(00, 50) + 0"]
-   #assert dice.resolve_double_bonus() == [65, "max(60, 80, 70) + 9"]
+   assert dice.resolve_double_bonus() == [65, "max(30, 50, 60) + 5"]
+   random.seed(10016)
+   assert dice.resolve_double_bonus() == [100, "max(70, 50, 00) + 0"]
    
-   i = 10000
-   val = -1
-   while val != 100:
-      i += 1
-      random.seed(i)
-      val = dice.resolve_bonus()[0]
-   print(f"Seed for one hundred: {i}")
-   
-   random.seed(10086)
-   val = dice.resolve_bonus()
+#    i = 10000
+#    val = -1
+#    while val != 100:
+#       i += 1
+#       random.seed(i)
+#       val = dice.resolve_double_bonus()[0]
+#    print(f"Seed for one hundred: {i}")
+#    
+#    random.seed(i)
+   val = dice.resolve_double_bonus()
    print(val[0])
    print(val[1])
 
