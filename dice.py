@@ -70,6 +70,15 @@ def resolve_single_dice_expression(dice_expression, exploding, suppress_exceptio
          return resolve_advantage()
       if dice_expression == "disadvantage":
          return resolve_disadvantage()
+      # handle bonus and penalty dice
+      if dice_expression == "bonus":
+         return resolve_bonus()
+      if dice_expression == "doublebonus" or dice_expression == "double_bonus":
+         return resolve_double_bonus()
+      if dice_expression == "penalty":
+         return resolve_penalty()
+      if dice_expression == "doublepenalty" or dice_expression == "double_penalty":
+         return resolve_double_penalty()
       
       val = [0, dice_expression]
       # handle raw numbers
@@ -90,7 +99,11 @@ def resolve_single_dice_expression(dice_expression, exploding, suppress_exceptio
          if dice_expression[1] == 'f':
             result = roll_fudge_die()
          else:
-            result = roll(int(dice_expression[1]), exploding)
+            # don't roll d0s or d1s to avoid errors and infinite loops (due to exploding d1s)
+            if dice_expression[1] < 2:
+               result = dice_expression[1]
+            else:
+               result = roll(int(dice_expression[1]), exploding)
          val[0] += result
          val[1] = val[1] + f', {result}'
       val[1] = f"({val[1][2:]})"
@@ -131,7 +144,7 @@ def resolve_bonus():
    ones = roll(10) - 1
    val = [0, ""]
    val[0] = max(assemble_percentile(a, ones), assemble_percentile(b, ones))
-   val[1] = f'max({a}0, {b}0) + {ones}'
+   val[1] = f'(max({a}0, {b}0) + {ones})'
    return val
 
 def resolve_penalty():
@@ -141,7 +154,7 @@ def resolve_penalty():
    ones = roll(10) - 1
    val = [0, ""]
    val[0] = min(assemble_percentile(a, ones), assemble_percentile(b, ones))
-   val[1] = f'min({a}0, {b}0) + {ones}'
+   val[1] = f'(min({a}0, {b}0) + {ones})'
    return val
 
 def resolve_double_bonus():
@@ -152,7 +165,7 @@ def resolve_double_bonus():
    ones = roll(10) - 1
    val = [0, ""]
    val[0] = max(assemble_percentile(a, ones), assemble_percentile(b, ones), assemble_percentile(c, ones))
-   val[1] = f'max({a}0, {b}0, {c}0) + {ones}'
+   val[1] = f'(max({a}0, {b}0, {c}0) + {ones})'
    return val
 
 def resolve_double_penalty():
@@ -163,7 +176,7 @@ def resolve_double_penalty():
    ones = roll(10) - 1
    val = [0, ""]
    val[0] = min(assemble_percentile(a, ones), assemble_percentile(b, ones), assemble_percentile(c, ones))
-   val[1] = f'min({a}0, {b}0, {c}0) + {ones}'
+   val[1] = f'(min({a}0, {b}0, {c}0) + {ones})'
    return val
 
 def roll(val, exploding = False):

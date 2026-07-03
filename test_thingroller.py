@@ -16,16 +16,16 @@ def test_basics():
    assert dice.assemble_percentile(6, 4) == 64;
    assert dice.assemble_percentile(0, 8) == 8;
    assert dice.assemble_percentile(0, 0) == 100;
-   assert dice.resolve_bonus() == [65, "max(60, 40) + 5"]
+   assert dice.resolve_bonus() == [65, "(max(60, 40) + 5)"]
    random.seed(10086)
-   assert dice.resolve_bonus() == [100, "max(00, 50) + 0"]
-   assert dice.resolve_double_bonus() == [65, "max(30, 50, 60) + 5"]
+   assert dice.resolve_bonus() == [100, "(max(00, 50) + 0)"]
+   assert dice.resolve_double_bonus() == [65, "(max(30, 50, 60) + 5)"]
    random.seed(10016)
-   assert dice.resolve_double_bonus() == [100, "max(70, 50, 00) + 0"]
-   assert dice.resolve_penalty() == [29, "min(20, 50) + 9"]
+   assert dice.resolve_double_bonus() == [100, "(max(70, 50, 00) + 0)"]
+   assert dice.resolve_penalty() == [29, "(min(20, 50) + 9)"]
    random.seed(10236)
-   assert dice.resolve_penalty() == [100, "min(00, 00) + 0"]
-   assert dice.resolve_double_penalty() == [56, "min(50, 60, 90) + 6"]
+   assert dice.resolve_penalty() == [100, "(min(00, 00) + 0)"]
+   assert dice.resolve_double_penalty() == [56, "(min(50, 60, 90) + 6)"]
 
 def test_explosions():
    random.seed(10000)
