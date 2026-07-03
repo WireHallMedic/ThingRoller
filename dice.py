@@ -100,8 +100,8 @@ def resolve_single_dice_expression(dice_expression, exploding, suppress_exceptio
             result = roll_fudge_die()
          else:
             # don't roll d0s or d1s to avoid errors and infinite loops (due to exploding d1s)
-            if dice_expression[1] < 2:
-               result = dice_expression[1]
+            if int(dice_expression[1]) < 2:
+               result = int(dice_expression[1])
             else:
                result = roll(int(dice_expression[1]), exploding)
          val[0] += result

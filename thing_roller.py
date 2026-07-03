@@ -134,6 +134,11 @@ async def status(ctx, *args):
 
 # examples
 @client.command()
+async def expressions(ctx, *args):
+   await ctx.send(message_dict["diceExpressions"])
+
+# expressions
+@client.command()
 async def examples(ctx, *args):
    out_str = message_dict["formatExamples"] + "\n"
    out_str += message_dict["formatNotes"]

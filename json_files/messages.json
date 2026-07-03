@@ -1,16 +1,17 @@
 {
 	"botInfo":"Hello, I'm ThingRoller! I roll dice and tables and stuff. I am case-insensitive.\n__Recognized Commands__:"
-	, "formatExamples":"__Examples of Things I Can Calculate__:\n  !3d6\n  !roll d6\n  !r 1d6\n  !r advantage\n  !r disadvantage\n  !r 1d6 + 3\n  !r advantage + d4 + 3d8 - 8\n  !r -4\n  !r 5 * 3\n  !r -3d6 / 4\n  !r e 1d6\n  !r -e 1d6\n  !r 2d6, 3d8 + 5\n  !r e 1d8 + 2, 1d6 + 2"
+	, "formatExamples":"__Examples of Things I Can Calculate__:\n  !3d6\n  !roll d6\n  !r 1d6\n  !r 1d6 + 3\n  !r advantage\n  !r disadvantage + d4 + 3d8 - 8\n  !r -4\n  !r 5 * 3\n  !r -3d6 / 4\n  !r e 1d6\n  !r -e 1d6\n  !r 2d6, 3d8 + 5\n  !r e 1d8 + 2, 1d6 + 2\n  !r bonus\n  !r penalty - 5\n  !r double_bonus, double_penalty"
 	, "formatNotes":"Note: I don't recognize parentheses, and I evaluate left to right. I won't roll more than a million dice at a time."
-   , "diceExpressions" : "__Valid Dice Expressions__:\n  # - Numbers\n  +, -, *, x, / - Mathematical operators. Both * and x indicate multiplication.\n  (X)d(y) - Roll x dice of y sides and sum the results. Both x and y must be integers greater than 0.\n  advantage - Roll two d20 and keep the highest\n  disadvantage - Roll two d20 and keep the lowest\n  bonus - Roll percentile with a bonus die.\n  doublebonus, double_bonus - Roll percentile with two bonus dice.\n  penalty - Roll percentile with a penalty die.\n  doublepenalty, double_penalty - Roll percentile with two penalty dice.\n  e, -e - Exploding dice. Must be at the beginning of the expression. If the highest number is rolled on an exploding die, the die is rolled again and the results are added. This will continue as long as the highest number keeps being rolled.\n  , - Commas separate different expressions to be handled independently."
+   , "diceExpressions" : "__Valid Dice Expressions__:\n  `#` - Numbers\n  `+, -, *, x, /` - Mathematical operators. Both * and x indicate multiplication.\n  `(X)d(y)` - Roll x dice of y sides and sum the results. Both x and y must be integers greater than 0.\n  `advantage` - Roll two d20 and keep the highest\n  `disadvantage` - Roll two d20 and keep the lowest\n  bonus - Roll percentile with a bonus die.\n  `doublebonus, double_bonus` - Roll percentile with two bonus dice.\n  `penalty` - Roll percentile with a penalty die.\n  `doublepenalty, double_penalty` - Roll percentile with two penalty dice.\n  `e, -e` - Exploding dice. Must be at the beginning of the expression. If the highest number is rolled on an exploding die, the die is rolled again and the results are added. This will continue as long as the highest number keeps being rolled.\n  `,` - Commas separate different expressions to be handled independently."
    , "parsingFailure":"I feel like I should calculate '{}', but can't parse it. Sorry."
 	, "nameParsingFailure":"I was unable to parse the command {}. Please enter name generation in the format of !name [type] [gender]."
 	, "goodStatus":"ThingRoller status: online\nJokers: {}"
 	,"recognizedCommands":
 	{
-		"!roll [dice expression]":" - roll and calculate. Start with 'e' or '-e' for exploding dice. Can include multiple groups, separated by commas."
+		"!roll [dice expression]":" - roll and calculate. See !expressions and !examples for more information."
 		,"!r [dice expression]":" - identical to !roll"
 		,"![dice expression]":" - identical to !roll"
+		,"!expressions":" - show options for dice expressions"
 		,"!examples":" - show examples of legal dice expressions"
 		,"!fudge":" - roll 4dF (used in the game FUDGE)"
 		,"!fate":" - roll 4dF (used in the game Fate)"
