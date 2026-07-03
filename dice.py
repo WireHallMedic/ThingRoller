@@ -116,6 +116,17 @@ def resolve_disadvantage():
    val[1] = f'min({a}, {b})'
    return val
 
+def resolve_bonus():
+   a = roll(10) - 1
+   b = roll(10) - 1
+   ones = roll(10) - 1
+   val = [0, ""]
+   val[0] = (max(a, b) * 10) + ones
+   val[1] = f'max({a}0, {b}0) + {ones}'
+   if val[0] == 0:
+      val[0] = 100
+   return val
+
 def roll(val, exploding = False):
    rolled_val = random.randint(1, val)
    total = rolled_val

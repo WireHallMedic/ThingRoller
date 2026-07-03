@@ -13,6 +13,10 @@ def test_basics():
    assert dice.roll_fudge_die() is not None
    assert dice.roll_stat_block() is not None
    assert dice.resolve_dice_expression("3d6, d6 + 5") == "**Result: 6, 9**\nRolled: (2, 1, 3), (4) + 5"
+   assert dice.resolve_bonus() == [65, "max(60, 40) + 5"]
+   val = dice.resolve_bonus()
+   print(val[0])
+   print(val[1])
 
 def test_explosions():
    random.seed(10000)
