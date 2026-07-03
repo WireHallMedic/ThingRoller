@@ -116,13 +116,28 @@ def resolve_disadvantage():
    val[1] = f'min({a}, {b})'
    return val
 
+def assemble_percentile(tens, ones):
+   if tens == 0 and ones == 0:
+      return 100
+   return (tens * 10) + ones
+
 def resolve_bonus():
    a = roll(10) - 1
    b = roll(10) - 1
    ones = roll(10) - 1
    val = [0, ""]
-   val[0] = (max(a, b) * 10) + ones
+   val[0] = max(assemble_percentile(a, ones), assemble_percentile(b, ones))
    val[1] = f'max({a}0, {b}0) + {ones}'
+   return val
+
+def resolve_double_bonus():
+   a = roll(10) - 1
+   b = roll(10) - 1
+   c = roll(10) - 1
+   ones = roll(10) - 1
+   val = [0, ""]
+   val[0] = max(assemble_percentile(a, ones), assemble_percentile(b, ones), assemble_percentile(c, ones))
+   val[1] = f'max({a}0, {b}0, {c}0) + {ones}'
    if val[0] == 0:
       val[0] = 100
    return val

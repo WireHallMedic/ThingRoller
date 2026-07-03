@@ -13,7 +13,23 @@ def test_basics():
    assert dice.roll_fudge_die() is not None
    assert dice.roll_stat_block() is not None
    assert dice.resolve_dice_expression("3d6, d6 + 5") == "**Result: 6, 9**\nRolled: (2, 1, 3), (4) + 5"
+   assert dice.assemble_percentile(6, 4) == 64;
+   assert dice.assemble_percentile(0, 8) == 8;
+   assert dice.assemble_percentile(0, 0) == 100;
    assert dice.resolve_bonus() == [65, "max(60, 40) + 5"]
+   random.seed(10086)
+   assert dice.resolve_bonus() == [100, "max(00, 50) + 0"]
+   #assert dice.resolve_double_bonus() == [65, "max(60, 80, 70) + 9"]
+   
+   i = 10000
+   val = -1
+   while val != 100:
+      i += 1
+      random.seed(i)
+      val = dice.resolve_bonus()[0]
+   print(f"Seed for one hundred: {i}")
+   
+   random.seed(10086)
    val = dice.resolve_bonus()
    print(val[0])
    print(val[1])
