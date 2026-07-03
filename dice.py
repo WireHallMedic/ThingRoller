@@ -101,6 +101,7 @@ def resolve_single_dice_expression(dice_expression, exploding, suppress_exceptio
       return None
 
 def resolve_advantage():
+   """ 2d20, take the highest """
    a = roll(20)
    b = roll(20)
    val = [0, ""]
@@ -109,6 +110,7 @@ def resolve_advantage():
    return val
 
 def resolve_disadvantage():
+   """ 2d20, take the lowest """
    a = roll(20)
    b = roll(20)
    val = [0, ""]
@@ -117,11 +119,13 @@ def resolve_disadvantage():
    return val
 
 def assemble_percentile(tens, ones):
+   """ Interpert two d10s as a percentile """
    if tens == 0 and ones == 0:
       return 100
    return (tens * 10) + ones
 
 def resolve_bonus():
+   """ Percentile, with 2d10 take the highest for the tens column """
    a = roll(10) - 1
    b = roll(10) - 1
    ones = roll(10) - 1
@@ -130,7 +134,18 @@ def resolve_bonus():
    val[1] = f'max({a}0, {b}0) + {ones}'
    return val
 
+def resolve_penalty():
+   """ Percentile, with 2d10 take the lowest for the tens column """
+   a = roll(10) - 1
+   b = roll(10) - 1
+   ones = roll(10) - 1
+   val = [0, ""]
+   val[0] = min(assemble_percentile(a, ones), assemble_percentile(b, ones))
+   val[1] = f'min({a}0, {b}0) + {ones}'
+   return val
+
 def resolve_double_bonus():
+   """ Percentile, with 3d10 take the highest for the tens column """
    a = roll(10) - 1
    b = roll(10) - 1
    c = roll(10) - 1
@@ -138,8 +153,17 @@ def resolve_double_bonus():
    val = [0, ""]
    val[0] = max(assemble_percentile(a, ones), assemble_percentile(b, ones), assemble_percentile(c, ones))
    val[1] = f'max({a}0, {b}0, {c}0) + {ones}'
-   if val[0] == 0:
-      val[0] = 100
+   return val
+
+def resolve_double_penalty():
+   """ Percentile, with 3d10 take the lowest for the tens column """
+   a = roll(10) - 1
+   b = roll(10) - 1
+   c = roll(10) - 1
+   ones = roll(10) - 1
+   val = [0, ""]
+   val[0] = min(assemble_percentile(a, ones), assemble_percentile(b, ones), assemble_percentile(c, ones))
+   val[1] = f'min({a}0, {b}0, {c}0) + {ones}'
    return val
 
 def roll(val, exploding = False):
